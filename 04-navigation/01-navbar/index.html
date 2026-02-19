@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Navigation — Basic Navbar</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+
+    <!-- SKIP LINK — must be the very first focusable element -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="site-header">
+      <!-- ADD: The entire header is a sticky bar with logo + nav -->
+      <div class="header-inner">
+        <a href="/" class="site-logo" aria-label="HYF Home">
+          <span class="site-logo__icon" aria-hidden="true">🌐</span>
+          HYF
+        </a>
+
+        <nav class="site-nav" aria-label="Main navigation">
+          <ul class="nav-list">
+            <!-- ADD: aria-current="page" on the active link -->
+            <li><a href="#" class="nav-link" aria-current="page">Home</a></li>
+            <li><a href="#" class="nav-link">Curriculum</a></li>
+            <li><a href="#" class="nav-link">Students</a></li>
+            <li><a href="#" class="nav-link">Partners</a></li>
+            <li><a href="#" class="nav-link">About</a></li>
+          </ul>
+        </nav>
+
+        <a href="#" class="nav-cta">Apply now</a>
+      </div>
+    </header>
+
+    <main id="main-content">
+
+      <!-- Hero section (just for demo purposes) -->
+      <section class="hero">
+        <h1>Scroll down to test the sticky header</h1>
+        <p>Resize the window to test responsiveness. Tab through the page to test keyboard navigation.</p>
+      </section>
+
+      <!-- Long page content to enable scrolling -->
+      <section class="demo-content">
+        <h2>Page content</h2>
+        <p>This is filler content so the page is long enough to scroll and test the sticky header behaviour.</p>
+        <!-- ADD: Repeat this paragraph a few times or add more sections -->
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <p>HackYourFuture Belgium · Navigation — Basic Navbar</p>
+    </footer>
+  </body>
+</html>

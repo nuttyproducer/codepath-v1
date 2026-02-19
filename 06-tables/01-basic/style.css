@@ -1,0 +1,200 @@
+/* =============================================
+   TABLES — BASIC DATA TABLE
+   Branch: tables-basic
+   ============================================= */
+
+:root {
+  --color-bg: #f8fafc;
+  --color-surface: #ffffff;
+  --color-border: #e2e8f0;
+  --color-text: #1e293b;
+  --color-text-secondary: #64748b;
+  --color-header-bg: #1e293b;
+  --color-header-text: #f1f5f9;
+  --color-row-odd: #ffffff;
+  --color-row-even: #f8fafc;
+  --color-row-hover: #eff6ff;
+  --color-foot-bg: #f1f5f9;
+  --color-score-high: #16a34a;
+  --color-score-high-bg: #f0fdf4;
+  --color-score-mid: #d97706;
+  --color-score-mid-bg: #fffbeb;
+  --color-score-low: #dc2626;
+  --color-score-low-bg: #fef2f2;
+  --color-badge-pass: #16a34a;
+  --color-badge-pass-bg: #f0fdf4;
+  --color-badge-resubmit: #d97706;
+  --color-badge-resubmit-bg: #fffbeb;
+
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --font-ui: system-ui, -apple-system, sans-serif;
+  --radius: 0.5rem;
+  --transition: 0.15s ease;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-ui); background: var(--color-bg); color: var(--color-text); line-height: 1.5; }
+code {
+  font-size: 0.875em; background: rgba(99, 102, 241, 0.08);
+  color: #4f46e5; padding: 0.1em 0.4em; border-radius: 0.25rem;
+}
+
+/* =============================================
+   PAGE LAYOUT
+   ============================================= */
+.page-header {
+  max-width: 900px; margin: 0 auto;
+  padding: var(--space-2xl) var(--space-xl) var(--space-lg);
+}
+.page-header h1 { font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: var(--space-sm); }
+.page-header p { color: var(--color-text-secondary); }
+
+.page-main { max-width: 900px; margin: 0 auto; padding: 0 var(--space-xl) var(--space-2xl); }
+
+.site-footer {
+  border-top: 1px solid var(--color-border); padding: var(--space-xl);
+  text-align: center; color: var(--color-text-secondary); font-size: 0.875rem;
+}
+
+/* =============================================
+   TABLE CONTAINER
+   ============================================= */
+.table-container {
+  /* ADD YOUR STYLES HERE */
+  /* background: var(--color-surface); border: 1px solid var(--color-border); */
+  /* border-radius: var(--radius); overflow: hidden; */
+  /* box-shadow: 0 1px 3px rgba(0,0,0,0.05); */
+}
+
+.table-note {
+  /* ADD: padding; font-size: 0.8rem; color: var(--color-text-secondary); */
+  /* border-top: 1px solid var(--color-border); */
+}
+
+/* =============================================
+   TABLE ELEMENT
+   ============================================= */
+.data-table {
+  /* ADD: width: 100%; border-collapse: collapse; */
+}
+
+/* =============================================
+   EXERCISE 1: CAPTION
+   ============================================= */
+.data-table caption {
+  /* ADD: font-weight: 700; font-size: 1rem; */
+  /* text-align: left; padding; */
+  /* caption-side: top; (default — caption appears above table) */
+}
+
+/* =============================================
+   EXERCISE 2: HEADER ROW
+   ============================================= */
+.data-table thead th {
+  /* ADD: background: var(--color-header-bg); color: var(--color-header-text); */
+  /* padding; text-align: left; font-size: 0.8rem; text-transform: uppercase; letter-spacing; */
+  /* border-bottom: 2px solid... */
+}
+
+/* First th in thead — rounded corner (only visible if table has border-radius) */
+.data-table thead tr th:first-child {
+  /* ADD: border-radius: var(--radius) 0 0 0; (optional) */
+}
+.data-table thead tr th:last-child {
+  /* ADD: border-radius: 0 var(--radius) 0 0; (optional) */
+}
+
+/* =============================================
+   EXERCISE 3: ZEBRA STRIPING
+   ============================================= */
+.data-table tbody tr:nth-child(odd) {
+  /* ADD: background: var(--color-row-odd); */
+}
+
+.data-table tbody tr:nth-child(even) {
+  /* ADD: background: var(--color-row-even); */
+}
+
+.data-table tbody tr:hover {
+  /* ADD: background: var(--color-row-hover); */
+}
+
+/* =============================================
+   EXERCISE 4: TABLE CELLS
+   ============================================= */
+.data-table td,
+.data-table th {
+  /* ADD: padding: 0.75rem var(--space-md); */
+  /* border-bottom: 1px solid var(--color-border); */
+  /* font-size: 0.9rem; */
+}
+
+.data-table tbody tr:last-child td {
+  /* ADD: border-bottom: none; */
+}
+
+/* Score cells */
+.score { font-weight: 700; font-variant-numeric: tabular-nums; }
+
+.score--high {
+  /* ADD: color: var(--color-score-high); */
+}
+
+.score--mid {
+  /* ADD: color: var(--color-score-mid); */
+}
+
+.score--low {
+  /* ADD: color: var(--color-score-low); */
+}
+
+/* Grade cell */
+.grade {
+  /* ADD: font-weight: 600; text-align: center; */
+}
+
+/* =============================================
+   EXERCISE 5: FOOTER ROW
+   ============================================= */
+.data-table tfoot tr {
+  /* ADD: background: var(--color-foot-bg); */
+}
+
+.data-table tfoot th,
+.data-table tfoot td {
+  /* ADD: font-weight: 700; border-top: 2px solid var(--color-border); */
+  /* padding; */
+}
+
+/* =============================================
+   BADGES
+   ============================================= */
+.badge {
+  /* ADD: display: inline-flex; align-items: center; */
+  /* padding: 0.2em 0.6em; border-radius: 9999px; */
+  /* font-size: 0.75rem; font-weight: 600; */
+}
+
+.badge--pass {
+  /* ADD: color: var(--color-badge-pass); background: var(--color-badge-pass-bg); */
+}
+
+.badge--resubmit {
+  /* ADD: color: var(--color-badge-resubmit); background: var(--color-badge-resubmit-bg); */
+}
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+@media (max-width: 640px) {
+  /* ADD: Make table horizontally scrollable on mobile */
+  .table-container { overflow-x: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 0.01ms !important; }
+}

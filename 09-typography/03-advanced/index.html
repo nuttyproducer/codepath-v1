@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Typography — Advanced</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="page-header">
+      <h1>Typography — Advanced</h1>
+      <p>Fluid type with <code>clamp()</code>, multi-column text, OpenType features, and <code>text-wrap: balance</code>.</p>
+    </header>
+
+    <main class="page-main" id="main-content">
+
+      <!-- EXERCISE 1: FLUID TYPE WITH clamp() -->
+      <section class="demo-section" aria-labelledby="ex1-heading">
+        <h2 id="ex1-heading">Exercise 1 — Fluid type scale with <code>clamp()</code></h2>
+        <p>Resize the browser window. The headings scale smoothly between min and max sizes.</p>
+
+        <div class="card fluid-demo">
+          <!--
+            TECHNIQUE: clamp(minimum, preferred, maximum)
+            font-size: clamp(1.5rem, 4vw, 3rem);
+            
+            The preferred value uses viewport units so it scales with viewport width.
+            clamp() ensures it never goes below min or above max.
+            
+            Full fluid scale example:
+            --text-xl: clamp(1.75rem, 2.5vw + 1rem, 3rem);
+            --text-lg: clamp(1.25rem, 2vw + 0.5rem, 1.75rem);
+            --text-base: clamp(1rem, 1vw + 0.5rem, 1.125rem);
+          -->
+          <h3 class="fluid-h3">Fluid heading — resize me</h3>
+          <h4 class="fluid-h4">Secondary heading — also fluid</h4>
+          <p class="fluid-body">
+            This body text also uses <code>clamp()</code>. On very small screens it stays at 
+            1rem; on very large screens it caps at 1.125rem. Perfect for accessible readability 
+            across all devices without media queries.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Your fluid scale values</h3>
+          <table class="scale-table">
+            <thead>
+              <tr><th>Variable</th><th>Formula</th><th>Min</th><th>Max</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>--text-4xl</code></td><td><code>clamp(2rem, 5vw + 1rem, 4rem)</code></td><td>2rem</td><td>4rem</td></tr>
+              <tr><td><code>--text-3xl</code></td><td><code>clamp(1.5rem, 3vw + 0.75rem, 2.5rem)</code></td><td>1.5rem</td><td>2.5rem</td></tr>
+              <tr><td><code>--text-2xl</code></td><td><code>clamp(1.25rem, 2vw + 0.75rem, 1.875rem)</code></td><td>1.25rem</td><td>1.875rem</td></tr>
+              <tr><td><code>--text-xl</code></td><td><code>clamp(1.125rem, 1.5vw + 0.5rem, 1.5rem)</code></td><td>1.125rem</td><td>1.5rem</td></tr>
+              <tr><td><code>--text-base</code></td><td><code>clamp(1rem, 0.5vw + 0.875rem, 1.125rem)</code></td><td>1rem</td><td>1.125rem</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- EXERCISE 2: MULTI-COLUMN TEXT -->
+      <section class="demo-section" aria-labelledby="ex2-heading">
+        <h2 id="ex2-heading">Exercise 2 — Multi-column text with <code>column-count</code></h2>
+
+        <div class="card">
+          <!--
+            TECHNIQUE:
+            .multicol {
+              column-count: 3;
+              column-gap: 2rem;
+              column-rule: 1px solid var(--color-border);
+            }
+            .multicol p + p { margin-top: 1rem; }
+            
+            Note: column-count is great for long articles in large viewports.
+            Set column-count: 1 on mobile.
+          -->
+          <div class="multicol">
+            <p>
+              HackYourFuture Belgium was founded in 2017 to provide coding education to 
+              refugees and newcomers. The curriculum covers the full web development stack, 
+              from HTML and CSS foundations to JavaScript, Node.js, and databases.
+            </p>
+            <p>
+              Students commit to a rigorous 8-month programme, attending classes on weekends 
+              while often working or studying during the week. The assignments in this 
+              collection are designed to be completed progressively, each building on skills 
+              from the previous exercise.
+            </p>
+            <p>
+              CSS multi-column layout is ideal for magazine-style articles where you want 
+              text to flow naturally across columns. The column-rule property adds a visual 
+              divider between columns, similar to a border, but without affecting layout flow.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- EXERCISE 3: OpenType FEATURES -->
+      <section class="demo-section" aria-labelledby="ex3-heading">
+        <h2 id="ex3-heading">Exercise 3 — OpenType features with <code>font-variant-*</code></h2>
+
+        <div class="card opentype-demo">
+          <!--
+            TECHNIQUE: CSS font-variant properties
+            These control OpenType typographic features.
+            Not all fonts support all features — check font documentation.
+          -->
+          <div class="ot-row">
+            <span class="ot-label">Default numbers:</span>
+            <span class="ot-default">0123456789 — €1,234.56</span>
+          </div>
+          <div class="ot-row">
+            <span class="ot-label">Oldstyle numerals:</span>
+            <span class="ot-oldstyle">
+              <!-- ADD: font-variant-numeric: oldstyle-nums; -->
+              0123456789 — €1,234.56
+            </span>
+          </div>
+          <div class="ot-row">
+            <span class="ot-label">Tabular nums (tables):</span>
+            <span class="ot-tabular">
+              <!-- ADD: font-variant-numeric: tabular-nums; — align decimal points in columns -->
+              €1,234.56<br>€  456.78<br>€8,901.23
+            </span>
+          </div>
+          <div class="ot-row">
+            <span class="ot-label">Small caps:</span>
+            <span class="ot-small-caps">
+              <!-- ADD: font-variant-caps: small-caps; -->
+              HTML CSS JavaScript Node.js
+            </span>
+          </div>
+          <div class="ot-row">
+            <span class="ot-label">Ligatures (fi, fl, ff):</span>
+            <span class="ot-liga">
+              <!-- ADD: font-variant-ligatures: common-ligatures; -->
+              flight, fife, office, effect
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- EXERCISE 4: text-wrap: balance -->
+      <section class="demo-section" aria-labelledby="ex4-heading">
+        <h2 id="ex4-heading">Exercise 4 — <code>text-wrap: balance</code></h2>
+        <p>Compare the heading wrapping with and without <code>text-wrap: balance</code>.</p>
+
+        <div class="balance-compare">
+          <div class="card balance-card">
+            <span class="balance-card__label">Without balance</span>
+            <h3 class="balance-card__heading balance-card__heading--unbalanced">
+              A Short Heading That Wraps Awkwardly On Some Screens
+            </h3>
+            <p class="balance-card__body">The last line has only one or two words, creating visual imbalance.</p>
+          </div>
+          <div class="card balance-card">
+            <span class="balance-card__label balance-card__label--active">With text-wrap: balance</span>
+            <h3 class="balance-card__heading balance-card__heading--balanced">
+              A Short Heading That Wraps Awkwardly On Some Screens
+            </h3>
+            <!--
+              ADD: .balance-card__heading--balanced { text-wrap: balance; }
+              This distributes text evenly across lines. Best for short headlines.
+              For long body text, use text-wrap: pretty instead.
+            -->
+            <p class="balance-card__body">The browser automatically balances the line lengths for a cleaner look.</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <p>HackYourFuture Belgium · Typography — Advanced</p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,274 @@
+/* =============================================
+   NAVIGATION — MOBILE MENU
+   Branch: navigation-mobile-menu
+   =============================================
+   The hamburger menu technique:
+   1. A hidden checkbox (#nav-toggle) is the state machine
+   2. The <label> styled as the hamburger button toggles it
+   3. CSS :checked sibling selector controls everything
+   
+   Structure:
+   input#nav-toggle (hidden checkbox)
+   label[for="nav-toggle"] (hamburger button)
+   nav.site-nav--mobile (the slide-in panel)
+   
+   All three must be siblings in the HTML for the
+   CSS sibling selector to work.
+   ============================================= */
+
+:root {
+  --color-bg: #ffffff;
+  --color-surface: #ffffff;
+  --color-border: #e2e8f0;
+  --color-text: #1e293b;
+  --color-text-nav: #475569;
+  --color-accent: #3b82f6;
+  --color-accent-dark: #2563eb;
+  --color-mobile-nav-bg: #0f172a;
+  --color-mobile-nav-text: #f1f5f9;
+  --header-height: 64px;
+  --mobile-panel-width: 280px;
+  --overlay-bg: rgba(0, 0, 0, 0.5);
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --font-ui: system-ui, -apple-system, sans-serif;
+  --radius: 0.5rem;
+  --transition: 0.3s ease;
+  --hamburger-size: 28px;
+  --bar-height: 2px;
+  --bar-gap: 6px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-ui); color: var(--color-text); min-height: 200vh; }
+a { color: inherit; text-decoration: none; }
+
+.skip-link {
+  position: absolute; left: 1rem; top: 1rem; padding: 0.5rem 1rem;
+  background: var(--color-accent); color: white; border-radius: 4px;
+  z-index: 9999; transform: translateY(-200%); transition: transform var(--transition);
+}
+.skip-link:focus { transform: translateY(0); }
+
+/* =============================================
+   SITE HEADER
+   ============================================= */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-xl);
+  height: var(--header-height);
+}
+
+.site-logo { font-weight: 700; font-size: 1.25rem; }
+
+/* =============================================
+   EXERCISE 1: HAMBURGER BUTTON
+   Three bars that animate to an X on :checked
+   ============================================= */
+
+/* Hide the native checkbox — keep it accessible */
+.nav-toggle__input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  /* ADD: Never use display:none — that removes it from the accessibility tree */
+}
+
+.nav-toggle__label {
+  /* ADD: display: flex; flex-direction: column; gap: var(--bar-gap); */
+  /* cursor: pointer; padding: var(--space-sm); */
+  /* width: var(--hamburger-size); */
+  /* Only show this button on mobile: */
+  /* display: none; on desktop, flex on mobile */
+}
+
+.nav-toggle__bar {
+  /* ADD: display: block; height: var(--bar-height); background: var(--color-text); */
+  /* border-radius: 9999px; */
+  /* transform-origin: center; */
+  /* transition: transform var(--transition), opacity var(--transition); */
+}
+
+/* EXERCISE 1b: Animate bars to X when :checked */
+/* The middle bar fades out, top bar rotates +45°, bottom bar rotates -45° */
+
+.nav-toggle__input:checked ~ .header-inner .nav-toggle__label .nav-toggle__bar:nth-child(1) {
+  /* ADD: transform: translateY(calc(var(--bar-gap) + var(--bar-height))) rotate(45deg); */
+}
+
+.nav-toggle__input:checked ~ .header-inner .nav-toggle__label .nav-toggle__bar:nth-child(2) {
+  /* ADD: opacity: 0; transform: scaleX(0); */
+}
+
+.nav-toggle__input:checked ~ .header-inner .nav-toggle__label .nav-toggle__bar:nth-child(3) {
+  /* ADD: transform: translateY(calc(-1 * (var(--bar-gap) + var(--bar-height)))) rotate(-45deg); */
+}
+
+/* Focus ring for keyboard users */
+.nav-toggle__input:focus-visible + .header-inner .nav-toggle__label {
+  /* ADD: outline: 2px solid var(--color-accent); outline-offset: 3px; border-radius: var(--radius); */
+}
+
+/* =============================================
+   EXERCISE 2: MOBILE NAV PANEL (slide-in from left)
+   ============================================= */
+.site-nav--mobile {
+  /* ADD: position: fixed; top: var(--header-height); left: 0; */
+  /* height: calc(100vh - var(--header-height)); */
+  /* width: var(--mobile-panel-width); */
+  /* background: var(--color-mobile-nav-bg); */
+  /* z-index: 300; */
+  /* overflow-y: auto; */
+
+  /* Hidden by default — slides off-screen to the left */
+  /* transform: translateX(-100%); */
+  /* transition: transform var(--transition); */
+}
+
+/* Slide in when checkbox is :checked */
+.nav-toggle__input:checked ~ .site-nav--mobile {
+  /* ADD: transform: translateX(0); */
+}
+
+.mobile-nav-list {
+  /* ADD: list-style: none; padding: var(--space-lg); display: flex; flex-direction: column; gap: var(--space-xs); */
+}
+
+.mobile-nav-link {
+  /* ADD: display: block; padding; color: var(--color-mobile-nav-text); */
+  /* font-size: 1.125rem; border-radius; */
+  /* hover: background (slightly lighter dark) */
+}
+
+.mobile-nav-link[aria-current="page"] {
+  /* ADD: background: var(--color-accent); color: white; */
+}
+
+.nav-cta--mobile {
+  /* ADD: Full-width button style inside mobile nav */
+  /* display: block; margin-top: var(--space-lg); */
+  /* background: var(--color-accent); color: white; text-align: center; padding; border-radius; */
+}
+
+/* =============================================
+   EXERCISE 3: OVERLAY BACKDROP
+   A dark overlay behind the open mobile menu,
+   clicking it should close the menu.
+   Since we can't use JS, we use a CSS trick:
+   overlay is a sibling element that, when clicked,
+   can be targeted — but truly closing on backdrop
+   click requires JavaScript. Instead, we just add
+   the visual backdrop.
+   ============================================= */
+body::before {
+  content: '';
+  /* ADD: position: fixed; inset: 0; */
+  /* background: var(--overlay-bg); */
+  /* z-index: 199; (below panel but above content) */
+  /* opacity: 0; visibility: hidden; pointer-events: none; */
+  /* transition: opacity var(--transition), visibility var(--transition); */
+}
+
+/* Reveal overlay when nav is open */
+/* This selector works because body::before is tied to .nav-toggle__input in the body */
+/* However, :checked selector needs a sibling relationship.                           */
+/* If you wrap everything in a container, you can do:                                 */
+/* .wrapper:has(#nav-toggle:checked)::before { ... }                                  */
+/* ADD: .wrapper:has(#nav-toggle:checked)::before { opacity: 1; visibility: visible; pointer-events: auto; } */
+
+/* =============================================
+   DESKTOP NAVIGATION (unchanged from navbar branch)
+   ============================================= */
+.site-nav--desktop .nav-list {
+  display: flex;
+  list-style: none;
+  gap: var(--space-xs);
+}
+
+.nav-link {
+  padding: var(--space-sm) var(--space-md);
+  color: var(--color-text-nav);
+  border-radius: var(--radius);
+  font-size: 0.9375rem;
+  transition: color var(--transition), background-color var(--transition);
+}
+.nav-link:hover { color: var(--color-text); background: #f1f5f9; }
+.nav-link[aria-current="page"] { color: var(--color-text); font-weight: 600; }
+.nav-link:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+
+.nav-cta--desktop {
+  padding: var(--space-sm) var(--space-lg);
+  background: var(--color-accent);
+  color: white;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  transition: background-color var(--transition);
+}
+.nav-cta--desktop:hover { background: var(--color-accent-dark); }
+
+/* =============================================
+   RESPONSIVE: Mobile vs Desktop
+   ============================================= */
+@media (min-width: 768px) {
+  /* Desktop: show desktop nav, hide hamburger */
+  .nav-toggle__label { display: none; }
+  .nav-toggle__input { display: none; }
+  .site-nav--mobile { display: none; }
+}
+
+@media (max-width: 767px) {
+  /* Mobile: show hamburger, hide desktop nav */
+  .nav-toggle__label { display: flex; }
+  .site-nav--desktop { display: none; }
+  .nav-cta--desktop { display: none; }
+}
+
+/* =============================================
+   HERO AND FOOTER
+   ============================================= */
+.hero {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-xl);
+  gap: var(--space-md);
+  background: linear-gradient(135deg, #eff6ff, #f8fafc);
+}
+.hero h1 { font-size: clamp(1.5rem, 4vw, 2.25rem); }
+.hero p { color: #64748b; max-width: 50ch; }
+
+.site-footer {
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-xl);
+  text-align: center;
+  color: #64748b;
+  font-size: 0.875rem;
+  margin-top: var(--space-xl);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,171 @@
+/* =============================================
+   NAVIGATION — BASIC NAVBAR
+   Branch: navigation-navbar
+   ============================================= */
+
+:root {
+  --color-bg: #ffffff;
+  --color-surface: #ffffff;
+  --color-border: #e2e8f0;
+  --color-text: #1e293b;
+  --color-text-nav: #475569;
+  --color-accent: #3b82f6;
+  --color-accent-dark: #2563eb;
+  --color-nav-active: #1e293b;
+  --header-height: 64px;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --font-ui: system-ui, -apple-system, sans-serif;
+  --radius: 0.375rem;
+  --transition: 0.2s ease;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-ui); color: var(--color-text); }
+
+/* =============================================
+   SKIP LINK — EXERCISE 1
+   ============================================= */
+.skip-link {
+  /* ADD YOUR STYLES HERE */
+  /* position: absolute; top: 1rem; left: 1rem; z-index: 9999; */
+  /* padding; background: var(--color-accent); color: white; border-radius */
+  /* transform: translateY(-200%); transition */
+}
+.skip-link:focus {
+  /* ADD: transform: translateY(0); — makes it visible on keyboard focus */
+}
+
+/* =============================================
+   SITE HEADER — EXERCISE 2
+   ============================================= */
+.site-header {
+  /* ADD: position: sticky; top: 0; z-index: 100; */
+  /* background: var(--color-surface); */
+  /* border-bottom: 1px solid var(--color-border); */
+  /* height: var(--header-height); */
+}
+
+.header-inner {
+  /* ADD: display: flex; align-items: center; justify-content: space-between; */
+  /* max-width; margin: auto; padding: 0 var(--space-xl); height: 100%; */
+}
+
+/* =============================================
+   LOGO
+   ============================================= */
+.site-logo {
+  /* ADD: font-weight: 700; font-size: 1.25rem; text-decoration: none; color: inherit; */
+  /* display: flex; align-items: center; gap */
+}
+
+.site-logo__icon { font-size: 1.5rem; }
+
+/* =============================================
+   NAVIGATION LINKS — EXERCISE 3
+   Animated underline using ::after pseudo-element
+   ============================================= */
+.nav-list {
+  /* ADD: display: flex; gap; list-style: none; */
+}
+
+.nav-link {
+  /* ADD: text-decoration: none; color: var(--color-text-nav); font-size: 0.9375rem; */
+  /* position: relative; padding-bottom: 2px; */
+}
+
+/* The underline: hidden by default, animates in on hover */
+.nav-link::after {
+  content: '';
+  /* ADD: position: absolute; bottom: -2px; left: 0; */
+  /* width: 0; height: 2px; background: var(--color-accent); */
+  /* transition: width var(--transition); */
+}
+
+.nav-link:hover::after,
+.nav-link[aria-current="page"]::after {
+  /* ADD: width: 100%; — the underline slides in */
+}
+
+/* Active link — stronger colour */
+.nav-link[aria-current="page"] {
+  /* ADD: color: var(--color-nav-active); font-weight: 600; */
+}
+
+/* Focus ring */
+.nav-link:focus-visible {
+  /* ADD: outline: 2px solid var(--color-accent); outline-offset: 4px; border-radius: 2px; */
+}
+
+/* =============================================
+   CTA BUTTON IN NAV
+   ============================================= */
+.nav-cta {
+  /* ADD: Button-style link */
+  /* background: var(--color-accent); color: white; */
+  /* padding; border-radius; text-decoration: none; font-weight: 600; */
+  /* transition: background-color */
+}
+.nav-cta:hover { /* ADD: background: var(--color-accent-dark); */ }
+.nav-cta:focus-visible { /* ADD: focus ring */ }
+
+/* =============================================
+   HERO AND DEMO CONTENT
+   ============================================= */
+.hero {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-xl);
+  gap: var(--space-md);
+  background: linear-gradient(135deg, #eff6ff, #f8fafc);
+}
+
+.hero h1 { font-size: clamp(1.5rem, 4vw, 2.5rem); }
+.hero p { color: #64748b; max-width: 50ch; }
+
+.demo-content {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+/* =============================================
+   SITE FOOTER
+   ============================================= */
+.site-footer {
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-xl);
+  text-align: center;
+  color: #64748b;
+  font-size: 0.875rem;
+  margin-top: var(--space-xl);
+}
+
+/* =============================================
+   RESPONSIVE — EXERCISE 4
+   ============================================= */
+@media (max-width: 640px) {
+  .site-nav, .nav-cta {
+    /* ADD: Consider hiding on mobile — in the next branch (mobile-menu) you will build a proper hamburger */
+    /* For now, either hide them or stack them */
+  }
+}
+
+/* =============================================
+   ACCESSIBILITY: REDUCED MOTION
+   ============================================= */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

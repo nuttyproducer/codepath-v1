@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Animations — Advanced</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="page-header">
+      <h1>Advanced CSS Animations</h1>
+      <p>Custom easing curves, 3D card flip, SVG icon animations, and writing a <code>PERFORMANCE.md</code> audit.</p>
+    </header>
+
+    <main class="page-main" id="main-content">
+
+      <!-- EXERCISE 1: EASING CURVE COMPARISON -->
+      <section class="demo-section">
+        <h2>Exercise 1 — Custom easing curves</h2>
+        <p>
+          Compare how different <code>cubic-bezier()</code> values feel. Click "Run" to animate all bars simultaneously.
+          <!-- ADD: a CSS-only trigger using a :checked checkbox -->
+        </p>
+
+        <input type="checkbox" id="run-ease" class="ease-trigger" hidden />
+        <label for="run-ease" class="btn btn--accent ease-run-btn" role="button">Run animation ▶</label>
+
+        <div class="ease-demo">
+          <!-- Each bar has a different timing function applied via a class -->
+          <div class="ease-row">
+            <code class="ease-label">ease</code>
+            <div class="ease-bar ease-bar--ease" aria-label="ease timing function demo"></div>
+          </div>
+          <div class="ease-row">
+            <code class="ease-label">ease-in-out</code>
+            <div class="ease-bar ease-bar--ease-in-out"></div>
+          </div>
+          <div class="ease-row">
+            <code class="ease-label">linear</code>
+            <div class="ease-bar ease-bar--linear"></div>
+          </div>
+          <div class="ease-row">
+            <code class="ease-label">cubic-bezier(0.34, 1.56, 0.64, 1)</code>
+            <div class="ease-bar ease-bar--bounce"></div>
+          </div>
+          <div class="ease-row">
+            <code class="ease-label">cubic-bezier(0.87, 0, 0.13, 1)</code>
+            <div class="ease-bar ease-bar--sharp"></div>
+          </div>
+        </div>
+
+        <!--
+          ADD: When #run-ease:checked, apply animation to all .ease-bar elements.
+          #run-ease:checked ~ .ease-demo .ease-bar { animation: slide-across 1.5s <easing> forwards; }
+          Each bar uses a different timing function (the easing keyword is what changes).
+        -->
+      </section>
+
+      <!-- EXERCISE 2: 3D CARD FLIP -->
+      <section class="demo-section">
+        <h2>Exercise 2 — 3D card flip</h2>
+        <p>Hover over each card to flip it. Uses <code>perspective</code>, <code>transform-style: preserve-3d</code>, and <code>backface-visibility: hidden</code>.</p>
+
+        <div class="flip-grid">
+
+          <div class="flip-card">
+            <!-- Front face -->
+            <div class="flip-card__face flip-card__face--front">
+              <div class="flip-card__inner">
+                <span class="flip-card__icon" aria-hidden="true">🎨</span>
+                <h3>CSS Animations</h3>
+                <p>Hover to flip</p>
+              </div>
+            </div>
+            <!-- Back face — rotated 180deg in the CSS, backface-visibility hides it at rest -->
+            <div class="flip-card__face flip-card__face--back">
+              <div class="flip-card__inner">
+                <h3>Key concepts</h3>
+                <ul>
+                  <li>perspective</li>
+                  <li>preserve-3d</li>
+                  <li>backface-visibility</li>
+                  <li>rotateY()</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card">
+            <div class="flip-card__face flip-card__face--front">
+              <div class="flip-card__inner">
+                <span class="flip-card__icon" aria-hidden="true">⚡</span>
+                <h3>Performance</h3>
+                <p>Hover to flip</p>
+              </div>
+            </div>
+            <div class="flip-card__face flip-card__face--back">
+              <div class="flip-card__inner">
+                <h3>GPU composited</h3>
+                <p>Only <code>transform</code> and <code>opacity</code> animations run on the GPU compositor thread — use these for smooth 60fps animations.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card">
+            <div class="flip-card__face flip-card__face--front">
+              <div class="flip-card__inner">
+                <span class="flip-card__icon" aria-hidden="true">♿</span>
+                <h3>Accessibility</h3>
+                <p>Hover to flip</p>
+              </div>
+            </div>
+            <div class="flip-card__face flip-card__face--back">
+              <div class="flip-card__inner">
+                <h3>Reduced motion</h3>
+                <p>Always wrap animations in <code>@media (prefers-reduced-motion: no-preference)</code> and provide a static fallback.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!--
+          ADD TECHNIQUE:
+          .flip-card { perspective: 600px; }
+          .flip-card__face { transform-style: preserve-3d; backface-visibility: hidden; }
+          .flip-card__face--back { transform: rotateY(180deg); }
+          .flip-card:hover .flip-card__face--front { transform: rotateY(-180deg); }
+          .flip-card:hover .flip-card__face--back  { transform: rotateY(0deg); }
+        -->
+      </section>
+
+      <!-- EXERCISE 3: SVG ICON ANIMATIONS -->
+      <section class="demo-section">
+        <h2>Exercise 3 — SVG icon animations</h2>
+        <p>Animate SVG paths using <code>stroke-dasharray</code> and <code>stroke-dashoffset</code> to draw icons on hover.</p>
+
+        <div class="icon-animation-row">
+
+          <!-- Draw-on effect using stroke-dashoffset -->
+          <div class="icon-anim-demo">
+            <div class="icon-anim-wrapper">
+              <svg class="icon-svg icon-svg--draw" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <!-- ADD: stroke-dasharray and stroke-dashoffset on the path to animate -->
+                <polyline class="icon-svg__path" points="20 6 9 17 4 12"/>
+              </svg>
+            </div>
+            <p>Draw checkmark</p>
+          </div>
+
+          <!-- Spin on hover -->
+          <div class="icon-anim-demo">
+            <div class="icon-anim-wrapper icon-anim-wrapper--spin">
+              <svg class="icon-svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+              </svg>
+            </div>
+            <p>Spin on hover</p>
+          </div>
+
+          <!-- Bounce on hover -->
+          <div class="icon-anim-demo">
+            <div class="icon-anim-wrapper icon-anim-wrapper--bounce">
+              <svg class="icon-svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M12 19V5M5 12l7-7 7 7"/>
+              </svg>
+            </div>
+            <p>Bounce up</p>
+          </div>
+
+          <!-- Morph: hamburger to close -->
+          <div class="icon-anim-demo">
+            <label class="icon-anim-wrapper icon-anim-wrapper--morph" for="morph-check" aria-label="Toggle menu icon" role="button" tabindex="0">
+              <input type="checkbox" id="morph-check" hidden />
+              <svg class="icon-svg icon-svg--hamburger" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <line class="ham-line ham-line--top"    x1="3" y1="6"  x2="21" y2="6"/>
+                <line class="ham-line ham-line--mid"    x1="3" y1="12" x2="21" y2="12"/>
+                <line class="ham-line ham-line--bottom" x1="3" y1="18" x2="21" y2="18"/>
+              </svg>
+            </label>
+            <p>Click: ☰ → ✕</p>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <p>HackYourFuture Belgium · Animations — Advanced</p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Controls — Dynamic CSS Forms</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="page-header">
+      <h1>Dynamic CSS Forms</h1>
+      <p class="page-subtitle">Using <code>:checked</code> sibling selectors to build interactive form components — no JavaScript required.</p>
+    </header>
+
+    <main class="page-main">
+
+      <!-- EXERCISE 1: CONDITIONAL FIELDS -->
+      <!-- A "subscription" form where extra fields appear based on plan selection -->
+      <section class="exercise" id="exercise-1">
+        <h2>Exercise 1: Conditional Fields</h2>
+        <p>Choose a plan — extra fields appear based on your selection.</p>
+
+        <form class="form" novalidate>
+          <fieldset class="plan-selector">
+            <legend>Choose your plan</legend>
+
+            <!-- ADD: radio inputs that use :checked to show/hide related fields -->
+            <!-- Each radio should reveal a hidden <div class="plan-fields"> below it -->
+
+            <label class="plan-option">
+              <input type="radio" name="plan" value="free" checked />
+              <span class="plan-label">
+                <strong>Free</strong>
+                <span class="plan-price">€0 / month</span>
+              </span>
+            </label>
+
+            <label class="plan-option">
+              <input type="radio" name="plan" value="pro" />
+              <span class="plan-label">
+                <strong>Pro</strong>
+                <span class="plan-price">€29 / month</span>
+              </span>
+            </label>
+
+            <label class="plan-option">
+              <input type="radio" name="plan" value="enterprise" />
+              <span class="plan-label">
+                <strong>Enterprise</strong>
+                <span class="plan-price">Custom pricing</span>
+              </span>
+            </label>
+          </fieldset>
+
+          <!-- ADD: These divs should be hidden by default and revealed by :checked sibling CSS -->
+          <div class="plan-fields plan-fields--pro" id="pro-fields">
+            <label for="card-number">Card number</label>
+            <input type="text" id="card-number" inputmode="numeric" placeholder="1234 5678 9012 3456" />
+            <label for="card-expiry">Expiry date</label>
+            <input type="month" id="card-expiry" />
+          </div>
+
+          <div class="plan-fields plan-fields--enterprise" id="enterprise-fields">
+            <label for="company-name">Company name</label>
+            <input type="text" id="company-name" placeholder="Acme Corp" />
+            <label for="employee-count">Number of employees</label>
+            <input type="number" id="employee-count" min="1" placeholder="50" />
+            <label for="message">Tell us about your needs</label>
+            <textarea id="message" rows="4" placeholder="We need..."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn--primary">Get started</button>
+        </form>
+      </section>
+
+      <!-- EXERCISE 2: CSS-ONLY STAR RATING INPUT -->
+      <!-- A 5-star interactive rating selector using reversed radio buttons -->
+      <section class="exercise" id="exercise-2">
+        <h2>Exercise 2: Star Rating Input</h2>
+        <p>Rate this course. The trick: radio inputs are placed in reverse order in the HTML, then the star display is reversed with CSS direction.</p>
+
+        <form class="form" novalidate>
+          <fieldset class="star-rating" role="group" aria-label="Rate this course">
+            <legend>Your rating</legend>
+
+            <!-- ADD: Radio inputs in REVERSE order (5 to 1) -->
+            <!-- Use the RTL (right-to-left) CSS trick to display them left-to-right visually -->
+            <!-- When a star is :checked, all preceding siblings (lower stars) also fill -->
+
+            <label class="star-rating__label" aria-label="5 stars">
+              <input class="star-rating__input" type="radio" name="rating" value="5" />
+              <span class="star-rating__star" aria-hidden="true">★</span>
+            </label>
+            <label class="star-rating__label" aria-label="4 stars">
+              <input class="star-rating__input" type="radio" name="rating" value="4" />
+              <span class="star-rating__star" aria-hidden="true">★</span>
+            </label>
+            <label class="star-rating__label" aria-label="3 stars">
+              <input class="star-rating__input" type="radio" name="rating" value="3" />
+              <span class="star-rating__star" aria-hidden="true">★</span>
+            </label>
+            <label class="star-rating__label" aria-label="2 stars">
+              <input class="star-rating__input" type="radio" name="rating" value="2" />
+              <span class="star-rating__star" aria-hidden="true">★</span>
+            </label>
+            <label class="star-rating__label" aria-label="1 star">
+              <input class="star-rating__input" type="radio" name="rating" value="1" />
+              <span class="star-rating__star" aria-hidden="true">★</span>
+            </label>
+          </fieldset>
+
+          <button type="submit" class="btn btn--primary">Submit rating</button>
+        </form>
+      </section>
+
+      <!-- EXERCISE 3: PROMO CODE VALIDATION -->
+      <!-- A checkout field with inline CSS validation for a "valid" promo code -->
+      <section class="exercise" id="exercise-3">
+        <h2>Exercise 3: Promo Code Field</h2>
+        <p>Type the promo code <code>HYFFREE</code> — CSS validates the pattern and shows a tick or cross.</p>
+
+        <form class="form" novalidate>
+          <div class="field field--promo">
+            <label for="promo-code">Promo code</label>
+            <!-- Use pattern="HYFFREE" + :valid/:invalid to show feedback icons via ::after -->
+            <div class="promo-input-wrapper">
+              <input
+                type="text"
+                id="promo-code"
+                name="promo-code"
+                pattern="HYFFREE"
+                placeholder="Enter code..."
+                autocomplete="off"
+                spellcheck="false"
+              />
+              <!-- ADD: CSS ::after pseudo-element on .promo-input-wrapper shows ✓ or ✗ based on :valid/:invalid -->
+            </div>
+            <p class="field__hint">Try <strong>HYFFREE</strong> for a free month.</p>
+          </div>
+
+          <button type="submit" class="btn btn--primary">Apply code</button>
+        </form>
+      </section>
+
+      <!-- EXERCISE 4: DARK MODE TOGGLE -->
+      <!-- A CSS-only dark mode switcher using a checkbox + :checked + CSS custom properties -->
+      <section class="exercise" id="exercise-4">
+        <h2>Exercise 4: Dark Mode Toggle</h2>
+        <p>A CSS-only dark mode switcher using <code>:checked</code> on a hidden checkbox.</p>
+
+        <div class="dark-mode-demo">
+          <!-- The checkbox controls the demo area via CSS sibling selector -->
+          <input type="checkbox" id="dark-mode-toggle" class="dark-mode-toggle__input" role="switch" aria-checked="false" />
+          <label for="dark-mode-toggle" class="dark-mode-toggle__label" aria-label="Toggle dark mode">
+            <span class="dark-mode-toggle__track">
+              <span class="dark-mode-toggle__thumb"></span>
+            </span>
+            <span class="dark-mode-toggle__text">Dark mode</span>
+          </label>
+
+          <!-- ADD: When #dark-mode-toggle is :checked, use ~ sibling selector to change -->
+          <!-- --color-bg, --color-text, --color-surface custom properties on this element -->
+          <div class="demo-card">
+            <h3>Demo card</h3>
+            <p>This card changes appearance based on the toggle above. Check the CSS to see the :checked ~ sibling technique.</p>
+            <button class="btn btn--secondary">Secondary action</button>
+            <button class="btn btn--primary">Primary action</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="page-footer">
+      <p>HackYourFuture Belgium · Form Controls — Dynamic CSS Forms</p>
+    </footer>
+  </body>
+</html>

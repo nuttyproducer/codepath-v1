@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Confirm your order — Advanced</title>
+    <meta name="description" content="T-shirt order form with advanced inputs" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Confirm your order</h1>
+      <p class="form-subtitle">
+        <small>
+          Please fill out all required fields
+          (<span aria-label="required">*</span>) to order your t-shirt.
+        </small>
+      </p>
+    </header>
+
+    <main>
+      <form novalidate>
+
+        <!--
+          EXERCISE 1: ADD NEW INPUT TYPES
+          Copy your Branch 1 fields first, then add:
+          - Phone number (tel)
+          - Delivery date (date)
+          - Gift message (textarea)
+          - Quantity (number)
+          - T-shirt fit (range)
+        -->
+
+        <!-- ===== PERSONAL DETAILS ===== -->
+        <fieldset>
+          <legend>Personal Details</legend>
+
+          <div class="field-group">
+            <label for="name">
+              Customer Name <span aria-label="required">*</span>
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              minlength="2"
+              autocomplete="name"
+              placeholder="Jane Doe"
+            />
+            <span class="field-hint">At least 2 characters</span>
+          </div>
+
+          <div class="field-group">
+            <label for="email">
+              Email Address <span aria-label="required">*</span>
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              autocomplete="email"
+              placeholder="jane@example.com"
+            />
+          </div>
+
+          <div class="field-group">
+            <label for="phone">
+              Phone Number <span aria-label="required">*</span>
+            </label>
+            <!-- ADD: type="tel" with Belgian phone pattern -->
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              required
+              placeholder="+32 4xx xx xx xx"
+            />
+            <span class="field-hint">Belgian format: +32 or 04xx xx xx xx</span>
+          </div>
+
+        </fieldset>
+
+        <!-- ===== T-SHIRT OPTIONS ===== -->
+        <fieldset>
+          <legend>T-Shirt Options</legend>
+
+          <div class="field-group">
+            <label for="size">
+              Size <span aria-label="required">*</span>
+            </label>
+            <select id="size" name="size" required>
+              <option value="" disabled selected>Select a size</option>
+              <option value="XS">XS</option>
+              <option value="S">S</option>
+              <option value="M">M</option>
+              <option value="L">L</option>
+              <option value="XL">XL</option>
+              <option value="XXL">XXL</option>
+            </select>
+          </div>
+
+          <!-- EXERCISE 2: CUSTOM RADIO BUTTONS for colour -->
+          <fieldset>
+            <legend>
+              Colour <span aria-label="required">*</span>
+            </legend>
+            <div class="radio-group">
+              <label class="custom-radio">
+                <input type="radio" name="color" value="black" required />
+                <span class="radio-indicator"></span>
+                Black
+              </label>
+              <label class="custom-radio">
+                <input type="radio" name="color" value="red" />
+                <span class="radio-indicator"></span>
+                Red
+              </label>
+              <label class="custom-radio">
+                <input type="radio" name="color" value="white" />
+                <span class="radio-indicator"></span>
+                White
+              </label>
+            </div>
+          </fieldset>
+
+          <div class="field-group">
+            <label for="quantity">
+              Quantity <span aria-label="required">*</span>
+            </label>
+            <!-- ADD: type="number" with min, max, step -->
+            <input
+              type="number"
+              id="quantity"
+              name="quantity"
+              min="1"
+              max="10"
+              step="1"
+              value="1"
+              required
+            />
+          </div>
+
+          <!-- ADD: Range input for fit -->
+          <div class="field-group">
+            <label for="fit">
+              Fit preference
+            </label>
+            <div class="range-wrapper">
+              <span>Slim</span>
+              <input
+                type="range"
+                id="fit"
+                name="fit"
+                min="1"
+                max="5"
+                step="1"
+                value="3"
+              />
+              <span>Relaxed</span>
+            </div>
+          </div>
+
+        </fieldset>
+
+        <!-- ===== DELIVERY ===== -->
+        <fieldset>
+          <legend>Delivery</legend>
+
+          <div class="field-group">
+            <label for="delivery-date">
+              Preferred delivery date <span aria-label="required">*</span>
+            </label>
+            <!-- ADD: type="date" with min and max attributes -->
+            <!-- Tip: You cannot set today's date dynamically without JS.
+                 Set a reasonable static date as min for now.
+                 Note in a comment that JS would make this dynamic. -->
+            <input
+              type="date"
+              id="delivery-date"
+              name="delivery-date"
+              required
+              min="2026-02-19"
+              max="2026-03-19"
+            />
+          </div>
+
+        </fieldset>
+
+        <!-- ===== GIFT MESSAGE ===== -->
+        <fieldset>
+          <legend>Gift Message (optional)</legend>
+
+          <div class="field-group">
+            <label for="message">Your message</label>
+            <textarea
+              id="message"
+              name="message"
+              maxlength="200"
+              rows="4"
+              placeholder="Write a personal message to include with your order..."
+            ></textarea>
+            <!-- EXERCISE 5: character counter hint -->
+            <span class="field-hint">Maximum 200 characters</span>
+          </div>
+
+          <!-- EXERCISE 2: CUSTOM CHECKBOX -->
+          <div class="field-group">
+            <label class="custom-checkbox">
+              <input type="checkbox" name="is-gift" id="is-gift" />
+              <span class="checkbox-indicator"></span>
+              This is a gift — include a gift receipt
+            </label>
+          </div>
+
+        </fieldset>
+
+        <div class="form-actions">
+          <button type="submit">Place order</button>
+          <button type="reset">Clear form</button>
+        </div>
+
+      </form>
+    </main>
+
+    <footer>
+      <p>Branch 2 — Form Controls Advanced</p>
+    </footer>
+  </body>
+</html>

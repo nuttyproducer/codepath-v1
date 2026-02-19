@@ -1,0 +1,245 @@
+/* =============================================
+   MODALS — ACCESSIBLE
+   Branch: modals-accessible
+   ============================================= */
+
+:root {
+  --color-bg: #f8fafc;
+  --color-surface: #ffffff;
+  --color-border: #e2e8f0;
+  --color-text: #1e293b;
+  --color-text-secondary: #64748b;
+  --color-accent: #3b82f6;
+  --color-accent-dark: #2563eb;
+  --color-accent-light: #eff6ff;
+  --color-success: #16a34a;
+  --color-warning-bg: #fffbeb;
+  --focus-ring: 3px solid #f59e0b;
+  --font-ui: system-ui, -apple-system, sans-serif;
+  --radius: 0.75rem;
+  --transition: 0.2s ease;
+  --shadow-modal: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-ui); background: var(--color-bg); color: var(--color-text); line-height: 1.6; }
+
+/* =============================================
+   EXERCISE 2: :focus-visible system
+   Rule: :focus hides ring (for mouse), :focus-visible shows it (for keyboard)
+   ============================================= */
+
+/* Global reset: remove default focus outline for ALL focus events */
+*:focus {
+  /* ADD: outline: none; */
+}
+
+/* Restore focus indicator ONLY for keyboard navigation */
+*:focus-visible {
+  /* ADD: outline: var(--focus-ring); */
+  /* outline-offset: 3px; */
+  /* border-radius: 4px; */
+}
+
+/* Links get a different style */
+a:focus-visible {
+  /* ADD: outline: var(--focus-ring); */
+  /* text-decoration: underline; */
+}
+
+/* =============================================
+   SKIP LINK
+   ============================================= */
+.skip-link {
+  position: absolute; left: 1rem; top: 1rem; padding: 0.5rem 1rem;
+  background: var(--color-accent); color: white; border-radius: 4px;
+  z-index: 9999; text-decoration: none; font-weight: 600;
+  transform: translateY(-200%); transition: transform var(--transition);
+}
+.skip-link:focus { transform: translateY(0); }
+
+/* =============================================
+   SR-ONLY (screen reader only)
+   ============================================= */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;
+}
+
+/* =============================================
+   PAGE
+   ============================================= */
+.page-header { max-width: 760px; margin: 0 auto; padding: 3rem 2rem 1.5rem; }
+.page-header h1 { font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 0.5rem; }
+.page-header p { color: var(--color-text-secondary); }
+.page-main { max-width: 760px; margin: 0 auto; padding: 0 2rem 3rem; display: flex; flex-direction: column; gap: 3rem; }
+.site-footer { border-top: 1px solid var(--color-border); padding: 2rem; text-align: center; color: var(--color-text-secondary); font-size: 0.875rem; }
+code { font-size: 0.875em; background: rgba(99, 102, 241, 0.08); color: #4f46e5; padding: 0.1em 0.4em; border-radius: 0.25rem; }
+
+.demo-section { display: flex; flex-direction: column; gap: 1rem; }
+.demo-section h2 { font-size: 1.1rem; }
+.demo-section p { color: var(--color-text-secondary); font-size: 0.9375rem; }
+
+/* =============================================
+   EXERCISE 1: BUTTON COMPARISON
+   ============================================= */
+.button-comparison {
+  /* ADD: display: flex; gap; align-items: flex-end; flex-wrap: wrap; */
+  display: flex; gap: 2rem; align-items: flex-end; flex-wrap: wrap;
+}
+
+.comparison-item { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+
+.comparison-label {
+  /* ADD: font-size: 0.75rem; font-weight: 600; */
+  font-size: 0.75rem; font-weight: 600;
+}
+
+.comparison-item--bad   .comparison-label { color: #dc2626; }
+.comparison-item--good  .comparison-label { color: var(--color-success); }
+.comparison-item--best  .comparison-label { color: var(--color-success); }
+
+.btn--icon-only {
+  /* ADD: square icon button */
+  /* width: 2.5rem; height: 2.5rem; padding: 0; */
+  /* border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; */
+  background: var(--color-accent); color: white; border: none; cursor: pointer;
+  width: 2.5rem; height: 2.5rem; padding: 0;
+  border-radius: 0.5rem; display: flex; align-items: center; justify-content: center;
+}
+.btn--icon-only:hover { background: var(--color-accent-dark); }
+
+/* =============================================
+   EXERCISE 2: :focus-visible demo
+   ============================================= */
+.focus-demo {
+  /* ADD: display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; */
+  display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;
+}
+
+.demo-input,
+.demo-select {
+  padding: 0.5rem 0.75rem; border: 2px solid var(--color-border);
+  border-radius: 0.5rem; font-family: inherit; font-size: 0.9375rem;
+  background: var(--color-surface);
+}
+
+/* =============================================
+   EXERCISE 3: CSS TOOLTIP
+   ============================================= */
+.tooltip-demo {
+  /* ADD: display: flex; gap; align-items: center; flex-wrap: wrap; */
+  display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;
+}
+
+/*
+  TECHNIQUE: CSS-only tooltip using ::after on the trigger
+  1. Set position: relative on the trigger
+  2. Use ::after with content: attr(data-tooltip) — pulls from HTML attribute!
+  3. Default: visibility: hidden; opacity: 0
+  4. On :hover and :focus-visible: visibility: visible; opacity: 1
+*/
+.tooltip-trigger {
+  /* ADD: position: relative; */
+  position: relative;
+}
+
+.tooltip-trigger::after {
+  /* ADD YOUR STYLES HERE */
+  content: attr(data-tooltip);
+  /* 1. Position below the button: */
+  /* position: absolute; top: calc(100% + 0.5rem); left: 50%; */
+  /* transform: translateX(-50%); */
+  /* 2. Appearance: */
+  /* background: #1e293b; color: white; */
+  /* font-size: 0.75rem; font-weight: 400; */
+  /* padding: 0.375rem 0.625rem; border-radius: 0.375rem; */
+  /* white-space: nowrap; max-width: 220px; white-space: normal; text-align: center; */
+  /* 3. Start hidden: */
+  /* visibility: hidden; opacity: 0; */
+  /* transition: opacity 0.15s ease, visibility 0.15s ease; */
+  /* 4. z-index above other content: */
+  /* z-index: 100; */
+  /* 5. Line below text to look like pointer: use border trick */
+  /* (Optional: add a small triangle with border) */
+}
+
+/* Show tooltip on hover and keyboard focus */
+.tooltip-trigger:hover::after,
+.tooltip-trigger:focus-visible::after {
+  /* ADD: visibility: visible; opacity: 1; */
+}
+
+/* Tooltip above the button */
+.tooltip-trigger--top::after {
+  /* ADD: top: auto; bottom: calc(100% + 0.5rem); */
+}
+
+/* =============================================
+   SHARED MODAL
+   ============================================= */
+.modal {
+  /* ADD YOUR STYLES HERE */
+  /* border: none; padding: 0; border-radius: var(--radius); */
+  /* width: min(560px, calc(100vw - 2rem)); */
+  /* box-shadow: var(--shadow-modal); background: var(--color-surface); */
+  /* animation: modal-enter 0.25s ease forwards; */
+}
+.modal::backdrop { /* ADD: background: rgba(0, 0, 0, 0.5); */ }
+
+@keyframes modal-enter {
+  from { /* ADD: opacity: 0; transform: translateY(-12px) scale(0.98); */ }
+  to   { /* ADD: opacity: 1; transform: none; */ }
+}
+
+.modal__header {
+  /* ADD: display: flex; align-items: center; gap: 1rem; */
+  /* padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--color-border); */
+}
+.modal__title { /* ADD: flex: 1; font-size: 1.1rem; */ }
+.modal__close {
+  background: none; border: none; cursor: pointer;
+  width: 2rem; height: 2rem; border-radius: 0.375rem;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--color-text-secondary);
+}
+.modal__close:hover { /* ADD: background: var(--color-bg); */ }
+.modal__body { /* ADD: padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; */ }
+.modal__footer { /* ADD: padding: 1rem 1.5rem; border-top: 1px solid var(--color-border); display: flex; justify-content: flex-end; gap: 0.5rem; */ }
+
+/* EXERCISE 4: form inputs inside modal */
+.form-input {
+  width: 100%; padding: 0.5rem 0.75rem; border: 2px solid var(--color-border);
+  border-radius: 0.5rem; font-family: inherit; font-size: 0.9375rem; margin-top: 0.375rem;
+  display: block; margin-bottom: 0.75rem;
+}
+.form-input:focus-visible { /* ADD: border-color: var(--color-accent); */ }
+
+/* WCAG Checklist */
+.checklist { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+.checklist__item { display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.9375rem; }
+.checklist__item--warn { color: #92400e; }
+.checklist__icon { flex-shrink: 0; }
+
+/* =============================================
+   BUTTONS
+   ============================================= */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.375rem;
+  padding: 0.625rem 1.25rem; border: 2px solid transparent;
+  border-radius: 0.5rem; font-family: inherit; font-size: 0.9375rem;
+  font-weight: 600; cursor: pointer; transition: background-color var(--transition), transform var(--transition);
+  text-decoration: none;
+}
+.btn:active { transform: scale(0.98); }
+.btn--primary  { background: var(--color-accent); color: white; }
+.btn--primary:hover { background: var(--color-accent-dark); }
+.btn--secondary { background: white; color: var(--color-accent); border-color: var(--color-accent); }
+.btn--secondary:hover { background: var(--color-accent-light); }
+.btn--ghost { background: transparent; color: var(--color-text-secondary); border-color: var(--color-border); }
+.btn--ghost:hover { background: var(--color-bg); }
+
+@media (prefers-reduced-motion: reduce) {
+  .modal { animation: none !important; }
+  .tooltip-trigger::after { transition: none !important; }
+}

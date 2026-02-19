@@ -1,0 +1,207 @@
+/* =============================================
+   CARDS — ADVANCED
+   Branch: cards-advanced
+   ============================================= */
+
+:root {
+  --color-bg: #f8fafc;
+  --color-surface: #ffffff;
+  --color-border: #e2e8f0;
+  --color-text: #1e293b;
+  --color-text-secondary: #64748b;
+  --color-accent: #3b82f6;
+  --color-accent-dark: #2563eb;
+  --color-skeleton-base: #e2e8f0;
+  --color-skeleton-shine: #f8fafc;
+  --font-ui: system-ui, -apple-system, sans-serif;
+  --radius: 0.75rem;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-ui); background: var(--color-bg); color: var(--color-text); line-height: 1.6; }
+
+.skip-link {
+  position: absolute; left: 1rem; top: 1rem; padding: 0.5rem 1rem;
+  background: var(--color-accent); color: white; border-radius: 4px;
+  z-index: 9999; transform: translateY(-200%); transition: transform 0.2s ease;
+}
+.skip-link:focus { transform: translateY(0); }
+
+.page-header { max-width: 960px; margin: 0 auto; padding: 3rem 2rem 1.5rem; }
+.page-header h1 { font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 0.5rem; }
+.page-header p { color: var(--color-text-secondary); }
+.page-main { max-width: 960px; margin: 0 auto; padding: 0 2rem 3rem; display: flex; flex-direction: column; gap: 3rem; }
+.site-footer { border-top: 1px solid var(--color-border); padding: 2rem; text-align: center; color: var(--color-text-secondary); font-size: 0.875rem; }
+code { font-size: 0.875em; background: rgba(99, 102, 241, 0.08); color: #4f46e5; padding: 0.1em 0.4em; border-radius: 0.25rem; }
+
+.demo-section { display: flex; flex-direction: column; gap: 1.25rem; }
+.demo-section h2 { font-size: 1.1rem; border-bottom: 2px solid var(--color-border); padding-bottom: 0.5rem; }
+.demo-section p { color: var(--color-text-secondary); font-size: 0.9375rem; }
+
+/* TAGS */
+.tag { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.2em 0.6em; border-radius: 0.25rem; display: inline-block; background: #f0fdf4; color: #15803d; }
+.tag--blue   { background: #eff6ff; color: #1d4ed8; }
+.tag--purple { background: #f5f3ff; color: #7c3aed; }
+
+/* =============================================
+   EXERCISE 1: MASONRY WITH CSS columns
+   ============================================= */
+.masonry {
+  /* ADD YOUR STYLES HERE */
+  /* columns: 3; */
+  /* column-gap: 1.5rem; */
+  /* The columns property creates a newspaper-style multi-column flow */
+}
+
+.masonry-card {
+  /* ADD: break-inside: avoid; — prevents cards from splitting across columns */
+  /* margin-bottom: 1.5rem; */
+  /* display: inline-block; width: 100%; — required for columns layout */
+  background: var(--color-surface); border-radius: var(--radius);
+  overflow: hidden; box-shadow: var(--shadow-sm);
+}
+
+.masonry-card__img { width: 100%; display: block; aspect-ratio: 16/9; object-fit: cover; }
+.masonry-card__body { padding: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem; }
+.masonry-card__body h3 { font-size: 0.9375rem; font-weight: 700; }
+.masonry-card__body p { font-size: 0.8125rem; color: var(--color-text-secondary); }
+
+@media (max-width: 640px) {
+  .masonry { /* ADD: columns: 1; — single column on small screens */ }
+}
+@media (min-width: 641px) and (max-width: 900px) {
+  .masonry { /* ADD: columns: 2; */ }
+}
+
+/* =============================================
+   EXERCISE 2: SKELETON + REVEAL
+   ============================================= */
+.loaded-toggle { display: none; }
+
+.btn--accent {
+  display: inline-flex; align-items: center; padding: 0.5rem 1rem;
+  background: var(--color-accent); color: white; border-radius: 0.5rem;
+  font-weight: 600; cursor: pointer; font-family: inherit; font-size: 0.875rem;
+  border: none; align-self: flex-start; gap: 0.5rem;
+}
+
+/* Toggle button label switching */
+.toggle-btn__loaded-label { display: none; }
+.loaded-toggle:checked ~ .toggle-btn .toggle-btn__skeleton-label { display: none; }
+.loaded-toggle:checked ~ .toggle-btn .toggle-btn__loaded-label   { display: inline; }
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.reveal-card {
+  border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm);
+  background: var(--color-surface);
+}
+
+/* Skeleton visible by default */
+.reveal-card__content { display: none; }
+
+/* When loaded toggle is checked — show content, hide skeleton */
+.loaded-toggle:checked ~ .cards-grid .reveal-card__skeleton {
+  /* ADD: display: none; */
+}
+.loaded-toggle:checked ~ .cards-grid .reveal-card__content {
+  /* ADD: display: block; animation: fade-in 0.4s ease; */
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Skeleton shapes */
+.skel {
+  background: linear-gradient(
+    90deg,
+    var(--color-skeleton-base) 25%,
+    var(--color-skeleton-shine) 50%,
+    var(--color-skeleton-base) 75%
+  );
+  background-size: 200% 100%;
+  /* ADD: animation: shimmer 1.5s infinite; */
+  border-radius: 0.375rem;
+}
+
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to   { background-position: -200% 0; }
+}
+
+.skel--img         { aspect-ratio: 16/9; border-radius: 0; }
+.skel-body         { padding: 1.25rem; display: flex; flex-direction: column; gap: 0.625rem; }
+.skel--tag         { height: 1.25rem; width: 5rem; }
+.skel--title       { height: 1.25rem; width: 90%; }
+.skel--line        { height: 0.875rem; width: 100%; }
+.skel--line-short  { width: 65%; }
+
+/* Reveal card content */
+.reveal-card__img  { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; }
+.reveal-card__body { padding: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem; }
+.reveal-card__body h3 { font-size: 0.9375rem; font-weight: 700; }
+.reveal-card__body p  { font-size: 0.8125rem; color: var(--color-text-secondary); }
+
+/* =============================================
+   EXERCISE 3: @container QUERIES
+   ============================================= */
+.container-demo {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.container-col {
+  /* ADD: container-type: inline-size; — registers this as a container */
+  /* container-name: card-col; — optional named container */
+  container-type: inline-size;
+  display: flex; flex-direction: column; gap: 0.5rem;
+}
+
+.container-col__label {
+  font-size: 0.75rem; font-weight: 600; color: var(--color-text-secondary);
+  text-transform: uppercase; letter-spacing: 0.08em;
+}
+
+.cq-card {
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.cq-card__img {
+  width: 100%; display: block;
+  /* ADD: default portrait-style aspect ratio */
+  aspect-ratio: 16 / 9; object-fit: cover;
+}
+.cq-card__body { padding: 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
+.cq-card__title { font-size: 0.9375rem; font-weight: 700; }
+.cq-card__desc { font-size: 0.8125rem; color: var(--color-text-secondary); }
+
+/* @container query — when the CARD'S CONTAINER is wide enough, go horizontal */
+@container (min-width: 380px) {
+  .cq-card {
+    /* ADD: display: flex; */
+  }
+  .cq-card__img {
+    /* ADD: width: 160px; flex-shrink: 0; aspect-ratio: auto; */
+  }
+}
+
+@media (max-width: 640px) {
+  .container-demo { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skel, .reveal-card__content { animation: none !important; }
+}

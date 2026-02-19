@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tables — Responsive</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="page-header">
+      <h1>Responsive Tables</h1>
+      <p>Horizontal scroll with gradient hints, sticky first column, and card-style mobile views using <code>data-label</code>.</p>
+    </header>
+
+    <main class="page-main" id="main-content">
+
+      <!-- EXERCISE 1: HORIZONTAL SCROLL WITH GRADIENT HINT -->
+      <section class="demo-section">
+        <h2>Exercise 1 — Horizontal scroll with gradient fade hint</h2>
+        <p>The table scrolls horizontally. A gradient on the right edge signals to the user that more content exists.</p>
+        <!--
+          TECHNIQUE:
+          .table-scroll-wrapper { position: relative; overflow-x: auto; }
+          .table-scroll-wrapper::after {
+            content: ''; position: absolute; top: 0; right: 0;
+            width: 3rem; height: 100%;
+            background: linear-gradient(to right, transparent, white);
+            pointer-events: none;
+          }
+        -->
+        <div class="table-scroll-wrapper" role="region" aria-label="Student assignment scores — scroll for more">
+          <table class="data-table">
+            <caption>Student scores per assignment — Module 1</caption>
+            <thead>
+              <tr>
+                <th scope="col" class="col-sticky">Student</th>
+                <th scope="col">HTML Forms</th>
+                <th scope="col">CSS Flexbox</th>
+                <th scope="col">CSS Grid</th>
+                <th scope="col">Responsive</th>
+                <th scope="col">Navigation</th>
+                <th scope="col">Animations</th>
+                <th scope="col">Typography</th>
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row" class="col-sticky">Amara D.</th>
+                <td data-label="HTML Forms">8/10</td>
+                <td data-label="CSS Flexbox">9/10</td>
+                <td data-label="CSS Grid">7/10</td>
+                <td data-label="Responsive">10/10</td>
+                <td data-label="Navigation">8/10</td>
+                <td data-label="Animations">6/10</td>
+                <td data-label="Typography">9/10</td>
+                <td data-label="Total" class="col-total">57</td>
+              </tr>
+              <tr>
+                <th scope="row" class="col-sticky">Lars V.</th>
+                <td data-label="HTML Forms">7/10</td>
+                <td data-label="CSS Flexbox">8/10</td>
+                <td data-label="CSS Grid">9/10</td>
+                <td data-label="Responsive">7/10</td>
+                <td data-label="Navigation">9/10</td>
+                <td data-label="Animations">10/10</td>
+                <td data-label="Typography">8/10</td>
+                <td data-label="Total" class="col-total">58</td>
+              </tr>
+              <tr>
+                <th scope="row" class="col-sticky">Yuki T.</th>
+                <td data-label="HTML Forms">10/10</td>
+                <td data-label="CSS Flexbox">10/10</td>
+                <td data-label="CSS Grid">10/10</td>
+                <td data-label="Responsive">9/10</td>
+                <td data-label="Navigation">10/10</td>
+                <td data-label="Animations">8/10</td>
+                <td data-label="Typography">10/10</td>
+                <td data-label="Total" class="col-total">67</td>
+              </tr>
+              <tr>
+                <th scope="row" class="col-sticky">Kofi B.</th>
+                <td data-label="HTML Forms">6/10</td>
+                <td data-label="CSS Flexbox">7/10</td>
+                <td data-label="CSS Grid">8/10</td>
+                <td data-label="Responsive">8/10</td>
+                <td data-label="Navigation">7/10</td>
+                <td data-label="Animations">9/10</td>
+                <td data-label="Typography">7/10</td>
+                <td data-label="Total" class="col-total">52</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- EXERCISE 2: CARD-STYLE MOBILE TABLE -->
+      <section class="demo-section">
+        <h2>Exercise 2 — Card-style mobile table</h2>
+        <p>On small screens (below 600px), each row transforms into a mini card. The <code>data-label</code> attribute is used as a label via <code>content: attr(data-label)</code>.</p>
+
+        <div class="table-scroll-wrapper" role="region" aria-label="Assignment schedule">
+          <table class="data-table data-table--card">
+            <caption>Upcoming assignments — Q1</caption>
+            <thead>
+              <tr>
+                <th scope="col">Assignment</th>
+                <th scope="col">Branch</th>
+                <th scope="col">Due date</th>
+                <th scope="col">Status</th>
+                <th scope="col">Points</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-label="Assignment">Navigation — Mega Menu</td>
+                <td data-label="Branch">navigation-mega-menu</td>
+                <td data-label="Due date">2025-03-07</td>
+                <td data-label="Status"><span class="badge badge--success">Submitted</span></td>
+                <td data-label="Points">10</td>
+              </tr>
+              <tr>
+                <td data-label="Assignment">Cards — Basic</td>
+                <td data-label="Branch">cards-basic</td>
+                <td data-label="Due date">2025-03-14</td>
+                <td data-label="Status"><span class="badge badge--warning">In progress</span></td>
+                <td data-label="Points">10</td>
+              </tr>
+              <tr>
+                <td data-label="Assignment">Modals — Basic</td>
+                <td data-label="Branch">modals-basic</td>
+                <td data-label="Due date">2025-03-21</td>
+                <td data-label="Status"><span class="badge badge--neutral">Not started</span></td>
+                <td data-label="Points">10</td>
+              </tr>
+              <tr>
+                <td data-label="Assignment">Typography — Rich</td>
+                <td data-label="Branch">typography-rich</td>
+                <td data-label="Due date">2025-03-28</td>
+                <td data-label="Status"><span class="badge badge--neutral">Not started</span></td>
+                <td data-label="Points">10</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="hint">⬆ On narrow screens (&lt;600px) the above table renders as stacked cards.</p>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <p>HackYourFuture Belgium · Tables — Responsive</p>
+    </footer>
+  </body>
+</html>

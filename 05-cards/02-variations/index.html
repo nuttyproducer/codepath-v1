@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cards — Variations</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="page-header">
+      <h1>Card Variations</h1>
+      <p>Horizontal cards, overlay gradient cards, pricing cards with a featured scale effect, and blockquote testimonials.</p>
+    </header>
+
+    <main class="page-main" id="main-content">
+
+      <!-- EXERCISE 1: HORIZONTAL CARD LAYOUT -->
+      <section class="demo-section">
+        <h2>Exercise 1 — Horizontal media card</h2>
+
+        <article class="card card--horizontal">
+          <div class="card__img-wrap">
+            <img
+              src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&q=75"
+              alt="Code on a laptop screen"
+              class="card__img"
+              loading="lazy"
+            />
+          </div>
+          <div class="card__body">
+            <span class="card__tag">HTML &amp; CSS</span>
+            <h3 class="card__title">Form Controls — Advanced</h3>
+            <p class="card__excerpt">Style custom radio buttons, checkboxes, and range inputs using only CSS. Learn the `:checked` sibling technique.</p>
+            <a href="#" class="card__link" onclick="return false">View assignment →</a>
+          </div>
+        </article>
+
+        <article class="card card--horizontal">
+          <div class="card__img-wrap">
+            <img
+              src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=600&q=75"
+              alt="Server infrastructure"
+              class="card__img"
+              loading="lazy"
+            />
+          </div>
+          <div class="card__body">
+            <span class="card__tag">CSS</span>
+            <h3 class="card__title">Data Tables — Responsive</h3>
+            <p class="card__excerpt">Make data tables scroll horizontally on mobile with a sticky first column. Then switch to a card layout with `data-label`.</p>
+            <a href="#" class="card__link" onclick="return false">View assignment →</a>
+          </div>
+        </article>
+      </section>
+
+      <!-- EXERCISE 2: OVERLAY GRADIENT CARD -->
+      <section class="demo-section">
+        <h2>Exercise 2 — Image overlay with gradient</h2>
+        <p>Text sits on top of the image, readable thanks to a gradient overlay. No darkening of the image itself.</p>
+
+        <div class="overlay-grid">
+          <article class="card card--overlay">
+            <img
+              src="https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=800&q=75"
+              alt="Laptop with code"
+              class="card--overlay__bg"
+              loading="lazy"
+            />
+            <div class="card--overlay__content">
+              <span class="card__tag card__tag--light">Foundation 🟢</span>
+              <h3 class="card--overlay__title">Bikes for Refugees</h3>
+              <p class="card--overlay__desc">Build the homepage for a non-profit charity that collects bikes for refugees.</p>
+            </div>
+          </article>
+          <article class="card card--overlay">
+            <img
+              src="https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&q=75"
+              alt="Web development workspace"
+              class="card--overlay__bg"
+              loading="lazy"
+            />
+            <div class="card--overlay__content">
+              <span class="card__tag card__tag--light">Enhancement 🟡</span>
+              <h3 class="card--overlay__title">Navigation — Mega Menu</h3>
+              <p class="card--overlay__desc">Build a multi-column dropdown menu using only CSS visibility and opacity.</p>
+            </div>
+          </article>
+          <article class="card card--overlay">
+            <img
+              src="https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=800&q=75"
+              alt="Person studying"
+              class="card--overlay__bg"
+              loading="lazy"
+            />
+            <div class="card--overlay__content">
+              <span class="card__tag card__tag--light">Mastery 🔴</span>
+              <h3 class="card--overlay__title">Accessibility — WCAG</h3>
+              <p class="card--overlay__desc">Perform a full WCAG 2.1 AA audit on a checkout form and document all findings.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- EXERCISE 3: PRICING CARDS -->
+      <section class="demo-section">
+        <h2>Exercise 3 — Pricing cards with featured scale</h2>
+        <p>The featured (recommended) pricing card is scaled up with <code>transform: scale(1.05)</code>.</p>
+
+        <div class="pricing-grid">
+          <article class="pricing-card">
+            <div class="pricing-card__header">
+              <h3 class="pricing-card__plan">Starter</h3>
+              <div class="pricing-card__price">
+                <span class="pricing-card__amount">€0</span>
+                <span class="pricing-card__period">/month</span>
+              </div>
+            </div>
+            <ul class="pricing-card__features">
+              <li class="pricing-card__feature pricing-card__feature--yes">5 assignments</li>
+              <li class="pricing-card__feature pricing-card__feature--yes">Community access</li>
+              <li class="pricing-card__feature pricing-card__feature--no">Code review</li>
+              <li class="pricing-card__feature pricing-card__feature--no">Mentorship calls</li>
+            </ul>
+            <a href="#" class="btn btn--outline" onclick="return false">Get started</a>
+          </article>
+
+          <article class="pricing-card pricing-card--featured" aria-label="Recommended plan">
+            <div class="pricing-card__badge">Recommended</div>
+            <div class="pricing-card__header">
+              <h3 class="pricing-card__plan">Pro</h3>
+              <div class="pricing-card__price">
+                <span class="pricing-card__amount">€29</span>
+                <span class="pricing-card__period">/month</span>
+              </div>
+            </div>
+            <ul class="pricing-card__features">
+              <li class="pricing-card__feature pricing-card__feature--yes">All assignments</li>
+              <li class="pricing-card__feature pricing-card__feature--yes">Community access</li>
+              <li class="pricing-card__feature pricing-card__feature--yes">Code review</li>
+              <li class="pricing-card__feature pricing-card__feature--no">Mentorship calls</li>
+            </ul>
+            <a href="#" class="btn btn--primary" onclick="return false">Start free trial</a>
+          </article>
+
+          <article class="pricing-card">
+            <div class="pricing-card__header">
+              <h3 class="pricing-card__plan">Enterprise</h3>
+              <div class="pricing-card__price">
+                <span class="pricing-card__amount">€99</span>
+                <span class="pricing-card__period">/month</span>
+              </div>
+            </div>
+            <ul class="pricing-card__features">
+              <li class="pricing-card__feature pricing-card__feature--yes">All assignments</li>
+              <li class="pricing-card__feature pricing-card__feature--yes">Community access</li>
+              <li class="pricing-card__feature pricing-card__feature--yes">Code review</li>
+              <li class="pricing-card__feature pricing-card__feature--yes">Mentorship calls</li>
+            </ul>
+            <a href="#" class="btn btn--outline" onclick="return false">Contact sales</a>
+          </article>
+        </div>
+      </section>
+
+      <!-- EXERCISE 4: TESTIMONIAL / BLOCKQUOTE CARD -->
+      <section class="demo-section">
+        <h2>Exercise 4 — Testimonial blockquote cards</h2>
+        <p>Semantic <code>&lt;blockquote&gt;</code> with decorative large quotation marks using CSS <code>::before</code>.</p>
+
+        <div class="testimonial-grid">
+          <figure class="testimonial">
+            <blockquote class="testimonial__quote">
+              <p>HackYourFuture changed my life. I came from Syria with no tech background and now I'm a junior frontend developer at a startup in Brussels.</p>
+            </blockquote>
+            <figcaption class="testimonial__attribution">
+              <img src="https://i.pravatar.cc/48?img=3" alt="Portrait of Ahmed" class="testimonial__avatar" width="48" height="48" loading="lazy" />
+              <div>
+                <strong class="testimonial__name">Ahmed K.</strong>
+                <span class="testimonial__role">Junior Frontend Developer, Antwerp</span>
+              </div>
+            </figcaption>
+          </figure>
+
+          <figure class="testimonial">
+            <blockquote class="testimonial__quote">
+              <p>As a volunteer coach, I've seen incredible dedication from the students. The assignments-collection repo is exactly the kind of structured tool we needed.</p>
+            </blockquote>
+            <figcaption class="testimonial__attribution">
+              <img src="https://i.pravatar.cc/48?img=9" alt="Portrait of Fatima" class="testimonial__avatar" width="48" height="48" loading="lazy" />
+              <div>
+                <strong class="testimonial__name">Fatima B.</strong>
+                <span class="testimonial__role">Volunteer Coach, HYF Belgium</span>
+              </div>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <p>HackYourFuture Belgium · Cards — Variations</p>
+    </footer>
+  </body>
+</html>

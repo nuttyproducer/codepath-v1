@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Controls — Validation & Checkout</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="page-header">
+      <h1>Checkout</h1>
+      <p class="page-subtitle">A fully validated checkout form. All validation is CSS-only using <code>:valid</code>, <code>:invalid</code>, <code>:user-invalid</code>, and <code>:has()</code>.</p>
+    </header>
+
+    <main class="page-main">
+      <form class="checkout-form" id="checkout-form" novalidate>
+
+        <!-- STEP 1: Contact details -->
+        <section class="form-section" aria-labelledby="section-contact">
+          <h2 class="form-section__title" id="section-contact">
+            <span class="form-section__number" aria-hidden="true">1</span>
+            Contact details
+          </h2>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="first-name">
+                First name
+                <span class="required-marker" aria-hidden="true">*</span>
+                <span class="sr-only">(required)</span>
+              </label>
+              <input
+                type="text"
+                id="first-name"
+                name="first-name"
+                required
+                minlength="2"
+                autocomplete="given-name"
+                placeholder="Jan"
+                aria-describedby="first-name-error"
+              />
+              <!-- ADD: CSS shows this only when input is :user-invalid -->
+              <p class="field__error" id="first-name-error" aria-live="polite">
+                Please enter your first name (minimum 2 characters).
+              </p>
+            </div>
+
+            <div class="field">
+              <label for="last-name">
+                Last name
+                <span class="required-marker" aria-hidden="true">*</span>
+                <span class="sr-only">(required)</span>
+              </label>
+              <input
+                type="text"
+                id="last-name"
+                name="last-name"
+                required
+                minlength="2"
+                autocomplete="family-name"
+                placeholder="Jansen"
+                aria-describedby="last-name-error"
+              />
+              <p class="field__error" id="last-name-error" aria-live="polite">
+                Please enter your last name.
+              </p>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="email">
+              Email address
+              <span class="required-marker" aria-hidden="true">*</span>
+              <span class="sr-only">(required)</span>
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              autocomplete="email"
+              placeholder="jan@example.com"
+              aria-describedby="email-error email-hint"
+            />
+            <p class="field__hint" id="email-hint">Your order confirmation will be sent here.</p>
+            <p class="field__error" id="email-error" aria-live="polite">
+              Please enter a valid email address (example: name@domain.com).
+            </p>
+          </div>
+
+          <div class="field">
+            <label for="phone">
+              Phone number
+              <span class="field__optional">(optional)</span>
+            </label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              autocomplete="tel"
+              placeholder="+32 470 00 00 00"
+              pattern="[\+]?[\d\s\-\(\)]{7,15}"
+              aria-describedby="phone-error phone-hint"
+            />
+            <p class="field__hint" id="phone-hint">Format: +32 470 00 00 00 or 0470 00 00 00</p>
+            <p class="field__error" id="phone-error" aria-live="polite">
+              Please enter a valid phone number.
+            </p>
+          </div>
+        </section>
+
+        <!-- STEP 2: Shipping address -->
+        <section class="form-section" aria-labelledby="section-shipping">
+          <h2 class="form-section__title" id="section-shipping">
+            <span class="form-section__number" aria-hidden="true">2</span>
+            Shipping address
+          </h2>
+
+          <div class="field">
+            <label for="street">
+              Street address
+              <span class="required-marker" aria-hidden="true">*</span>
+              <span class="sr-only">(required)</span>
+            </label>
+            <input
+              type="text"
+              id="street"
+              name="street"
+              required
+              autocomplete="street-address"
+              placeholder="Grote Markt 1"
+              aria-describedby="street-error"
+            />
+            <p class="field__error" id="street-error" aria-live="polite">
+              Please enter your street address.
+            </p>
+          </div>
+
+          <div class="field-row">
+            <div class="field field--zip">
+              <label for="zip">
+                Postal code
+                <span class="required-marker" aria-hidden="true">*</span>
+                <span class="sr-only">(required)</span>
+              </label>
+              <input
+                type="text"
+                id="zip"
+                name="zip"
+                required
+                autocomplete="postal-code"
+                placeholder="1000"
+                pattern="\d{4}"
+                inputmode="numeric"
+                aria-describedby="zip-error"
+              />
+              <p class="field__error" id="zip-error" aria-live="polite">
+                Please enter a valid 4-digit Belgian postal code.
+              </p>
+            </div>
+
+            <div class="field">
+              <label for="city">
+                City
+                <span class="required-marker" aria-hidden="true">*</span>
+                <span class="sr-only">(required)</span>
+              </label>
+              <input
+                type="text"
+                id="city"
+                name="city"
+                required
+                autocomplete="address-level2"
+                placeholder="Brussels"
+                aria-describedby="city-error"
+              />
+              <p class="field__error" id="city-error" aria-live="polite">
+                Please enter your city.
+              </p>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="country">
+              Country
+              <span class="required-marker" aria-hidden="true">*</span>
+              <span class="sr-only">(required)</span>
+            </label>
+            <div class="select-wrapper">
+              <select id="country" name="country" required autocomplete="country" aria-describedby="country-error">
+                <option value="">— Select your country —</option>
+                <option value="BE" selected>Belgium</option>
+                <option value="NL">Netherlands</option>
+                <option value="FR">France</option>
+                <option value="DE">Germany</option>
+                <option value="LU">Luxembourg</option>
+              </select>
+            </div>
+            <p class="field__error" id="country-error" aria-live="polite">
+              Please select your country.
+            </p>
+          </div>
+        </section>
+
+        <!-- STEP 3: Order summary + payment -->
+        <section class="form-section" aria-labelledby="section-payment">
+          <h2 class="form-section__title" id="section-payment">
+            <span class="form-section__number" aria-hidden="true">3</span>
+            Order summary
+          </h2>
+
+          <div class="order-summary">
+            <div class="order-item">
+              <span>HYF Pro Membership</span>
+              <span>€ 29.00</span>
+            </div>
+            <div class="order-item">
+              <span>Discount (HYFFREE)</span>
+              <span class="order-item__discount">− € 29.00</span>
+            </div>
+            <div class="order-item order-item--total">
+              <strong>Total today</strong>
+              <strong>€ 0.00</strong>
+            </div>
+          </div>
+        </section>
+
+        <!-- Terms & Submit -->
+        <div class="form-footer">
+          <div class="field field--checkbox">
+            <label class="checkbox-label" for="terms">
+              <input type="checkbox" id="terms" name="terms" required />
+              <span class="checkbox-indicator" aria-hidden="true"></span>
+              <span>I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></span>
+            </label>
+            <!-- ADD: #terms:not(:checked) ~ button should be disabled via :has() -->
+          </div>
+
+          <!-- ADD: This button should be disabled until #terms is checked -->
+          <!-- Use: form:not(:has(#terms:checked)) .btn-submit { opacity: 0.5; pointer-events: none; } -->
+          <button type="submit" class="btn btn--primary btn-submit">
+            Place order →
+          </button>
+        </div>
+
+      </form>
+    </main>
+
+    <footer class="page-footer">
+      <p>HackYourFuture Belgium · Form Controls — Validation & Checkout</p>
+    </footer>
+  </body>
+</html>

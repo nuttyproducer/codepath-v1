@@ -1,0 +1,319 @@
+/* ============================================================
+   Accessibility-aria — style.css
+   TECHNIQUES:
+   - .sr-only visually-hidden pattern
+   - Icon button focus ring
+   - compare grid layout
+   - role="alert" / aria-live visual styling by type
+   - Star rating styling
+   - <details> accordion
+   ============================================================ */
+
+/* ── Design tokens ──────────────────────────────────────────── */
+:root {
+  --font-body: system-ui, -apple-system, sans-serif;
+  --font-mono: 'Courier New', monospace;
+
+  --color-bg: #f8fafc;
+  --color-surface: #ffffff;
+  --color-border: #e2e8f0;
+  --color-text: #1e293b;
+  --color-muted: #64748b;
+  --color-accent: #2563eb;
+  --color-accent-light: #dbeafe;
+  --color-bad: #fef2f2;
+  --color-bad-border: #fca5a5;
+  --color-good: #f0fdf4;
+  --color-good-border: #86efac;
+  --color-warning: #fef3c7;
+  --color-warning-border: #fcd34d;
+  --color-success: #f0fdf4;
+  --color-success-border: #16a34a;
+  --color-error: #fef2f2;
+  --color-error-border: #dc2626;
+
+  --radius: 8px;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+}
+
+/* ── Reset ───────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: var(--font-body);
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+}
+*:focus { outline: none; }
+*:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ── Skip link ───────────────────────────────────────────────── */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  padding: 0.6rem 1.25rem;
+  background: var(--color-accent);
+  color: #fff;
+  border-radius: var(--radius);
+  font-weight: 700;
+  text-decoration: none;
+  z-index: 9999;
+  transform: translateY(-200%);
+  transition: transform 0.2s ease;
+}
+.skip-link:focus { transform: translateY(0); }
+
+/* ── TECHNIQUE: .sr-only / visually hidden ───────────────────── */
+/*
+  This class hides content visually but keeps it available to
+  screen readers and other assistive technologies.
+  
+  DO NOT use display:none or visibility:hidden — these hide from
+  assistive technologies too.
+  
+  This pattern is the industry standard (Bootstrap, Tailwind, etc.)
+*/
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Page layout ─────────────────────────────────────────────── */
+.page-header {
+  background: var(--color-accent);
+  color: #fff;
+  padding: var(--space-8) var(--space-6);
+  text-align: center;
+}
+.page-header h1 { font-size: clamp(1.4rem, 4vw, 2rem); margin-bottom: var(--space-2); }
+.page-header p { opacity: 0.85; max-width: 60ch; margin: 0 auto; }
+
+.page-main { max-width: 900px; margin: 0 auto; padding: var(--space-8) var(--space-4); }
+
+.demo-section {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-6);
+  margin-bottom: var(--space-8);
+}
+.demo-section h2 { margin-bottom: var(--space-4); font-size: 1.25rem; }
+.demo-section h3 { font-size: 1rem; margin-bottom: var(--space-3); color: var(--color-muted); }
+.demo-section > * + * { margin-top: var(--space-4); }
+
+.site-footer {
+  text-align: center;
+  padding: var(--space-6);
+  color: var(--color-muted);
+  font-size: 0.875rem;
+  border-top: 1px solid var(--color-border);
+}
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.8em;
+  background: var(--color-bg);
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+  border: 1px solid var(--color-border);
+}
+.hint {
+  font-size: 0.875rem;
+  color: var(--color-muted);
+  max-width: 65ch;
+}
+.callout-inline {
+  display: block;
+  background: var(--color-warning);
+  border-left: 4px solid var(--color-warning-border);
+  padding: var(--space-3);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  margin-top: var(--space-3);
+}
+
+/* ── Compare grid (Exercise 1) ───────────────────────────────── */
+.compare-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-4);
+}
+.compare-grid--2col { grid-template-columns: 1fr 1fr; }
+
+.compare-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+}
+.compare-item--bad { background: var(--color-bad); border-color: var(--color-bad-border); }
+.compare-item--good { background: var(--color-good); border-color: var(--color-good-border); }
+
+.compare-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+}
+.compare-label--bad { background: var(--color-bad-border); color: #991b1b; }
+.compare-label--good { background: var(--color-good-border); color: #14532d; }
+
+/* ── Icon buttons ────────────────────────────────────────────── */
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  color: var(--color-text);
+  transition: background 0.15s;
+}
+.icon-btn:hover { background: var(--color-border); }
+
+/* ── Accordion (Exercise 2) ──────────────────────────────────── */
+.accordion-item {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.accordion-summary {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-3) var(--space-4);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  background: var(--color-surface);
+}
+.accordion-summary::-webkit-details-marker { display: none; }
+.accordion-summary::marker { display: none; }
+.accordion-summary:hover { background: var(--color-bg); }
+
+.accordion-icon {
+  font-size: 0.75rem;
+  transition: transform 0.2s ease;
+  color: var(--color-muted);
+}
+details[open] .accordion-icon { transform: rotate(90deg); }
+details[open] .accordion-summary { background: var(--color-accent-light); }
+
+.accordion-body {
+  padding: var(--space-4);
+  border-top: 1px solid var(--color-border);
+  font-size: 0.9rem;
+}
+
+/* ── Custom accordion (JS pattern, Exercise 2) ───────────────── */
+.custom-accordion {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.custom-accordion__btn {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+  border: none;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+}
+.custom-accordion__panel {
+  padding: var(--space-4);
+  font-size: 0.9rem;
+  border-top: 1px solid var(--color-border);
+}
+/* The [hidden] attribute hides the panel; JS would toggle this */
+.custom-accordion__panel[hidden] { display: none; }
+
+/* ── Alert / live region styling (Exercise 3) ────────────────── */
+.alert-examples { display: flex; flex-direction: column; gap: var(--space-3); }
+
+.alert {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius);
+  border-left: 4px solid;
+}
+.alert--success {
+  background: var(--color-success);
+  border-color: var(--color-success-border);
+  color: #14532d;
+}
+.alert--warning {
+  background: var(--color-warning);
+  border-color: var(--color-warning-border);
+  color: #78350f;
+}
+.alert--error {
+  background: var(--color-error);
+  border-color: var(--color-error-border);
+  color: #7f1d1d;
+}
+
+.alert__icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 0.1rem; }
+.alert__content strong { display: block; margin-bottom: var(--space-1); }
+.alert__content { font-size: 0.9rem; }
+
+/* ── Star rating (Exercise 4) ────────────────────────────────── */
+.star-ratings { display: flex; flex-direction: column; gap: var(--space-3); }
+
+.star-rating-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-bg);
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+}
+
+.product-name { font-weight: 600; font-size: 0.95rem; }
+
+.star-rating { display: flex; align-items: center; gap: var(--space-2); }
+
+.stars {
+  font-size: 1.2rem;
+  color: #eab308;  /* yellow-500 */
+  letter-spacing: 0.05em;
+}
+
+.star-count { font-size: 0.8rem; color: var(--color-muted); }
+
+@media (max-width: 600px) {
+  .compare-grid--2col { grid-template-columns: 1fr; }
+  .star-rating-row { flex-direction: column; align-items: flex-start; gap: var(--space-2); }
+}

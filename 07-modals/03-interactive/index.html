@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modals — Interactive (CSS-only)</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="page-header">
+      <h1>Interactive Modals — CSS-only</h1>
+      <p>Multi-step wizard and tab panel built with <code>:checked</code> sibling selectors and <code>&lt;dialog&gt;</code>.</p>
+    </header>
+
+    <main class="page-main" id="main-content">
+
+      <!-- TRIGGER BUTTONS -->
+      <div class="trigger-buttons">
+        <button class="btn btn--primary" onclick="document.getElementById('wizard').showModal()">Open wizard</button>
+        <button class="btn btn--secondary" onclick="document.getElementById('tabbed-modal').showModal()">Tabbed modal</button>
+      </div>
+
+      <!-- ============================================================
+           EXERCISE 1: MULTI-STEP WIZARD (CSS :checked to show/hide steps)
+           ============================================================ -->
+      <dialog class="modal wizard" id="wizard" aria-labelledby="wizard-title">
+
+        <div class="modal__header">
+          <!-- Step indicator -->
+          <ol class="wizard__steps" aria-label="Setup steps">
+            <li class="wizard__step" id="step-ind-1">Profile</li>
+            <li class="wizard__step" id="step-ind-2">Skills</li>
+            <li class="wizard__step" id="step-ind-3">Goals</li>
+          </ol>
+          <button class="modal__close" aria-label="Close wizard" onclick="document.getElementById('wizard').close()">✕</button>
+        </div>
+
+        <!-- STEP 1 -->
+        <!--
+          CSS-only step technique:
+          - Each step is a <section> or <div>
+          - Hidden with display:none by default
+          - A radio input earlier in the DOM, when :checked,
+            uses the ~ (general sibling) selector to show the step
+          - Label buttons serve as "Next" triggers
+        -->
+        <input type="radio" name="wizard-step" id="step-1" class="wizard__radio" hidden checked />
+        <section class="wizard__panel" id="panel-1" aria-labelledby="wizard-title">
+          <h2 class="modal__title" id="wizard-title">Step 1 — Your profile</h2>
+          <form class="wizard__form">
+            <label for="w-name">Full name</label>
+            <input id="w-name" type="text" placeholder="Ben Vanderzeypen" required />
+            <label for="w-role">Current role</label>
+            <select id="w-role">
+              <option value="">— Choose —</option>
+              <option>Student</option>
+              <option>Career changer</option>
+              <option>Mentor</option>
+            </select>
+            <label for="w-country">Country</label>
+            <input id="w-country" type="text" placeholder="Belgium" />
+          </form>
+          <div class="wizard__footer">
+            <button class="btn btn--ghost" onclick="document.getElementById('wizard').close()">Cancel</button>
+            <!-- Label targets the NEXT step radio — CSS reveals step 2 -->
+            <label for="step-2" class="btn btn--primary" role="button" tabindex="0">Next → Skills</label>
+          </div>
+        </section>
+
+        <input type="radio" name="wizard-step" id="step-2" class="wizard__radio" hidden />
+        <section class="wizard__panel" id="panel-2" aria-labelledby="panel-2-title">
+          <h2 class="modal__title" id="panel-2-title">Step 2 — Your skills</h2>
+          <form class="wizard__form">
+            <fieldset class="wizard__fieldset">
+              <legend>Which technologies do you know?</legend>
+              <label class="wizard__checkbox-label">
+                <input type="checkbox" name="skills" value="html" /> HTML
+              </label>
+              <label class="wizard__checkbox-label">
+                <input type="checkbox" name="skills" value="css" /> CSS
+              </label>
+              <label class="wizard__checkbox-label">
+                <input type="checkbox" name="skills" value="js" /> JavaScript
+              </label>
+              <label class="wizard__checkbox-label">
+                <input type="checkbox" name="skills" value="react" /> React
+              </label>
+              <label class="wizard__checkbox-label">
+                <input type="checkbox" name="skills" value="node" /> Node.js
+              </label>
+            </fieldset>
+          </form>
+          <div class="wizard__footer">
+            <label for="step-1" class="btn btn--ghost" role="button" tabindex="0">← Back</label>
+            <label for="step-3" class="btn btn--primary" role="button" tabindex="0">Next → Goals</label>
+          </div>
+        </section>
+
+        <input type="radio" name="wizard-step" id="step-3" class="wizard__radio" hidden />
+        <section class="wizard__panel" id="panel-3" aria-labelledby="panel-3-title">
+          <h2 class="modal__title" id="panel-3-title">Step 3 — Your goals</h2>
+          <form class="wizard__form">
+            <label for="w-goal">What do you want to build?</label>
+            <textarea id="w-goal" rows="4" placeholder="I want to build a portfolio website that showcases..."></textarea>
+            <label for="w-timeline">When do you want to finish?</label>
+            <input id="w-timeline" type="date" />
+          </form>
+          <div class="wizard__footer">
+            <label for="step-2" class="btn btn--ghost" role="button" tabindex="0">← Back</label>
+            <button class="btn btn--primary" onclick="document.getElementById('wizard').close()">Finish setup ✓</button>
+          </div>
+        </section>
+
+      </dialog>
+
+      <!-- ============================================================
+           EXERCISE 2: TABBED MODAL
+           ============================================================ -->
+      <dialog class="modal tabbed-modal" id="tabbed-modal" aria-labelledby="tabbed-title">
+        <div class="modal__header">
+          <h2 class="modal__title" id="tabbed-title">Assignment resources</h2>
+          <button class="modal__close" aria-label="Close" onclick="document.getElementById('tabbed-modal').close()">✕</button>
+        </div>
+
+        <!-- Tab radio inputs BEFORE tab panels (required for :checked ~ sibling trick) -->
+        <input type="radio" name="tab" id="tab-links" class="tab__radio" hidden checked />
+        <input type="radio" name="tab" id="tab-videos" class="tab__radio" hidden />
+        <input type="radio" name="tab" id="tab-tools" class="tab__radio" hidden />
+
+        <!-- Tab labels (acts as tab bar) -->
+        <div class="tab__bar" role="tablist">
+          <label for="tab-links" class="tab__label" role="tab">Links</label>
+          <label for="tab-videos" class="tab__label" role="tab">Videos</label>
+          <label for="tab-tools" class="tab__label" role="tab">Tools</label>
+        </div>
+
+        <!-- Tab panels -->
+        <div class="tab__panels">
+          <section class="tab__panel" id="panel-links" role="tabpanel" aria-labelledby="tab-links-label">
+            <h3 class="sr-only">Useful links</h3>
+            <ul class="resource-list">
+              <li><a href="https://developer.mozilla.org" target="_blank" rel="noopener">MDN Web Docs</a> — Reference for all web standards</li>
+              <li><a href="https://css-tricks.com" target="_blank" rel="noopener">CSS-Tricks</a> — Articles and guides on CSS techniques</li>
+              <li><a href="https://web.dev" target="_blank" rel="noopener">web.dev</a> — Performance and best practices by Google</li>
+            </ul>
+          </section>
+          <section class="tab__panel" id="panel-videos" role="tabpanel" aria-labelledby="tab-videos-label">
+            <h3 class="sr-only">Video resources</h3>
+            <ul class="resource-list">
+              <li><a href="https://www.youtube.com/@KevinPowell" target="_blank" rel="noopener">Kevin Powell</a> — Deep-dive CSS YouTube channel</li>
+              <li><a href="https://www.youtube.com/@WebDevSimplified" target="_blank" rel="noopener">Web Dev Simplified</a> — Fast, clear coding explanations</li>
+            </ul>
+          </section>
+          <section class="tab__panel" id="panel-tools" role="tabpanel" aria-labelledby="tab-tools-label">
+            <h3 class="sr-only">Developer tools</h3>
+            <ul class="resource-list">
+              <li><a href="https://coolors.co" target="_blank" rel="noopener">Coolors</a> — Colour palette generator</li>
+              <li><a href="https://squoosh.app" target="_blank" rel="noopener">Squoosh</a> — Image compression tool</li>
+              <li><a href="https://validator.w3.org" target="_blank" rel="noopener">W3C Validator</a> — HTML validation service</li>
+            </ul>
+          </section>
+        </div>
+
+        <div class="modal__footer">
+          <button class="btn btn--ghost" onclick="document.getElementById('tabbed-modal').close()">Close</button>
+        </div>
+      </dialog>
+
+    </main>
+
+    <footer class="site-footer">
+      <p>HackYourFuture Belgium · Modals — Interactive</p>
+    </footer>
+  </body>
+</html>

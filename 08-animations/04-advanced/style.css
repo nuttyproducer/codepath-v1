@@ -1,0 +1,249 @@
+/* =============================================
+   ANIMATIONS — ADVANCED
+   Branch: animations-advanced
+   ============================================= */
+
+:root {
+  --color-bg: #f8fafc;
+  --color-surface: #ffffff;
+  --color-border: #e2e8f0;
+  --color-text: #1e293b;
+  --color-text-secondary: #64748b;
+  --color-accent: #3b82f6;
+  --color-accent-dark: #2563eb;
+  --color-flip-front: #3b82f6;
+  --color-flip-back: #1e40af;
+  --font-ui: system-ui, -apple-system, sans-serif;
+  --radius: 0.75rem;
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-ui); background: var(--color-bg); color: var(--color-text); line-height: 1.6; }
+
+.skip-link {
+  position: absolute; left: 1rem; top: 1rem; padding: 0.5rem 1rem;
+  background: var(--color-accent); color: white; border-radius: 4px;
+  z-index: 9999; transform: translateY(-200%); transition: transform 0.2s ease;
+}
+.skip-link:focus { transform: translateY(0); }
+
+.page-header { max-width: 900px; margin: 0 auto; padding: 3rem 2rem 1.5rem; }
+.page-header h1 { font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 0.5rem; }
+.page-header p { color: var(--color-text-secondary); }
+.page-main { max-width: 900px; margin: 0 auto; padding: 0 2rem 3rem; display: flex; flex-direction: column; gap: 3rem; }
+.site-footer { border-top: 1px solid var(--color-border); padding: 2rem; text-align: center; color: var(--color-text-secondary); font-size: 0.875rem; }
+code { font-size: 0.875em; background: rgba(99, 102, 241, 0.08); color: #4f46e5; padding: 0.1em 0.4em; border-radius: 0.25rem; }
+
+.demo-section { display: flex; flex-direction: column; gap: 1.25rem; }
+.demo-section h2 { font-size: 1.1rem; border-bottom: 2px solid var(--color-border); padding-bottom: 0.5rem; }
+.demo-section p { color: var(--color-text-secondary); font-size: 0.9375rem; }
+ul { padding-left: 1.5rem; color: var(--color-text-secondary); }
+li { margin-bottom: 0.25rem; font-size: 0.875rem; }
+
+/* =============================================
+   EXERCISE 1: EASING COMPARISON
+   ============================================= */
+.ease-trigger { display: none; }
+
+.btn--accent {
+  display: inline-flex; align-items: center; padding: 0.5rem 1rem;
+  background: var(--color-accent); color: white; border-radius: 0.5rem;
+  font-weight: 600; cursor: pointer; font-family: inherit; font-size: 0.875rem;
+  border: none; align-self: flex-start;
+}
+
+.ease-run-btn { /* ADD: cursor: pointer; — already set via .btn--accent */ }
+
+.ease-demo {
+  display: flex; flex-direction: column; gap: 0.75rem;
+  background: var(--color-surface); padding: 1.5rem; border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+}
+
+.ease-row { display: flex; align-items: center; gap: 1rem; }
+
+.ease-label { font-size: 0.75rem; width: 260px; flex-shrink: 0; }
+
+.ease-bar {
+  height: 0.875rem; width: 1rem; border-radius: 0.25rem;
+  background: var(--color-accent); flex-shrink: 0;
+}
+
+/* When checkbox is checked, animate all bars to the right */
+.ease-trigger:checked ~ .ease-demo .ease-bar {
+  /* ADD: animation: slide-across 1.5s forwards; */
+}
+
+/* Different timing functions per bar */
+.ease-trigger:checked ~ .ease-demo .ease-bar--ease         { /* ADD: animation-timing-function: ease; */ }
+.ease-trigger:checked ~ .ease-demo .ease-bar--ease-in-out  { /* ADD: animation-timing-function: ease-in-out; */ }
+.ease-trigger:checked ~ .ease-demo .ease-bar--linear       { /* ADD: animation-timing-function: linear; */ }
+.ease-trigger:checked ~ .ease-demo .ease-bar--bounce       { /* ADD: animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); */ }
+.ease-trigger:checked ~ .ease-demo .ease-bar--sharp        { /* ADD: animation-timing-function: cubic-bezier(0.87, 0, 0.13, 1); */ }
+
+@keyframes slide-across {
+  from { /* ADD: transform: translateX(0); */ }
+  to   { /* ADD: transform: translateX(calc(100vw - 24rem - 4rem)); */ }
+}
+
+/* =============================================
+   EXERCISE 2: 3D CARD FLIP
+   ============================================= */
+.flip-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.flip-card {
+  /* ADD: perspective: 600px; — sets up 3D context */
+  perspective: 600px;
+  height: 200px; cursor: pointer;
+}
+
+.flip-card__face {
+  /* ADD YOUR STYLES HERE */
+  /* 1. Fill the card: position: absolute; inset: 0; */
+  /* 2. Enable 3D transforms: transform-style: preserve-3d; */
+  /* 3. Hide back of each face: backface-visibility: hidden; */
+  /* 4. Smooth transition: transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1); */
+  /* 5. Style: border-radius, box-shadow, overflow: hidden; */
+  position: absolute; inset: 0;
+  border-radius: var(--radius);
+  display: flex; align-items: center; justify-content: center;
+  /* ADD: transform-style: preserve-3d; backface-visibility: hidden; */
+  /* ADD: transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1); */
+}
+
+/* Front face — visible by default */
+.flip-card__face--front {
+  background: linear-gradient(135deg, var(--color-flip-front) 0%, var(--color-flip-back) 100%);
+  color: white;
+}
+
+/* Back face — rotated 180deg so it's hidden at rest */
+.flip-card__face--back {
+  background: var(--color-surface); color: var(--color-text);
+  border: 2px solid var(--color-border);
+  /* ADD: transform: rotateY(180deg); */
+}
+
+/* On hover, rotate the front out and bring the back in */
+.flip-card:hover .flip-card__face--front {
+  /* ADD: transform: rotateY(-180deg); */
+}
+.flip-card:hover .flip-card__face--back {
+  /* ADD: transform: rotateY(0deg); */
+}
+
+/* Keyboard-accessible: focus-within triggers flip */
+.flip-card:focus-within .flip-card__face--front {
+  /* ADD: Same as hover */ 
+}
+.flip-card:focus-within .flip-card__face--back {
+  /* ADD: Same as hover */
+}
+
+.flip-card__inner {
+  padding: 1.25rem; text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+}
+.flip-card__icon { font-size: 2rem; }
+.flip-card__face--front h3 { font-size: 1rem; font-weight: 700; }
+.flip-card__face--front p { font-size: 0.8125rem; opacity: 0.8; }
+.flip-card__face--back h3 { font-size: 0.9375rem; font-weight: 700; margin-bottom: 0.5rem; }
+.flip-card__face--back p { font-size: 0.8125rem; color: var(--color-text-secondary); }
+
+/* =============================================
+   EXERCISE 3: SVG ICON ANIMATIONS
+   ============================================= */
+.icon-animation-row { display: flex; gap: 2rem; flex-wrap: wrap; }
+
+.icon-anim-demo { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; }
+.icon-anim-demo p { font-size: 0.8125rem; color: var(--color-text-secondary); }
+
+.icon-anim-wrapper {
+  width: 80px; height: 80px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--color-surface); border: 1px solid var(--color-border);
+  border-radius: var(--radius); cursor: pointer;
+  color: var(--color-accent);
+}
+
+/* SVG draw-on technique: stroke-dashoffset */
+.icon-svg--draw .icon-svg__path {
+  /* ADD YOUR STYLES HERE */
+  /* 1. Measure path length (approx for polyline): stroke-dasharray: 30; */
+  /* 2. Start fully hidden: stroke-dashoffset: 30; */
+  /* 3. Transition to revealed: */
+  /* transition: stroke-dashoffset 0.5s cubic-bezier(0.23, 1, 0.32, 1); */
+}
+.icon-anim-wrapper:hover .icon-svg--draw .icon-svg__path,
+.icon-anim-wrapper:focus-visible .icon-svg--draw .icon-svg__path {
+  /* ADD: stroke-dashoffset: 0; */
+}
+
+/* Spin animation */
+.icon-anim-wrapper--spin .icon-svg {
+  transition: transform 0.3s ease;
+}
+.icon-anim-wrapper--spin:hover .icon-svg {
+  /* ADD: animation: spin-icon 0.6s linear; */
+}
+
+@keyframes spin-icon {
+  to { /* ADD: transform: rotate(360deg); */ }
+}
+
+/* Bounce animation */
+.icon-anim-wrapper--bounce .icon-svg {
+  transition: transform 0.3s ease;
+}
+.icon-anim-wrapper--bounce:hover .icon-svg {
+  /* ADD: animation: bounce-icon 0.5s var(--ease-bounce); */
+}
+
+@keyframes bounce-icon {
+  0%   { transform: translateY(0); }
+  40%  { /* ADD: transform: translateY(-8px); */ }
+  70%  { /* ADD: transform: translateY(-4px); */ }
+  100% { transform: translateY(0); }
+}
+
+/* Hamburger to ✕ morph */
+.icon-svg--hamburger .ham-line {
+  /* ADD: transition: transform 0.3s ease, opacity 0.2s ease; */
+  /* transform-origin: center center; */
+  transition: transform 0.3s ease, opacity 0.2s ease;
+  transform-origin: 12px 12px; /* SVG centre */
+}
+
+/* When checkbox is checked, morph the lines */
+#morph-check:checked ~ .icon-svg--hamburger .ham-line--top {
+  /* ADD: transform: translateY(6px) rotate(45deg); */
+}
+#morph-check:checked ~ .icon-svg--hamburger .ham-line--mid {
+  /* ADD: opacity: 0; transform: scaleX(0); */
+}
+#morph-check:checked ~ .icon-svg--hamburger .ham-line--bottom {
+  /* ADD: transform: translateY(-6px) rotate(-45deg); */
+}
+
+/* =============================================
+   ACCESSIBILITY: REDUCED MOTION
+   ============================================= */
+@media (prefers-reduced-motion: reduce) {
+  .ease-bar,
+  .flip-card__face,
+  .icon-svg--draw .icon-svg__path,
+  .icon-anim-wrapper--spin .icon-svg,
+  .icon-anim-wrapper--bounce .icon-svg,
+  .ham-line {
+    animation: none !important;
+    transition: none !important;
+  }
+  /* Flip card: show back content without animation */
+  .flip-card:hover .flip-card__face--front { opacity: 0; }
+  .flip-card:hover .flip-card__face--back  { opacity: 1; }
+}

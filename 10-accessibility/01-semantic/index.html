@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Accessibility — Semantic HTML</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="page-header">
+      <h1>Accessibility — Semantic HTML</h1>
+      <p>Fix the broken "div soup" page. Add landmark elements, headings, and semantic markup.</p>
+    </header>
+
+    <main class="page-main" id="main-content">
+
+      <!-- EXERCISE 1: FIX THIS "DIV SOUP" PAGE -->
+      <section class="demo-section" aria-labelledby="ex1-heading">
+        <h2 id="ex1-heading">Exercise 1 — Identify &amp; fix the bad markup</h2>
+        <p>
+          The box below uses only <code>&lt;div&gt;</code> and <code>&lt;span&gt;</code> elements. 
+          A screen reader cannot navigate this page at all. Your job: rewrite it with proper semantic HTML.
+          Do not change the CSS classes — only the element tags.
+        </p>
+
+        <div class="bad-example" aria-label="Bad example — do not replicate">
+          <div class="bad-label">⚠️ Bad example — "div soup"</div>
+          <!-- 
+            This entire block should be rewritten.
+            The correct elements are listed as comments within.
+            
+            EXERCISE: Replace each <div> / <span> with the correct element.
+            Keep all classes exactly the same — only change the tags.
+          -->
+          <div class="site-nav">
+            <!-- Should be: <nav aria-label="Main navigation"> -->
+            <div class="brand">HYF Belgium</div>
+            <!-- <brand> doesn't exist — use <a> with a class -->
+            <div class="nav-links">
+              <!-- Should be: <ul role="list"> -->
+              <div class="nav-item"><div class="nav-link">Home</div></div>
+              <!-- Should be: <li><a href="/">Home</a></li> -->
+              <div class="nav-item"><div class="nav-link">Courses</div></div>
+              <div class="nav-item"><div class="nav-link">About</div></div>
+              <div class="nav-item"><div class="nav-link">Contact</div></div>
+            </div>
+          </div>
+
+          <div class="hero">
+            <!-- Should be: <section aria-labelledby="hero-heading"> or just semantic layout -->
+            <div class="big-title">Learn Web Development</div>
+            <!-- Should be: <h1 id="hero-heading"> -->
+            <div class="subtitle">Join HYF Belgium and change your life through code.</div>
+            <!-- Should be: <p class="subtitle"> -->
+            <div class="cta-button">Get started</div>
+            <!-- Should be: <a href="/apply" class="cta-button" role="button"> or <button> -->
+          </div>
+
+          <div class="article-section">
+            <!-- Should be: <main id="main-content"> or <article> -->
+            <div class="article-title">Our curriculum</div>
+            <!-- Should be: <h2 class="article-title"> -->
+            <div class="article-text">
+              We cover HTML, CSS, JavaScript, Node.js, and databases over 8 months.
+            </div>
+            <!-- Should be: <p> -->
+            <div class="modules-list">
+              <!-- Should be: <ul> or <ol> if order matters -->
+              <div class="module-item">
+                <div class="module-icon">💻</div>
+                <!-- aria-hidden="true" on decorative icons -->
+                <div class="module-name">HTML &amp; CSS</div>
+                <!-- Should be: <li> containing the icon and name -->
+              </div>
+              <div class="module-item">
+                <div class="module-icon">⚙️</div>
+                <div class="module-name">JavaScript</div>
+              </div>
+              <div class="module-item">
+                <div class="module-icon">🗄️</div>
+                <div class="module-name">Databases</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="page-footer">
+            <!-- Should be: <footer> -->
+            <div class="footer-text">© 2025 HYF Belgium</div>
+            <!-- Should be: <p> -->
+          </div>
+        </div>
+      </section>
+
+      <!-- EXERCISE 2: SEMANTIC ARTICLE PAGE -->
+      <section class="demo-section" aria-labelledby="ex2-heading">
+        <h2 id="ex2-heading">Exercise 2 — Build a semantic article page</h2>
+        <p>Using only semantic elements (no divs for structural purpose), build this article layout:</p>
+
+        <article class="article-demo">
+          <!--
+            HINT: Use these elements where appropriate:
+            <article>  — the article container
+            <header>   — article title + meta
+            <h1>       — article title
+            <address>  — author info (semantic!)
+            <time>     — machine-readable date
+            <section>  — logical content sections
+            <h2>       — section headings
+            <p>        — paragraphs
+            <blockquote> — quoted material
+            <figure> + <figcaption> — images with captions
+            <footer>   — article footer / tags
+            <nav aria-label="Article contents"> — in-article TOC
+          -->
+          <header class="article-demo__header">
+            <h2 class="article-demo__title">Getting started with semantic HTML</h2>
+            <p class="article-demo__meta">
+              By <address class="article-demo__author"><a rel="author" href="#">Ben Solar</a></address>
+              on <time datetime="2025-03-15">March 15, 2025</time>
+            </p>
+          </header>
+
+          <nav class="article-demo__toc" aria-label="Article contents">
+            <h3>Contents</h3>
+            <ol>
+              <li><a href="#what-is-semantic">What is semantic HTML?</a></li>
+              <li><a href="#why-it-matters">Why it matters</a></li>
+              <li><a href="#key-elements">Key elements</a></li>
+            </ol>
+          </nav>
+
+          <section id="what-is-semantic">
+            <h3>What is semantic HTML?</h3>
+            <p>
+              Semantic HTML means using HTML elements for their intended purpose — 
+              not just for how they look. A <code>&lt;button&gt;</code> communicates 
+              "click me" to screen readers. A <code>&lt;nav&gt;</code> communicates 
+              "this is navigation". A <code>&lt;main&gt;</code> communicates 
+              "this is the main content of the page".
+            </p>
+          </section>
+
+          <section id="why-it-matters">
+            <h3>Why it matters</h3>
+            <blockquote>
+              <p>"The power of the Web is in its universality. Access by everyone regardless of disability is an essential aspect."</p>
+              <footer>— <cite>Tim Berners-Lee</cite>, inventor of the World Wide Web</footer>
+            </blockquote>
+            <p>Semantic HTML is the foundation of accessibility. Screen readers, search engines, and browser extensions all rely on it.</p>
+          </section>
+
+          <section id="key-elements">
+            <h3>Key elements</h3>
+            <figure>
+              <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&q=75" alt="Code editor showing HTML" loading="lazy" />
+              <figcaption>VS Code with semantic HTML. Notice the use of landmark elements in the outline panel.</figcaption>
+            </figure>
+          </section>
+
+          <footer class="article-demo__footer">
+            <p>Tags: <a href="#">HTML</a>, <a href="#">Accessibility</a>, <a href="#">Semantics</a></p>
+          </footer>
+        </article>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <p>HackYourFuture Belgium · Accessibility — Semantic HTML</p>
+    </footer>
+  </body>
+</html>

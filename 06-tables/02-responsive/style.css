@@ -1,0 +1,129 @@
+/* =============================================
+   TABLES — RESPONSIVE
+   Branch: tables-responsive
+   ============================================= */
+
+:root {
+  --color-bg: #f8fafc;
+  --color-surface: #ffffff;
+  --color-border: #e2e8f0;
+  --color-text: #1e293b;
+  --color-text-secondary: #64748b;
+  --color-accent: #3b82f6;
+  --color-zebra: #f8fafc;
+  --color-sticky-bg: #eff6ff;
+  --font-ui: system-ui, -apple-system, sans-serif;
+  --radius: 0.75rem;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-ui); background: var(--color-bg); color: var(--color-text); line-height: 1.6; }
+
+.skip-link {
+  position: absolute; left: 1rem; top: 1rem; padding: 0.5rem 1rem;
+  background: var(--color-accent); color: white; border-radius: 4px;
+  z-index: 9999; transform: translateY(-200%); transition: transform 0.2s ease;
+}
+.skip-link:focus { transform: translateY(0); }
+
+.page-header { max-width: 960px; margin: 0 auto; padding: 3rem 2rem 1.5rem; }
+.page-header h1 { font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 0.5rem; }
+.page-header p { color: var(--color-text-secondary); }
+.page-main { max-width: 960px; margin: 0 auto; padding: 0 2rem 3rem; display: flex; flex-direction: column; gap: 3rem; }
+.site-footer { border-top: 1px solid var(--color-border); padding: 2rem; text-align: center; color: var(--color-text-secondary); font-size: 0.875rem; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+code { font-size: 0.875em; background: rgba(99, 102, 241, 0.08); color: #4f46e5; padding: 0.1em 0.4em; border-radius: 0.25rem; }
+.hint { font-size: 0.8125rem; color: var(--color-text-secondary); font-style: italic; }
+
+.demo-section { display: flex; flex-direction: column; gap: 1.25rem; }
+.demo-section h2 { font-size: 1.1rem; border-bottom: 2px solid var(--color-border); padding-bottom: 0.5rem; }
+.demo-section > p { color: var(--color-text-secondary); font-size: 0.9375rem; }
+
+/* =============================================
+   BASE TABLE STYLES
+   ============================================= */
+.data-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+.data-table caption {
+  caption-side: top; text-align: left; font-weight: 600;
+  font-size: 0.8125rem; color: var(--color-text-secondary);
+  padding: 0 0 0.75rem; letter-spacing: 0.03em; text-transform: uppercase;
+}
+.data-table th, .data-table td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid var(--color-border); }
+.data-table thead th { background: #f1f5f9; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-text-secondary); }
+.data-table tbody tr:nth-child(even) { background: var(--color-zebra); }
+.data-table tbody tr:hover { background: #eff6ff; }
+
+/* BADGES */
+.badge { display: inline-block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.2em 0.55em; border-radius: 9999px; }
+.badge--success { background: #dcfce7; color: #15803d; }
+.badge--warning { background: #fef9c3; color: #a16207; }
+.badge--danger  { background: #fee2e2; color: #dc2626; }
+.badge--neutral { background: #f1f5f9; color: #64748b; }
+
+/* =============================================
+   EXERCISE 1: HORIZONTAL SCROLL + GRADIENT HINT
+   ============================================= */
+.table-scroll-wrapper {
+  /* ADD: overflow-x: auto; */
+  overflow-x: auto;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  background: var(--color-surface);
+  /* ADD: position: relative; — needed for the ::after pseudo-element */
+  position: relative;
+}
+
+.table-scroll-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  /* ADD: width: 3rem; height: 100%; */
+  /* ADD: background: linear-gradient(to right, transparent, white); */
+  /* ADD: pointer-events: none; — so users can still click through the gradient */
+  pointer-events: none;
+  /* Uncomment to reveal the gradient hint: */
+  /* width: 3rem; height: 100%;
+     background: linear-gradient(to right, transparent, var(--color-surface)); */
+}
+
+/* STICKY FIRST COLUMN */
+.col-sticky {
+  /* ADD: position: sticky; left: 0; z-index: 1; */
+  /* ADD: background: inherit; — inherits from row (zebra or hover) */
+  /* ADD: box-shadow: 2px 0 4px rgba(0,0,0,0.06); — right-side shadow to separate */
+}
+
+.col-total { font-weight: 700; background: #f0fdf4; color: #15803d; }
+
+/* =============================================
+   EXERCISE 2: CARD-STYLE MOBILE TABLE
+   ============================================= */
+@media (max-width: 600px) {
+  .data-table--card { display: block; }
+
+  .data-table--card thead {
+    /* ADD: display: none; — hide header row on small screens */
+  }
+
+  .data-table--card tbody { display: block; }
+
+  .data-table--card tr {
+    /* ADD: display: block; — each row becomes a card block */
+    /* ADD: margin-bottom: 1rem; border-radius: var(--radius); border: 1px solid var(--color-border); */
+  }
+
+  .data-table--card td {
+    /* ADD: display: flex; justify-content: space-between; */
+    /* ADD: border-bottom: 1px dashed var(--color-border); */
+    padding: 0.625rem 1rem;
+  }
+
+  .data-table--card td::before {
+    /* ADD: content: attr(data-label); — pulls label from HTML attribute */
+    /* ADD: font-weight: 600; font-size: 0.75rem; color: var(--color-text-secondary); */
+    /* ADD: text-transform: uppercase; letter-spacing: 0.06em; */
+  }
+
+  .data-table--card td:last-child { border-bottom: none; }
+}

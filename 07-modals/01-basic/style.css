@@ -1,0 +1,192 @@
+/* =============================================
+   MODALS — BASIC MODAL DIALOG
+   Branch: modals-basic
+   ============================================= */
+
+:root {
+  --color-bg: #f8fafc;
+  --color-surface: #ffffff;
+  --color-border: #e2e8f0;
+  --color-text: #1e293b;
+  --color-text-secondary: #64748b;
+  --color-accent: #3b82f6;
+  --color-accent-dark: #2563eb;
+  --color-danger: #dc2626;
+  --color-danger-dark: #b91c1c;
+  --color-danger-bg: #fef2f2;
+  --modal-width: 540px;
+  --modal-width-sm: 400px;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --font-ui: system-ui, -apple-system, sans-serif;
+  --radius: 0.75rem;
+  --transition: 0.2s ease;
+  --shadow-modal: 0 20px 60px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.06);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-ui); background: var(--color-bg); color: var(--color-text); line-height: 1.6; }
+
+.skip-link {
+  position: absolute; left: 1rem; top: 1rem; padding: 0.5rem 1rem;
+  background: var(--color-accent); color: white; border-radius: 4px;
+  z-index: 9999; transform: translateY(-200%); transition: transform var(--transition);
+}
+.skip-link:focus { transform: translateY(0); }
+
+/* =============================================
+   PAGE
+   ============================================= */
+.page-header {
+  max-width: 700px; margin: 0 auto; padding: var(--space-2xl) var(--space-xl) var(--space-lg);
+}
+.page-header h1 { font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: var(--space-sm); }
+.page-header p { color: var(--color-text-secondary); }
+
+.page-main { max-width: 700px; margin: 0 auto; padding: 0 var(--space-xl) var(--space-2xl); }
+
+.trigger-buttons {
+  display: flex; gap: var(--space-md); flex-wrap: wrap; margin-bottom: var(--space-xl);
+}
+
+.site-footer {
+  border-top: 1px solid var(--color-border); padding: var(--space-xl);
+  text-align: center; color: var(--color-text-secondary); font-size: 0.875rem;
+}
+
+code {
+  font-size: 0.875em; background: rgba(99, 102, 241, 0.08);
+  color: #4f46e5; padding: 0.1em 0.4em; border-radius: 0.25rem;
+}
+
+/* =============================================
+   EXERCISE 1: <dialog> ELEMENT
+   ============================================= */
+.modal {
+  /* ADD YOUR STYLES HERE */
+  /* border: none; */
+  /* border-radius: var(--radius); */
+  /* padding: 0; */
+  /* width: min(var(--modal-width), calc(100vw - 2rem)); */
+  /* max-height: calc(100vh - 4rem); */
+  /* overflow-y: auto; */
+  /* box-shadow: var(--shadow-modal); */
+  /* background: var(--color-surface); */
+  /* color: var(--color-text); */
+  
+  /* Animation: modal slides in from above */
+  /* animation: modal-enter 0.25s cubic-bezier(0.23, 1, 0.32, 1) forwards; */
+}
+
+/* EXERCISE 1a: The entrance animation */
+@keyframes modal-enter {
+  from {
+    /* ADD: opacity: 0; transform: translateY(-20px) scale(0.97); */
+  }
+  to {
+    /* ADD: opacity: 1; transform: translateY(0) scale(1); */
+  }
+}
+
+/* EXERCISE 1b: The ::backdrop — the dark overlay behind the modal */
+.modal::backdrop {
+  /* ADD: background: rgba(0, 0, 0, 0.5); */
+  /* backdrop-filter: blur(4px); */
+  /* animation: backdrop-enter 0.25s ease forwards; */
+}
+
+@keyframes backdrop-enter {
+  from { /* ADD: opacity: 0; */ }
+  to   { /* ADD: opacity: 1; */ }
+}
+
+/* Small size modifier */
+.modal--sm {
+  /* ADD: width: min(var(--modal-width-sm), calc(100vw - 2rem)); */
+}
+
+/* =============================================
+   MODAL STRUCTURE
+   ============================================= */
+.modal__header {
+  /* ADD: display: flex; align-items: center; gap; */
+  /* padding: var(--space-lg) var(--space-lg) var(--space-md); */
+  /* border-bottom: 1px solid var(--color-border); */
+  /* position: sticky; top: 0; background: var(--color-surface); z-index: 1; */
+}
+
+.modal__header--warning {
+  /* ADD: background: var(--color-danger-bg); — subtle red tint for destructive dialogs */
+}
+
+.modal__icon { font-size: 1.5rem; }
+
+.modal__title {
+  /* ADD: font-size: 1.1rem; flex: 1; */
+}
+
+.modal__close {
+  /* ADD: Background-less icon button */
+  /* background: none; border: none; cursor: pointer; */
+  /* width: 2rem; height: 2rem; border-radius: 0.375rem; */
+  /* display: flex; align-items: center; justify-content: center; */
+  /* color: var(--color-text-secondary); */
+  /* hover: background: var(--color-border); */
+  /* margin-left: auto; flex-shrink: 0; */
+}
+.modal__close:hover { /* ADD */ }
+.modal__close:focus-visible { /* ADD: focus ring */ }
+
+.modal__body {
+  /* ADD: padding: var(--space-lg); */
+  /* display: flex; flex-direction: column; gap: var(--space-md); */
+}
+
+.modal__footer {
+  /* ADD: padding: var(--space-md) var(--space-lg) var(--space-lg); */
+  /* display: flex; justify-content: flex-end; gap: var(--space-sm); */
+  /* border-top: 1px solid var(--color-border); */
+  /* position: sticky; bottom: 0; background: var(--color-surface); */
+}
+
+/* =============================================
+   BUTTONS
+   ============================================= */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 0.625rem 1.25rem; border: 2px solid transparent;
+  border-radius: 0.5rem; font-family: inherit; font-size: 0.9375rem;
+  font-weight: 600; cursor: pointer;
+  transition: background-color var(--transition), border-color var(--transition), transform var(--transition);
+}
+.btn:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
+.btn:active { transform: scale(0.98); }
+
+.btn--primary { background: var(--color-accent); color: white; }
+.btn--primary:hover { background: var(--color-accent-dark); }
+
+.btn--secondary {
+  background: var(--color-surface); color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+.btn--secondary:hover { background: #eff6ff; }
+
+.btn--ghost {
+  background: transparent; color: var(--color-text-secondary);
+  border-color: var(--color-border);
+}
+.btn--ghost:hover { background: var(--color-bg); }
+
+.btn--danger { background: var(--color-danger); color: white; }
+.btn--danger:hover { background: var(--color-danger-dark); }
+
+/* =============================================
+   ACCESSIBILITY: REDUCED MOTION
+   ============================================= */
+@media (prefers-reduced-motion: reduce) {
+  .modal { animation: none !important; }
+  .modal::backdrop { animation: none !important; }
+}

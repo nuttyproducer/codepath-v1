@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Navigation — Mega Menu</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="site-header">
+      <div class="header-inner">
+        <a href="/" class="site-logo">🌐 HYF</a>
+
+        <nav class="site-nav" aria-label="Main navigation">
+          <ul class="nav-list">
+
+            <!-- Simple link — no dropdown -->
+            <li class="nav-item">
+              <a href="#" class="nav-link" aria-current="page">Home</a>
+            </li>
+
+            <!-- EXERCISE 1: DROPDOWN MENU -->
+            <!-- Use :hover + :focus-within to reveal the dropdown -->
+            <!-- ADD: aria-expanded="false" (document that JS is needed to update it) -->
+            <li class="nav-item nav-item--dropdown">
+              <a href="#" class="nav-link nav-link--parent" aria-haspopup="true">
+                Curriculum
+                <span class="nav-link__arrow" aria-hidden="true">▾</span>
+              </a>
+              <!-- The dropdown panel — hidden by default -->
+              <ul class="dropdown-menu" role="list">
+                <li><a href="#" class="dropdown-link">HTML Fundamentals</a></li>
+                <li><a href="#" class="dropdown-link">CSS & Layouts</a></li>
+                <li><a href="#" class="dropdown-link">JavaScript Basics</a></li>
+                <li><a href="#" class="dropdown-link">React & Node.js</a></li>
+                <li><a href="#" class="dropdown-link">Databases & SQL</a></li>
+              </ul>
+            </li>
+
+            <!-- EXERCISE 2: MEGA MENU (multi-column) -->
+            <!-- A wider dropdown with categorised columns of links -->
+            <li class="nav-item nav-item--mega">
+              <a href="#" class="nav-link nav-link--parent" aria-haspopup="true">
+                Community
+                <span class="nav-link__arrow" aria-hidden="true">▾</span>
+              </a>
+              <!-- ADD: position absolute, full-width (or wide) mega menu panel -->
+              <div class="mega-menu" role="group" aria-label="Community menu">
+                <div class="mega-menu__column">
+                  <h3 class="mega-menu__heading">Students</h3>
+                  <ul class="mega-menu__list">
+                    <li><a href="#" class="mega-menu__link">Current cohorts</a></li>
+                    <li><a href="#" class="mega-menu__link">Alumni network</a></li>
+                    <li><a href="#" class="mega-menu__link">Student projects</a></li>
+                  </ul>
+                </div>
+                <div class="mega-menu__column">
+                  <h3 class="mega-menu__heading">Coaches</h3>
+                  <ul class="mega-menu__list">
+                    <li><a href="#" class="mega-menu__link">Become a coach</a></li>
+                    <li><a href="#" class="mega-menu__link">Coach resources</a></li>
+                    <li><a href="#" class="mega-menu__link">Q&amp;A sessions</a></li>
+                  </ul>
+                </div>
+                <div class="mega-menu__column">
+                  <h3 class="mega-menu__heading">Events</h3>
+                  <ul class="mega-menu__list">
+                    <li><a href="#" class="mega-menu__link">Demo days</a></li>
+                    <li><a href="#" class="mega-menu__link">Graduation</a></li>
+                    <li><a href="#" class="mega-menu__link">Workshops</a></li>
+                  </ul>
+                </div>
+                <!-- ADD: Optional 4th column — featured article card -->
+                <div class="mega-menu__column mega-menu__column--featured">
+                  <a href="#" class="mega-menu__featured">
+                    <div class="mega-menu__featured-img" aria-hidden="true"></div>
+                    <strong>Read: How Amira found her first job in tech</strong>
+                  </a>
+                </div>
+              </div>
+            </li>
+
+            <li class="nav-item">
+              <a href="#" class="nav-link">Partners</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">About</a>
+            </li>
+
+          </ul>
+        </nav>
+
+        <a href="#" class="nav-cta">Apply now</a>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <section class="hero">
+        <h1>Hover over the navigation links</h1>
+        <p>Try "Curriculum" for a simple dropdown. Try "Community" for a mega menu. Both must work with keyboard navigation (Tab + focus-within).</p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>HackYourFuture Belgium · Navigation — Mega Menu</p>
+    </footer>
+  </body>
+</html>

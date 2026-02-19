@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Accessibility — Keyboard Navigation</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+
+    <!-- EXERCISE 1: SKIP LINK — must be the very first focusable element -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="page-header">
+      <h1>Accessibility — Keyboard Navigation</h1>
+      <p>Skip links, <code>:focus-visible</code> system, tab order, and accessible accordion.</p>
+    </header>
+
+    <main class="page-main" id="main-content">
+
+      <!-- EXERCISE 1: SKIP LINK -->
+      <section class="demo-section" aria-labelledby="ex1-heading">
+        <h2 id="ex1-heading">Exercise 1 — Skip link</h2>
+        <p>
+          Press <kbd>Tab</kbd> while this page is loaded (no pre-focus). 
+          The first Tab keypress should reveal the skip link in the top-left corner. 
+          Pressing <kbd>Enter</kbd> should jump directly to the main content, 
+          skipping the navigation entirely.
+        </p>
+        <div class="callout callout--info">
+          <p>
+            <strong>How to test:</strong> Click in the browser address bar, then press Tab. 
+            You should see the skip link appear. 
+            Press Enter to activate it. Press Tab again — focus should be inside <code>#main-content</code>.
+          </p>
+        </div>
+        <!--
+          TECHNIQUE (see style.css):
+          .skip-link { position: absolute; left: 1rem; top: 1rem; transform: translateY(-200%); transition: transform 0.2s; }
+          .skip-link:focus { transform: translateY(0); }
+          
+          The key: it's only visible on :focus — hidden off-screen otherwise.
+          Using transform instead of display:none keeps it in the accessibility tree.
+        -->
+      </section>
+
+      <!-- EXERCISE 2: :focus-visible RING SYSTEM -->
+      <section class="demo-section" aria-labelledby="ex2-heading">
+        <h2 id="ex2-heading">Exercise 2 — <code>:focus-visible</code> ring system</h2>
+        <p>
+          Tab through the interactive elements below. Notice that only keyboard focus shows a ring — 
+          mouse clicks do not trigger the visible outline.
+        </p>
+        <p class="hint">
+          <strong>:focus</strong> fires for ALL focus (mouse, touch, keyboard). 
+          <strong>:focus-visible</strong> fires only when the browser determines a visible focus indicator is needed — 
+          typically keyboard navigation.
+        </p>
+
+        <div class="focus-demo">
+          <!--
+            TECHNIQUE:
+            * { outline: none; }
+            *:focus-visible {
+              outline: 3px solid var(--color-accent);
+              outline-offset: 3px;
+              border-radius: 4px;
+            }
+            
+            Never remove focus styles entirely — that's a WCAG 2.1 failure.
+            Use :focus-visible to show them only when needed.
+          -->
+          <button class="btn btn--primary" type="button">Primary button</button>
+          <button class="btn btn--outline" type="button">Secondary button</button>
+          <a href="#ex2-heading" class="focus-link">Link to top</a>
+          <input type="text" class="focus-input" placeholder="Type here..." aria-label="Demo text input" />
+          <select class="focus-select" aria-label="Select cohort">
+            <option>2025A</option>
+            <option>2024B</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- EXERCISE 3: TAB ORDER DEMO -->
+      <section class="demo-section" aria-labelledby="ex3-heading">
+        <h2 id="ex3-heading">Exercise 3 — Tab order &amp; <code>tabindex</code></h2>
+        <p>
+          Tab through the numbered elements. Notice the correct order. 
+          Then look at the "broken" version and try to identify why the order is wrong.
+        </p>
+
+        <div class="tab-order-demo">
+          <h3>Correct tab order</h3>
+          <div class="order-grid">
+            <button class="order-item" type="button">1. First</button>
+            <button class="order-item" type="button">2. Second</button>
+            <button class="order-item" type="button">3. Third</button>
+            <button class="order-item" type="button">4. Fourth</button>
+          </div>
+        </div>
+
+        <div class="tab-order-demo tab-order-demo--broken">
+          <h3>⚠️ Broken tab order (find the bug)</h3>
+          <!--
+            EXERCISE: Identify what is wrong with this tab order.
+            Hint: inspect the tabindex values.
+            
+            Using positive tabindex values (tabindex="2", tabindex="1") is an anti-pattern.
+            They override natural DOM order and create confusing non-linear navigation.
+            
+            FIX: Remove all positive tabindex values. Use only tabindex="0" to include
+            a non-interactive element in tab order, or tabindex="-1" to remove it.
+          -->
+          <div class="order-grid">
+            <button class="order-item" tabindex="3" type="button">Shows last (tabindex=3)</button>
+            <button class="order-item" tabindex="1" type="button">Shows first (tabindex=1)</button>
+            <button class="order-item" tabindex="4" type="button">Shows 4th (tabindex=4)</button>
+            <button class="order-item" tabindex="2" type="button">Shows second (tabindex=2)</button>
+          </div>
+          <p class="hint">↑ Tab through these. The order doesn't match the visual layout. Fix by removing the <code>tabindex</code> attributes.</p>
+        </div>
+      </section>
+
+      <!-- EXERCISE 4: ACCESSIBLE ACCORDION with <details> -->
+      <section class="demo-section" aria-labelledby="ex4-heading">
+        <h2 id="ex4-heading">Exercise 4 — Accessible accordion with <code>&lt;details&gt;</code></h2>
+        <p>
+          The native <code>&lt;details&gt;</code> element is keyboard-accessible out of the box. 
+          It can be focused, opened with Enter/Space, and screen readers announce its state. 
+          Style it to look like a custom accordion.
+        </p>
+
+        <!--
+          TECHNIQUE:
+          details { /* base card styles */ }
+          summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; }
+          summary::marker, summary::-webkit-details-marker { display: none; }
+          details[open] summary .accordion-icon { transform: rotate(90deg); }
+        -->
+        <div class="accordion">
+          <details class="accordion-item">
+            <summary class="accordion-summary">
+              What is HackYourFuture Belgium?
+              <span class="accordion-icon" aria-hidden="true">▶</span>
+            </summary>
+            <div class="accordion-body">
+              <p>HackYourFuture Belgium is a free coding school for refugees and newcomers. We teach web development skills to help people build new careers.</p>
+            </div>
+          </details>
+
+          <details class="accordion-item">
+            <summary class="accordion-summary">
+              Who can apply?
+              <span class="accordion-icon" aria-hidden="true">▶</span>
+            </summary>
+            <div class="accordion-body">
+              <p>Applications are open to refugees, asylum seekers, and other newcomers who face barriers to employment. Basic computer literacy is required.</p>
+            </div>
+          </details>
+
+          <details class="accordion-item">
+            <summary class="accordion-summary">
+              What will I learn?
+              <span class="accordion-icon" aria-hidden="true">▶</span>
+            </summary>
+            <div class="accordion-body">
+              <p>The curriculum includes HTML, CSS, JavaScript, React, Node.js, and databases. The programme runs over 8 months and includes real project work.</p>
+            </div>
+          </details>
+
+          <details class="accordion-item">
+            <summary class="accordion-summary">
+              Is there a cost?
+              <span class="accordion-icon" aria-hidden="true">▶</span>
+            </summary>
+            <div class="accordion-body">
+              <p>No — the programme is entirely free for students. HackYourFuture Belgium is funded by grants, donations, and partnerships with companies.</p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <p>HackYourFuture Belgium · Accessibility — Keyboard Navigation</p>
+    </footer>
+  </body>
+</html>

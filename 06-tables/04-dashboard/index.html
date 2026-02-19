@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tables — Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="page-header">
+      <h1>Tables — Dashboard</h1>
+      <p>Expandable rows, mini CSS bar charts, <code>data-trend</code> indicators, and CSS-only pagination.</p>
+    </header>
+
+    <main class="page-main" id="main-content">
+
+      <!-- EXERCISE 1: EXPANDABLE ROWS -->
+      <section class="demo-section">
+        <h2>Exercise 1 — Expandable rows with <code>:checked</code></h2>
+        <p>Click a row to reveal expanded detail. Pure CSS using hidden checkboxes and the adjacent sibling selector.</p>
+
+        <!--
+          TECHNIQUE:
+          .expand-row__toggle:checked + tr { display: table-row; } — show next row
+          Actually needs a wrapping approach since CSS can't target parent:
+          Use <label> in row → toggles hidden <input> → next <tr> is the detail row
+          
+          Easier pattern: put detail in same <tr> in a cell that spans all columns,
+          hidden by default, revealed when a checkbox in the row above is checked.
+          We use a sibling <tr> approach with a hidden checkbox before the table body rows.
+        -->
+        <div class="table-scroll-wrapper" role="region" aria-label="Expandable cohort data">
+          <table class="data-table expand-table">
+            <caption>Cohort overview — click to expand</caption>
+            <thead>
+              <tr>
+                <th scope="col" class="col-expand"><span class="sr-only">Expand</span></th>
+                <th scope="col">Cohort</th>
+                <th scope="col">Students</th>
+                <th scope="col">Avg. Score</th>
+                <th scope="col">Completion</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="expand-row">
+                <td class="col-expand">
+                  <input type="checkbox" id="expand-2025a" class="expand-checkbox" hidden />
+                  <label for="expand-2025a" class="expand-btn" aria-expanded="false">
+                    <span class="expand-icon">▶</span>
+                  </label>
+                </td>
+                <td>2025A</td>
+                <td>24</td>
+                <td>7.4 / 10</td>
+                <td>78%</td>
+              </tr>
+              <tr class="expand-detail" id="detail-2025a">
+                <!-- ADD: display: none; by default; show when #expand-2025a is checked -->
+                <td colspan="5">
+                  <div class="expand-detail__content">
+                    <h4>2025A — Assignment breakdown</h4>
+                    <ul>
+                      <li>HTML Forms: avg 8.1</li>
+                      <li>CSS Flexbox: avg 7.9</li>
+                      <li>Navigation: avg 7.0</li>
+                      <li>Cards: avg 6.8</li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+              <tr class="expand-row">
+                <td class="col-expand">
+                  <input type="checkbox" id="expand-2024b" class="expand-checkbox" hidden />
+                  <label for="expand-2024b" class="expand-btn" aria-expanded="false">
+                    <span class="expand-icon">▶</span>
+                  </label>
+                </td>
+                <td>2024B</td>
+                <td>22</td>
+                <td>8.2 / 10</td>
+                <td>91%</td>
+              </tr>
+              <tr class="expand-detail" id="detail-2024b">
+                <td colspan="5">
+                  <div class="expand-detail__content">
+                    <h4>2024B — Assignment breakdown</h4>
+                    <ul>
+                      <li>HTML Forms: avg 8.8</li>
+                      <li>CSS Flexbox: avg 8.5</li>
+                      <li>Navigation: avg 8.3</li>
+                      <li>Cards: avg 7.9</li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- EXERCISE 2: MINI BAR CHART CELLS + data-trend -->
+      <section class="demo-section">
+        <h2>Exercise 2 — Inline bar charts &amp; trend indicators</h2>
+        <p>Bar widths are driven by a <code>--perf</code> CSS custom property. Trend arrows come from <code>data-trend</code> attribute selectors.</p>
+
+        <!--
+          TECHNIQUES:
+          .bar-cell__fill { width: var(--perf, 0%); }  ← driven by inline style
+          [data-trend="up"]::before   { content: "▲"; color: green; }
+          [data-trend="down"]::before { content: "▼"; color: red; }
+          [data-trend="flat"]::before { content: "▬"; color: gray; }
+        -->
+        <div class="table-scroll-wrapper" role="region" aria-label="Performance metrics">
+          <table class="data-table perf-table">
+            <caption>Module performance metrics — week over week</caption>
+            <thead>
+              <tr>
+                <th scope="col">Assignment</th>
+                <th scope="col">Submissions</th>
+                <th scope="col">Avg. score</th>
+                <th scope="col">Score chart</th>
+                <th scope="col">Trend</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>HTML Forms</td>
+                <td>24</td>
+                <td>8.1</td>
+                <td>
+                  <div class="bar-cell" role="img" aria-label="81% score">
+                    <div class="bar-cell__fill" style="--perf: 81%;"></div>
+                  </div>
+                </td>
+                <td><span class="trend" data-trend="up">8.1</span></td>
+              </tr>
+              <tr>
+                <td>CSS Flexbox</td>
+                <td>24</td>
+                <td>7.9</td>
+                <td>
+                  <div class="bar-cell" role="img" aria-label="79% score">
+                    <div class="bar-cell__fill" style="--perf: 79%;"></div>
+                  </div>
+                </td>
+                <td><span class="trend" data-trend="flat">7.9</span></td>
+              </tr>
+              <tr>
+                <td>Navigation</td>
+                <td>23</td>
+                <td>6.8</td>
+                <td>
+                  <div class="bar-cell" role="img" aria-label="68% score">
+                    <div class="bar-cell__fill bar-cell__fill--low" style="--perf: 68%;"></div>
+                  </div>
+                </td>
+                <td><span class="trend" data-trend="down">6.8</span></td>
+              </tr>
+              <tr>
+                <td>Cards — Basic</td>
+                <td>21</td>
+                <td>9.2</td>
+                <td>
+                  <div class="bar-cell" role="img" aria-label="92% score">
+                    <div class="bar-cell__fill bar-cell__fill--high" style="--perf: 92%;"></div>
+                  </div>
+                </td>
+                <td><span class="trend" data-trend="up">9.2</span></td>
+              </tr>
+              <tr>
+                <td>Animations</td>
+                <td>18</td>
+                <td>7.1</td>
+                <td>
+                  <div class="bar-cell" role="img" aria-label="71% score">
+                    <div class="bar-cell__fill" style="--perf: 71%;"></div>
+                  </div>
+                </td>
+                <td><span class="trend" data-trend="up">7.1</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- EXERCISE 3: CSS-ONLY PAGINATION -->
+      <section class="demo-section">
+        <h2>Exercise 3 — CSS-only pagination with <code>:target</code></h2>
+        <p>Click page numbers to switch table pages. Uses the CSS <code>:target</code> pseudo-class — no JavaScript.</p>
+
+        <!--
+          TECHNIQUE:
+          .page-section { display: none; }
+          .page-section:target { display: block; }
+          First page visible by default (or use :target with a default state hack)
+        -->
+        <nav class="pagination" aria-label="Table page navigation">
+          <a href="#page-1" class="page-btn" aria-label="Page 1">1</a>
+          <a href="#page-2" class="page-btn" aria-label="Page 2">2</a>
+          <a href="#page-3" class="page-btn" aria-label="Page 3">3</a>
+        </nav>
+
+        <div class="page-section" id="page-1">
+          <table class="data-table">
+            <caption>Submissions — Page 1 (rows 1–3)</caption>
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Student</th>
+                <th scope="col">Assignment</th>
+                <th scope="col">Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td>Amara D.</td><td>HTML Forms</td><td>8/10</td></tr>
+              <tr><td>2</td><td>Lars V.</td><td>HTML Forms</td><td>7/10</td></tr>
+              <tr><td>3</td><td>Yuki T.</td><td>HTML Forms</td><td>10/10</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="page-section" id="page-2">
+          <table class="data-table">
+            <caption>Submissions — Page 2 (rows 4–6)</caption>
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Student</th>
+                <th scope="col">Assignment</th>
+                <th scope="col">Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>4</td><td>Kofi B.</td><td>HTML Forms</td><td>6/10</td></tr>
+              <tr><td>5</td><td>Sofia M.</td><td>HTML Forms</td><td>9/10</td></tr>
+              <tr><td>6</td><td>Amara D.</td><td>CSS Flexbox</td><td>9/10</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="page-section" id="page-3">
+          <table class="data-table">
+            <caption>Submissions — Page 3 (rows 7–9)</caption>
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Student</th>
+                <th scope="col">Assignment</th>
+                <th scope="col">Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>7</td><td>Lars V.</td><td>CSS Flexbox</td><td>8/10</td></tr>
+              <tr><td>8</td><td>Yuki T.</td><td>CSS Flexbox</td><td>10/10</td></tr>
+              <tr><td>9</td><td>Kofi B.</td><td>CSS Flexbox</td><td>7/10</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <p>HackYourFuture Belgium · Tables — Dashboard</p>
+    </footer>
+  </body>
+</html>

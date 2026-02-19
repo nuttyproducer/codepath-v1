@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Typography — Basic</title>
+    <!-- EXERCISE 1: Import a Google Font -->
+    <!-- ADD: <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"> -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="page-header">
+      <h1>Typography — Basic</h1>
+      <p>Font pairing, heading hierarchy, readable body text, and utility classes.</p>
+    </header>
+
+    <main class="page-main" id="main-content">
+
+      <!-- EXERCISE 1: FONT PAIRING -->
+      <section class="demo-section" aria-labelledby="ex1-heading">
+        <h2 id="ex1-heading">Exercise 1 — Google Fonts pairing</h2>
+        <p>Add the Google Fonts <code>&lt;link&gt;</code> in the <code>&lt;head&gt;</code> and apply your font stack in CSS.</p>
+
+        <div class="font-demo card">
+          <!--
+            TECHNIQUE:
+            1. Add Google Fonts link in <head>
+            2. In :root: --font-heading: 'Playfair Display', serif;
+                         --font-body: 'Inter', sans-serif;
+            3. body { font-family: var(--font-body); }
+               h1, h2, h3 { font-family: var(--font-heading); }
+          -->
+          <h3 class="font-demo__heading">A heading font creates contrast</h3>
+          <p class="font-demo__body">
+            Body text should be easy to read at length. Keep font-size at 1rem (16px) minimum, 
+            line-height around 1.6–1.75, and line length between 45–75 characters 
+            (use <code>max-width: 65ch</code>).
+          </p>
+        </div>
+      </section>
+
+      <!-- EXERCISE 2: HEADING HIERARCHY -->
+      <section class="demo-section" aria-labelledby="ex2-heading">
+        <h2 id="ex2-heading">Exercise 2 — Heading hierarchy</h2>
+        <p>A clear type scale communicates structure. Create a 6-level scale using relative units.</p>
+
+        <div class="type-scale card">
+          <!--
+            TECHNIQUE: Modular scale
+            Each level is multiplied by a ratio (e.g. 1.25 — Major Third)
+            h1: 2.441rem  h2: 1.953rem  h3: 1.563rem
+            h4: 1.25rem   h5: 1rem      h6: 0.8rem
+          -->
+          <h1 class="scale-h1">Heading 1 — 2.441rem</h1>
+          <h2 class="scale-h2">Heading 2 — 1.953rem</h2>
+          <h3 class="scale-h3">Heading 3 — 1.563rem</h3>
+          <h4 class="scale-h4">Heading 4 — 1.25rem</h4>
+          <h5 class="scale-h5">Heading 5 — 1rem</h5>
+          <h6 class="scale-h6">Heading 6 — 0.8rem</h6>
+        </div>
+      </section>
+
+      <!-- EXERCISE 3: READABLE BODY TEXT -->
+      <section class="demo-section" aria-labelledby="ex3-heading">
+        <h2 id="ex3-heading">Exercise 3 — Readable body text</h2>
+        <p>Set <code>max-width: 65ch</code> on body copy and compare reading comfort.</p>
+
+        <div class="readable-demo">
+          <article class="readable-article card">
+            <!--
+              TECHNIQUE:
+              .readable-article p { max-width: 65ch; line-height: 1.7; }
+              65ch = roughly 65 characters wide — the sweet spot for reading
+            -->
+            <h3>The importance of line length</h3>
+            <p>
+              Research in typography shows that the optimal line length for comfortable reading 
+              is between 45 and 75 characters per line. Lines that are too long cause the reader's 
+              eye to lose track when jumping to the next line. Lines that are too short cause 
+              the eye to jump back too frequently, disrupting reading rhythm.
+            </p>
+            <p>
+              The <code>ch</code> unit in CSS represents the width of the "0" character in the 
+              current font. Setting <code>max-width: 65ch</code> is a simple, font-relative way 
+              to ensure readable line lengths.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- EXERCISE 4: UTILITY CLASSES -->
+      <section class="demo-section" aria-labelledby="ex4-heading">
+        <h2 id="ex4-heading">Exercise 4 — Typography utility classes</h2>
+        <p>Build reusable utility classes for common text treatments.</p>
+
+        <div class="utils-demo card">
+          <!--
+            Create CSS utility classes for each of these text treatments.
+            Class names are given — you write the CSS.
+          -->
+          <p class="text-xl">text-xl — Extra large text for display use</p>
+          <p class="text-lg">text-lg — Large body text for leads</p>
+          <p class="text-base">text-base — Normal body text (1rem)</p>
+          <p class="text-sm">text-sm — Small text for captions</p>
+          <p class="text-xs">text-xs — Extra small text for labels</p>
+          <hr class="divider" />
+          <p class="text-bold">text-bold — Font weight 700</p>
+          <p class="text-semibold">text-semibold — Font weight 600</p>
+          <p class="text-normal">text-normal — Font weight 400</p>
+          <hr class="divider" />
+          <p class="text-muted">text-muted — Secondary / muted colour</p>
+          <p class="text-accent">text-accent — Accent colour</p>
+          <p class="text-uppercase">text-uppercase — Uppercase tracking</p>
+          <p class="text-center">text-center — Centred text</p>
+          <p class="text-truncate">text-truncate — Very long text that goes on and on and should be truncated with an ellipsis when it overflows its container width.</p>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <p>HackYourFuture Belgium · Typography — Basic</p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wireframe — Blog Layout</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a href="/" class="site-logo">
+          <span class="site-logo__mark" aria-hidden="true">✍️</span>
+          The Dev Journal
+        </a>
+        <nav class="site-nav" aria-label="Main navigation">
+          <ul class="site-nav__list">
+            <li><a href="#" class="site-nav__link" aria-current="page">Articles</a></li>
+            <li><a href="#" class="site-nav__link">Tutorials</a></li>
+            <li><a href="#" class="site-nav__link">About</a></li>
+            <li><a href="#" class="site-nav__link site-nav__link--cta">Subscribe</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page-main">
+
+      <!-- Main layout: article column + sticky sidebar -->
+      <div class="content-layout">
+
+        <!-- Article column -->
+        <article class="article">
+
+          <!-- Article header -->
+          <header class="article-header">
+            <div class="article-meta">
+              <a href="#" class="article-category">CSS</a>
+              <span class="article-meta__separator" aria-hidden="true">·</span>
+              <time datetime="2025-01-15">January 15, 2025</time>
+              <span class="article-meta__separator" aria-hidden="true">·</span>
+              <span>8 min read</span>
+            </div>
+            <h1 class="article-title">Understanding CSS Grid: A Complete Guide to Two-Dimensional Layouts</h1>
+            <p class="article-lead">CSS Grid changed how we build web layouts. This guide takes you from the basics of rows and columns to complex named template areas that make your HTML self-documenting.</p>
+
+            <!-- Author byline -->
+            <div class="article-author">
+              <div class="author-avatar" aria-hidden="true">BV</div>
+              <div class="author-info">
+                <strong class="author-name">Benjamin Vanderzeypen</strong>
+                <span class="author-role">Instructor at HackYourFuture Belgium</span>
+              </div>
+            </div>
+          </header>
+
+          <!-- Hero image -->
+          <figure class="article-figure">
+            <!-- ADD: Replace with a real image or an unsplash URL -->
+            <div class="article-figure__placeholder" role="img" aria-label="CSS Grid diagram showing rows and columns"></div>
+            <figcaption>Grid lines, tracks, and cells: the building blocks of CSS Grid. Illustration by the author.</figcaption>
+          </figure>
+
+          <!-- Article body -->
+          <div class="article-body">
+            <p>Before CSS Grid, building a two-dimensional layout meant nested flexbox containers, float hacks, or reaching for a heavy framework. Grid changed all of that.</p>
+
+            <h2>What makes Grid different from Flexbox?</h2>
+            <p>Flexbox is one-dimensional — it arranges items in a row <em>or</em> a column. Grid is two-dimensional: it handles rows <strong>and</strong> columns simultaneously. The key mental model shift is this: with Flexbox, you start from the <em>content</em> and let it dictate the layout. With Grid, you define the <em>layout first</em> and place content into it.</p>
+
+            <blockquote>
+              <p>"Grid is for layout. Flexbox is for components." While this is an oversimplification, it is a useful starting point.</p>
+              <cite>— Jen Simmons, Mozilla</cite>
+            </blockquote>
+
+            <h2>Your first grid</h2>
+            <p>To create a grid, you only need two things: a container with <code>display: grid</code> and some children. But a grid with no defined tracks is just a single column — not very interesting. The real power comes from <code>grid-template-columns</code>.</p>
+
+            <pre><code>.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}</code></pre>
+
+            <p>The <code>repeat(3, 1fr)</code> creates three equal columns. The <code>fr</code> unit represents a fraction of the available space — it is like <code>flex: 1</code> for Grid.</p>
+
+            <h3>Named template areas</h3>
+            <p>This is where Grid becomes truly powerful. Instead of thinking in abstract row and column numbers, you can name areas of your grid like a map:</p>
+
+            <pre><code>.page {
+  display: grid;
+  grid-template-areas:
+    "header  header"
+    "sidebar content"
+    "footer  footer";
+  grid-template-columns: 280px 1fr;
+  grid-template-rows: auto 1fr auto;
+}
+
+.page-header { grid-area: header; }
+.page-sidebar { grid-area: sidebar; }
+.page-content { grid-area: content; }
+.page-footer  { grid-area: footer; }</code></pre>
+
+            <p>The visual representation in the CSS maps directly to the visual layout in the browser. Your HTML structure and your CSS tell the same story.</p>
+
+            <h2>Conclusion</h2>
+            <p>CSS Grid is not a replacement for Flexbox — they are complementary tools. Use Grid when you need a two-dimensional layout with defined tracks. Use Flexbox when you need one-dimensional flow, like a navigation bar or a list of tags.</p>
+          </div>
+
+          <!-- Article tags -->
+          <footer class="article-footer">
+            <ul class="article-tags" aria-label="Article tags">
+              <li><a href="#" class="tag">css</a></li>
+              <li><a href="#" class="tag">grid</a></li>
+              <li><a href="#" class="tag">layout</a></li>
+              <li><a href="#" class="tag">frontend</a></li>
+            </ul>
+          </footer>
+        </article>
+
+        <!-- Sticky sidebar -->
+        <aside class="sidebar" aria-label="Sidebar">
+
+          <!-- Table of contents -->
+          <div class="sidebar-widget">
+            <h2 class="sidebar-widget__title">Contents</h2>
+            <nav aria-label="Table of contents">
+              <ol class="toc">
+                <li><a href="#">What makes Grid different from Flexbox?</a></li>
+                <li><a href="#">Your first grid</a>
+                  <ol>
+                    <li><a href="#">Named template areas</a></li>
+                  </ol>
+                </li>
+                <li><a href="#">Conclusion</a></li>
+              </ol>
+            </nav>
+          </div>
+
+          <!-- Related articles -->
+          <div class="sidebar-widget">
+            <h2 class="sidebar-widget__title">Related articles</h2>
+            <ul class="related-list">
+              <li class="related-item">
+                <a href="#" class="related-item__link">
+                  <div class="related-item__image" aria-hidden="true"></div>
+                  <span class="related-item__title">Flexbox vs Grid: When to use each</span>
+                </a>
+              </li>
+              <li class="related-item">
+                <a href="#" class="related-item__link">
+                  <div class="related-item__image" aria-hidden="true"></div>
+                  <span class="related-item__title">CSS Custom Properties Deep Dive</span>
+                </a>
+              </li>
+              <li class="related-item">
+                <a href="#" class="related-item__link">
+                  <div class="related-item__image" aria-hidden="true"></div>
+                  <span class="related-item__title">Responsive design without media queries</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Newsletter signup -->
+          <div class="sidebar-widget sidebar-widget--newsletter">
+            <h2 class="sidebar-widget__title">Get articles by email</h2>
+            <p>No spam, unsubscribe any time.</p>
+            <form class="newsletter-form" novalidate>
+              <label for="newsletter-email" class="sr-only">Email address</label>
+              <input type="email" id="newsletter-email" placeholder="your@email.com" required />
+              <button type="submit" class="btn">Subscribe</button>
+            </form>
+          </div>
+        </aside>
+
+      </div><!-- /.content-layout -->
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <p>© 2025 The Dev Journal · HackYourFuture Belgium</p>
+      </div>
+    </footer>
+  </body>
+</html>

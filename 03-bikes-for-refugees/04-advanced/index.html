@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="styles/style.css" />
+
+    <title>Bikes for Refugees — Advanced</title>
+  </head>
+
+  <body>
+    <!--
+      BRANCH 4: ADVANCED (MASTERY)
+      
+      Copy your completed HTML from Branch 3.
+      
+      ADDITIONS NEEDED:
+      
+      1. DARK MODE TOGGLE — add inside <header>:
+         <input type="checkbox" id="dark-mode-toggle" />
+         <label for="dark-mode-toggle">🌙 Dark Mode</label>
+      
+      2. FAQ SECTION — add after the articles section:
+         <section class="faq">
+           <h2>Frequently Asked Questions</h2>
+           <details>
+             <summary>How do I donate a bike?</summary>
+             <div class="answer"><p>...</p></div>
+           </details>
+           <!-- Add 4 more question/answer pairs -->
+         </section>
+      
+      3. DONATION FORM — add before the footer:
+         Use hidden radio inputs to control step visibility.
+         Structure:
+           <input type="radio" name="step" id="step-1" checked />
+           <input type="radio" name="step" id="step-2" />
+           <input type="radio" name="step" id="step-3" />
+           <div class="form-container">
+             <div class="progress-bar">...</div>
+             <div class="form-step step-1">
+               <fieldset>
+                 <legend>Step 1: Choose an amount</legend>
+                 ...radio buttons for amounts...
+                 <label for="step-2">Next →</label>
+               </fieldset>
+             </div>
+             <div class="form-step step-2">...</div>
+             <div class="form-step step-3">...</div>
+           </div>
+      
+      Note: The "Next" buttons are actually <label for="step-2"> etc.
+      Clicking them checks the corresponding radio, which CSS uses to
+      show the next step. Research this pattern before implementing.
+    -->
+
+    <!-- ADD dark mode toggle before header content -->
+    <input type="checkbox" id="dark-mode-toggle" />
+
+    <header>
+      <label for="dark-mode-toggle" class="dark-mode-label" aria-label="Toggle dark mode">🌙</label>
+      <!-- COPY your Branch 3 header content here -->
+    </header>
+
+    <main>
+      <!-- COPY your Branch 3 main content here -->
+      <!-- ADD .article--featured class to the first article -->
+      <!-- ADD FAQ section after articles -->
+      <!-- ADD donation form -->
+    </main>
+
+    <footer>
+      <!-- COPY from Branch 3 -->
+    </footer>
+
+  </body>
+</html>

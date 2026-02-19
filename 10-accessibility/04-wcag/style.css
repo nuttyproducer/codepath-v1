@@ -1,0 +1,372 @@
+/* ============================================================
+   Accessibility-wcag — style.css
+   TECHNIQUES:
+   - Colour contrast failures (deliberate) for students to find
+   - Full :focus-visible ring system
+   - Accessible form styling: error state, aria-invalid, aria-describedby
+   - .sr-only pattern
+   - Checklist table styling
+   ============================================================ */
+
+/* ── Design tokens ──────────────────────────────────────────── */
+:root {
+  --font-body: system-ui, -apple-system, sans-serif;
+  --font-mono: 'Courier New', monospace;
+
+  --color-bg: #f8fafc;
+  --color-surface: #ffffff;
+  --color-border: #e2e8f0;
+  --color-text: #1e293b;
+  --color-muted: #64748b;
+  --color-accent: #2563eb;
+  --color-accent-light: #dbeafe;
+  --color-error: #dc2626;
+  --color-error-bg: #fef2f2;
+  --color-error-border: #fca5a5;
+  --color-success: #16a34a;
+  --color-success-bg: #f0fdf4;
+  --color-success-border: #86efac;
+
+  --radius: 8px;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+}
+
+/* ── Reset ───────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: var(--font-body);
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+/* ── TECHNIQUE: :focus-visible system ───────────────────────── */
+*:focus { outline: none; }
+*:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ── TECHNIQUE: .sr-only ─────────────────────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Skip link ───────────────────────────────────────────────── */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  padding: 0.6rem 1.25rem;
+  background: var(--color-accent);
+  color: #fff;
+  border-radius: var(--radius);
+  font-weight: 700;
+  text-decoration: none;
+  z-index: 9999;
+  transform: translateY(-200%);
+  transition: transform 0.2s ease;
+}
+.skip-link:focus { transform: translateY(0); }
+
+/* ── Page layout ─────────────────────────────────────────────── */
+.page-header {
+  background: var(--color-accent);
+  color: #fff;
+  padding: var(--space-8) var(--space-6);
+  text-align: center;
+}
+.page-header h1 { font-size: clamp(1.4rem, 4vw, 2rem); margin-bottom: var(--space-2); }
+.page-header p { opacity: 0.85; max-width: 60ch; margin: 0 auto; }
+
+.page-main { max-width: 900px; margin: 0 auto; padding: var(--space-8) var(--space-4); }
+
+.demo-section {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-6);
+  margin-bottom: var(--space-8);
+}
+.demo-section h2 { margin-bottom: var(--space-4); font-size: 1.25rem; }
+.demo-section > * + * { margin-top: var(--space-4); }
+.demo-section p { max-width: 70ch; }
+
+.site-footer {
+  text-align: center;
+  padding: var(--space-6);
+  color: var(--color-muted);
+  font-size: 0.875rem;
+  border-top: 1px solid var(--color-border);
+}
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.8em;
+  background: var(--color-bg);
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+  border: 1px solid var(--color-border);
+}
+.hint { font-size: 0.875rem; color: var(--color-muted); max-width: 65ch; }
+a { color: var(--color-accent); }
+
+/* ── EXERCISE 1: Contrast examples ──────────────────────────── */
+.contrast-examples { display: flex; flex-direction: column; gap: var(--space-3); }
+
+.contrast-item {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.contrast-badge {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.contrast-badge--fail { background: var(--color-error-border); color: #7f1d1d; }
+.contrast-badge--pass { background: var(--color-success-border); color: #14532d; }
+
+/* ── DELIBERATE CONTRAST FAILURES ────────────────────────────── */
+/*
+  EXERCISE: Each rule below has a contrast failure.
+  Measure the contrast ratio using DevTools or WebAIM Contrast Checker.
+  Then fix the colour to meet WCAG AA (4.5:1 for body text).
+
+  HINT: Document each failure in CONTRAST.md with:
+  - Current colour values
+  - Current contrast ratio
+  - Fixed colour values
+  - New contrast ratio
+*/
+
+/* FAIL 1: Light gray on white — ratio: ~2.5:1 (need 4.5:1) */
+.fail-gray-on-white {
+  /* ADD: color: #a0aec0; — this is the failing colour. Change to #4a5568 or darker to pass */
+  color: #a0aec0;  /* ← FAILING — find a replacement that passes */
+  background: #ffffff;
+  padding: var(--space-3);
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+}
+
+/* FAIL 2: Yellow on white — ratio: ~1.07:1 (almost invisible) */
+.fail-yellow-on-white {
+  /* ADD: color: #f6e05e; — this is the failing colour */
+  color: #f6e05e;  /* ← FAILING — nearly invisible on white */
+  background: #ffffff;
+  padding: var(--space-3);
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+}
+
+/* FAIL 3: Light text on light blue — ratio: ~2.1:1 */
+.fail-light-on-blue {
+  /* Current: light gray text on light blue background */
+  color: #a0aec0;     /* ← FAILING text colour */
+  background: #bee3f8; /* ← background */
+  padding: var(--space-3);
+  border-radius: var(--radius);
+}
+
+/* PASS 1: Dark on white — ratio: ~16:1 */
+.pass-dark-on-white {
+  color: #1a202c;
+  background: #ffffff;
+  padding: var(--space-3);
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+}
+
+/* PASS 2: White on dark blue — ratio: ~8.6:1 */
+.pass-white-on-blue {
+  color: #ffffff;
+  background: #1a365d;
+  padding: var(--space-3);
+  border-radius: var(--radius);
+}
+
+/* ── EXERCISE 2: Accessible form ─────────────────────────────── */
+.a11y-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  max-width: 480px;
+}
+
+.form-group { display: flex; flex-direction: column; gap: var(--space-1); }
+
+.form-label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--color-text);
+}
+
+.required-mark {
+  color: var(--color-error);
+  margin-left: var(--space-1);
+}
+
+.form-hint {
+  font-size: 0.8rem;
+  color: var(--color-muted);
+  margin-top: -0.125rem;
+}
+
+.form-input {
+  padding: 0.6rem 0.75rem;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  background: var(--color-surface);
+  transition: border-color 0.15s;
+}
+.form-input:hover { border-color: var(--color-accent); }
+.form-input:focus { border-color: var(--color-accent); }
+
+/* ── TECHNIQUE: Error state on inputs ────────────────────────── */
+/*
+  Three things must work together:
+  1. aria-invalid="true" on the <input> — communicates state to screen readers
+  2. aria-describedby="error-id" on the <input> — links the error message
+  3. role="alert" on the error message — announces it immediately
+  
+  CSS then visualises the error with colour AND icon (not colour alone).
+*/
+.form-group--error .form-input,
+.form-input--error {
+  border-color: var(--color-error);
+  background: var(--color-error-bg);
+}
+.form-group--error .form-label { color: var(--color-error); }
+
+.form-error {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.85rem;
+  color: var(--color-error);
+  font-weight: 600;
+  /* Error uses both colour AND icon — not colour alone (WCAG 1.4.1) */
+}
+
+/* ── Fieldset / radio group ──────────────────────────────────── */
+.form-fieldset {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-4);
+}
+legend.form-label { padding: 0 var(--space-2); }
+
+.radio-group { display: flex; flex-direction: column; gap: var(--space-2); margin-top: var(--space-3); }
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.radio-label input[type="radio"] { width: 1rem; height: 1rem; accent-color: var(--color-accent); }
+
+/* ── Submit button ───────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem 1.5rem;
+  border: none;
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  align-self: flex-start;
+}
+.btn--primary { background: var(--color-accent); color: #fff; }
+.btn--primary:hover { background: #1d4ed8; }
+
+/* ── EXERCISE 3: Checklist table ─────────────────────────────── */
+.checklist-table-wrapper { overflow-x: auto; }
+
+.checklist-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  min-width: 540px;
+}
+
+.checklist-table caption {
+  text-align: left;
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: var(--space-3);
+  color: var(--color-text);
+}
+
+.checklist-table th,
+.checklist-table td {
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: top;
+}
+
+.checklist-table thead th {
+  background: var(--color-bg);
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-muted);
+  border-bottom: 2px solid var(--color-border);
+}
+
+.checklist-table tbody tr:hover { background: var(--color-bg); }
+
+.checklist-table td:nth-child(2) {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-muted);
+}
+
+/* Status badges */
+.status-badge {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+.status-badge--pass   { background: var(--color-success-bg); color: var(--color-success); border: 1px solid var(--color-success-border); }
+.status-badge--fail   { background: var(--color-error-bg);   color: var(--color-error);   border: 1px solid var(--color-error-border); }
+.status-badge--tbd    { background: var(--color-bg);         color: var(--color-muted);   border: 1px solid var(--color-border); }
+
+/*
+  EXERCISE: As you audit the page, update each <span class="status-badge">:
+    - Change class to status-badge--pass if criterion is met
+    - Change class to status-badge--fail if it fails
+    - Update the text content from "TBD" to "PASS" or "FAIL"
+    - Fill in the Notes column with what you found
+    
+  Then write up your findings in CONTRAST.md and ACCESSIBILITY.md.
+*/

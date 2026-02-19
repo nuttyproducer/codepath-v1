@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modals — Accessible</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="page-header">
+      <h1>Accessible Modals &amp; Tooltips</h1>
+      <p>Full ARIA patterns, <code>:focus-visible</code> system, and a CSS-only tooltip component.</p>
+    </header>
+
+    <main class="page-main" id="main-content">
+
+      <!-- EXERCISE 1: AUDIT PANEL — demonstrates ARIA labelling differences -->
+      <section class="demo-section">
+        <h2>Exercise 1 — ARIA labelling</h2>
+        <p>Compare three buttons that all look the same but have different accessibility trees.</p>
+
+        <div class="button-comparison">
+          <!-- Pattern A: Icon-only button — MISSING accessible label (bad) -->
+          <div class="comparison-item comparison-item--bad">
+            <p class="comparison-label">❌ Bad — no label</p>
+            <button class="btn btn--icon-only" onclick="document.getElementById('modal-a').showModal()">
+              <!-- ADD: Why is this inaccessible? What does a screen reader say here? -->
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 5v14M5 12h14" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Pattern B: aria-label (good) -->
+          <div class="comparison-item comparison-item--good">
+            <p class="comparison-label">✅ Good — aria-label</p>
+            <button
+              class="btn btn--icon-only"
+              aria-label="Open new assignment modal"
+              onclick="document.getElementById('modal-a').showModal()"
+            >
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 5v14M5 12h14" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Pattern C: Visually hidden text (best — real text in the DOM) -->
+          <div class="comparison-item comparison-item--best">
+            <p class="comparison-label">✅ Best — .sr-only text</p>
+            <button class="btn btn--icon-only" onclick="document.getElementById('modal-a').showModal()">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 5v14M5 12h14" stroke-linecap="round"/>
+              </svg>
+              <span class="sr-only">Open new assignment modal</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- EXERCISE 2: :focus-visible system -->
+      <section class="demo-section">
+        <h2>Exercise 2 — <code>:focus-visible</code> ring system</h2>
+        <p>Mouse users should not see focus rings; keyboard users should always see them.</p>
+
+        <div class="focus-demo">
+          <!-- Tab through these elements to see the difference -->
+          <button class="btn btn--primary">Button (tab to focus)</button>
+          <a href="#" class="btn btn--secondary" onclick="return false">Link button (tab to focus)</a>
+          <input type="text" class="demo-input" placeholder="Text input (tab to focus)" />
+          <select class="demo-select">
+            <option>Select option (tab to focus)</option>
+          </select>
+          <!-- ADD: What CSS property do you use to style keyboard focus rings? -->
+          <!-- ADD: How do you prevent focus rings showing on mouse click? -->
+        </div>
+      </section>
+
+      <!-- EXERCISE 3: CSS-only tooltip -->
+      <section class="demo-section">
+        <h2>Exercise 3 — CSS tooltip system</h2>
+        <p>Tooltips appear on <code>:hover</code> and <code>:focus-visible</code>. Triggered with <code>aria-label</code> or <code>data-tooltip</code>.</p>
+
+        <div class="tooltip-demo">
+          <!-- Tooltip via data-tooltip attribute -->
+          <button class="btn btn--primary tooltip-trigger" data-tooltip="Creates a new branch from the current HEAD">
+            New branch
+          </button>
+
+          <button class="btn btn--secondary tooltip-trigger" data-tooltip="Merges changes from the selected branch into your current branch">
+            Merge branch
+          </button>
+
+          <a href="#" class="btn btn--ghost tooltip-trigger" data-tooltip="Opens the W3C HTML validator in a new tab" onclick="return false">
+            Validate HTML
+          </a>
+        </div>
+
+        <!-- Above tooltip (demonstrates top positioning) -->
+        <div class="tooltip-demo" style="margin-top: 4rem">
+          <button class="btn btn--primary tooltip-trigger tooltip-trigger--top" data-tooltip="This tooltip appears above the button">
+            Tooltip above ↑
+          </button>
+        </div>
+      </section>
+
+      <!-- EXERCISE 4: FULLY LABELLED MODAL -->
+      <section class="demo-section">
+        <h2>Exercise 4 — Complete modal ARIA pattern</h2>
+        <button class="btn btn--primary" onclick="document.getElementById('modal-full').showModal()">
+          Open accessible modal
+        </button>
+      </section>
+
+      <!-- MODAL A (used by exercise 1) -->
+      <dialog class="modal" id="modal-a" aria-labelledby="modal-a-title" aria-describedby="modal-a-desc">
+        <div class="modal__header">
+          <h2 class="modal__title" id="modal-a-title">New assignment</h2>
+          <button class="modal__close" aria-label="Close modal" onclick="document.getElementById('modal-a').close()">✕</button>
+        </div>
+        <div class="modal__body" id="modal-a-desc">
+          <form>
+            <label for="assignment-name">Assignment name</label>
+            <input id="assignment-name" type="text" placeholder="e.g. Modals-accessible" class="form-input" />
+            <label for="assignment-level">Difficulty level</label>
+            <select id="assignment-level" class="form-input">
+              <option value="">— Select level —</option>
+              <option>🟢 Foundation</option>
+              <option>🟡 Enhancement</option>
+              <option>🟠 Integration</option>
+              <option>🔴 Mastery</option>
+            </select>
+          </form>
+        </div>
+        <div class="modal__footer">
+          <button class="btn btn--ghost" onclick="document.getElementById('modal-a').close()">Cancel</button>
+          <button class="btn btn--primary">Create assignment</button>
+        </div>
+      </dialog>
+
+      <!-- MODAL FULL — complete accessible implementation -->
+      <dialog
+        class="modal"
+        id="modal-full"
+        aria-labelledby="modal-full-title"
+        aria-describedby="modal-full-desc"
+        aria-modal="true"
+      >
+        <div class="modal__header">
+          <h2 class="modal__title" id="modal-full-title">WCAG 2.1 AA Checklist</h2>
+          <button
+            class="modal__close"
+            aria-label="Close WCAG checklist"
+            onclick="document.getElementById('modal-full').close()"
+          >
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+        <div class="modal__body" id="modal-full-desc">
+          <p>This modal demonstrates full ARIA labelling. Review what makes it accessible.</p>
+          <ul class="checklist">
+            <li class="checklist__item checklist__item--pass">
+              <span class="checklist__icon" aria-label="Pass">✅</span>
+              <span><code>aria-labelledby</code> references the modal title</span>
+            </li>
+            <li class="checklist__item checklist__item--pass">
+              <span class="checklist__icon" aria-label="Pass">✅</span>
+              <span><code>aria-describedby</code> references the body content</span>
+            </li>
+            <li class="checklist__item checklist__item--pass">
+              <span class="checklist__icon" aria-label="Pass">✅</span>
+              <span><code>aria-modal="true"</code> tells screen readers this is a modal</span>
+            </li>
+            <li class="checklist__item checklist__item--pass">
+              <span class="checklist__icon" aria-label="Pass">✅</span>
+              <span>Close button has descriptive <code>aria-label</code>, not just "✕"</span>
+            </li>
+            <li class="checklist__item checklist__item--pass">
+              <span class="checklist__icon" aria-label="Pass">✅</span>
+              <span><code>&lt;dialog&gt;</code> element handles focus management natively</span>
+            </li>
+            <li class="checklist__item checklist__item--warn">
+              <span class="checklist__icon" aria-label="Warning">⚠️</span>
+              <span>Focus trap (keeping focus inside modal) requires JavaScript for full support</span>
+            </li>
+          </ul>
+        </div>
+        <div class="modal__footer">
+          <button class="btn btn--primary" onclick="document.getElementById('modal-full').close()">Got it</button>
+        </div>
+      </dialog>
+
+    </main>
+
+    <footer class="site-footer">
+      <p>HackYourFuture Belgium · Modals — Accessible</p>
+    </footer>
+  </body>
+</html>

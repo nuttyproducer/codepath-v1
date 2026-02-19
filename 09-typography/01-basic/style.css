@@ -1,0 +1,164 @@
+/* =============================================
+   TYPOGRAPHY — BASIC
+   Branch: typography-basic
+   ============================================= */
+
+/* STEP 1: Import Google Fonts
+   Uncomment the @import below OR add the <link> tag in <head>
+   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;700&display=swap');
+*/
+
+:root {
+  /* ADD: font families */
+  /* --font-heading: 'Playfair Display', Georgia, serif; */
+  /* --font-body: 'Inter', system-ui, sans-serif; */
+  --font-heading: system-ui, sans-serif;
+  --font-body: system-ui, sans-serif;
+  --font-mono: 'Fira Code', 'Cascadia Code', monospace;
+
+  /* ADD: type scale using modular scale ratio 1.25 (Major Third) */
+  --text-6xl: 3.052rem;   /* h1 */
+  --text-5xl: 2.441rem;
+  --text-4xl: 1.953rem;   /* h2 */
+  --text-3xl: 1.563rem;   /* h3 */
+  --text-2xl: 1.25rem;    /* h4 */
+  --text-xl: 1rem;        /* h5 */
+  --text-lg: 1.125rem;    /* lead */
+  --text-base: 1rem;
+  --text-sm: 0.875rem;
+  --text-xs: 0.75rem;
+
+  /* ADD: line heights */
+  --leading-tight: 1.25;
+  --leading-normal: 1.65;
+  --leading-loose: 1.9;
+
+  /* ADD: letter spacings */
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.08em;
+
+  /* colours */
+  --color-bg: #f8fafc;
+  --color-surface: #ffffff;
+  --color-border: #e2e8f0;
+  --color-text: #1e293b;
+  --color-text-secondary: #64748b;
+  --color-accent: #3b82f6;
+  --radius: 0.75rem;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  /* ADD: font-family: var(--font-body); */
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  /* ADD: font-family: var(--font-heading); */
+  font-family: var(--font-heading);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+}
+
+/* EXERCISE 1: Apply heading font family and see the contrast it creates */
+
+.skip-link { position: absolute; left: 1rem; top: 1rem; padding: 0.5rem 1rem; background: var(--color-accent); color: white; border-radius: 4px; z-index: 9999; transform: translateY(-200%); transition: transform 0.2s ease; }
+.skip-link:focus { transform: translateY(0); }
+code { font-size: 0.875em; background: rgba(99,102,241,0.08); color: #4f46e5; padding: 0.1em 0.4em; border-radius: 0.25rem; font-family: var(--font-mono); }
+
+.page-header { max-width: 960px; margin: 0 auto; padding: 3rem 2rem 1.5rem; }
+.page-header h1 { font-size: var(--text-4xl); margin-bottom: 0.5rem; }
+.page-header p { color: var(--color-text-secondary); }
+.page-main { max-width: 960px; margin: 0 auto; padding: 0 2rem 3rem; display: flex; flex-direction: column; gap: 3rem; }
+.site-footer { border-top: 1px solid var(--color-border); padding: 2rem; text-align: center; color: var(--color-text-secondary); font-size: var(--text-sm); }
+
+.card { background: var(--color-surface); border-radius: var(--radius); padding: 1.5rem; box-shadow: var(--shadow-sm); }
+.demo-section { display: flex; flex-direction: column; gap: 1.25rem; }
+.demo-section h2 { font-size: 1.1rem; border-bottom: 2px solid var(--color-border); padding-bottom: 0.5rem; }
+.demo-section > p { color: var(--color-text-secondary); font-size: var(--text-sm); }
+
+/* =============================================
+   EXERCISE 2: HEADING SCALE
+   ============================================= */
+.type-scale { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.scale-h1 { font-size: var(--text-6xl); }
+.scale-h2 { font-size: var(--text-5xl); }
+.scale-h3 { font-size: var(--text-4xl); }
+.scale-h4 { font-size: var(--text-3xl); }
+.scale-h5 { font-size: var(--text-2xl); }
+.scale-h6 { font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; letter-spacing: var(--tracking-wide); }
+
+/* =============================================
+   EXERCISE 1: FONT PAIRING DEMO
+   ============================================= */
+.font-demo { display: flex; flex-direction: column; gap: 0.75rem; }
+.font-demo__heading {
+  font-size: var(--text-4xl);
+  /* ADD: font-family: var(--font-heading); */
+}
+.font-demo__body {
+  /* ADD: font-family: var(--font-body); */
+  /* ADD: max-width: 65ch; */
+  /* ADD: line-height: var(--leading-normal); */
+  max-width: 65ch;
+  line-height: var(--leading-normal);
+}
+
+/* =============================================
+   EXERCISE 3: READABLE BODY
+   ============================================= */
+.readable-article { display: flex; flex-direction: column; gap: 1rem; }
+.readable-article p {
+  /* ADD: max-width: 65ch; */
+  /* ADD: line-height: var(--leading-normal); */
+  max-width: 65ch;
+  line-height: var(--leading-normal);
+  font-size: var(--text-base);
+}
+
+/* =============================================
+   EXERCISE 4: UTILITY CLASSES
+   Complete each utility class rule.
+   ============================================= */
+
+/* Size utilities */
+.text-xl   { /* ADD: font-size: var(--text-4xl); */ font-size: var(--text-4xl); }
+.text-lg   { /* ADD: font-size: var(--text-lg); */  font-size: var(--text-lg);  }
+.text-base { font-size: var(--text-base); }
+.text-sm   { /* ADD: font-size: var(--text-sm); */  font-size: var(--text-sm); }
+.text-xs   { /* ADD: font-size: var(--text-xs); */  font-size: var(--text-xs); }
+
+/* Weight utilities */
+.text-bold     { /* ADD: font-weight: 700; */ }
+.text-semibold { /* ADD: font-weight: 600; */ }
+.text-normal   { /* ADD: font-weight: 400; */ }
+
+/* Colour utilities */
+.text-muted  { /* ADD: color: var(--color-text-secondary); */ }
+.text-accent { /* ADD: color: var(--color-accent); */ }
+
+/* Transform + alignment */
+.text-uppercase {
+  /* ADD: text-transform: uppercase; */
+  /* ADD: letter-spacing: var(--tracking-wide); */
+}
+.text-center { /* ADD: text-align: center; */ }
+
+/* Overflow */
+.text-truncate {
+  /* ADD: overflow: hidden; */
+  /* ADD: white-space: nowrap; */
+  /* ADD: text-overflow: ellipsis; */
+  /* ADD: max-width: 100%; */
+}
+
+.utils-demo { display: flex; flex-direction: column; gap: 0.5rem; }
+.divider { border: none; border-top: 1px solid var(--color-border); margin: 0.25rem 0; }

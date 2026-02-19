@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Navigation — Advanced Patterns</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- EXERCISE 1: HEADER WITH EXPANDING SEARCH -->
+    <header class="site-header">
+      <div class="header-inner">
+        <a href="/" class="site-logo">🌐 HYF</a>
+
+        <nav class="site-nav" aria-label="Main navigation">
+          <ul class="nav-list">
+            <li><a href="#" class="nav-link">Home</a></li>
+            <li><a href="#" class="nav-link">Docs</a></li>
+            <li><a href="#" class="nav-link">API</a></li>
+            <li><a href="#" class="nav-link">Blog</a></li>
+          </ul>
+        </nav>
+
+        <!-- Expanding search: hidden checkbox expands the input -->
+        <div class="search-expand">
+          <input
+            type="checkbox"
+            id="search-toggle"
+            class="search-toggle__input"
+            aria-label="Toggle search"
+          />
+          <label for="search-toggle" class="search-toggle__label" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+          </label>
+          <div class="search-expand__field">
+            <label for="search-input" class="sr-only">Search documentation</label>
+            <input type="search" id="search-input" class="search-input" placeholder="Search docs..." />
+          </div>
+        </div>
+
+        <a href="#" class="nav-cta">Get started</a>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <div class="page-layout">
+
+        <!-- EXERCISE 2: DOCS SIDEBAR WITH ACCORDION SECTIONS -->
+        <aside class="docs-sidebar" aria-label="Documentation navigation">
+
+          <!-- Each <details> is a section of the docs sidebar -->
+          <!-- <details> is keyboard accessible and animatable -->
+          <details class="sidebar-section" open>
+            <summary class="sidebar-section__title">Getting Started</summary>
+            <ul class="sidebar-nav">
+              <li><a href="#" class="sidebar-link sidebar-link--active" aria-current="page">Introduction</a></li>
+              <li><a href="#" class="sidebar-link">Installation</a></li>
+              <li><a href="#" class="sidebar-link">Quick start</a></li>
+              <li><a href="#" class="sidebar-link">Configuration</a></li>
+            </ul>
+          </details>
+
+          <details class="sidebar-section">
+            <summary class="sidebar-section__title">Core Concepts</summary>
+            <ul class="sidebar-nav">
+              <li><a href="#" class="sidebar-link">Components</a></li>
+              <li><a href="#" class="sidebar-link">Styling</a></li>
+              <li><a href="#" class="sidebar-link">Data binding</a></li>
+              <li><a href="#" class="sidebar-link">Events</a></li>
+            </ul>
+          </details>
+
+          <details class="sidebar-section">
+            <summary class="sidebar-section__title">API Reference</summary>
+            <ul class="sidebar-nav">
+              <li><a href="#" class="sidebar-link">Props</a></li>
+              <li><a href="#" class="sidebar-link">Methods</a></li>
+              <li><a href="#" class="sidebar-link">Hooks</a></li>
+              <li><a href="#" class="sidebar-link">Utilities</a></li>
+            </ul>
+          </details>
+
+          <details class="sidebar-section">
+            <summary class="sidebar-section__title">Advanced</summary>
+            <ul class="sidebar-nav">
+              <li><a href="#" class="sidebar-link">Performance</a></li>
+              <li><a href="#" class="sidebar-link">Testing</a></li>
+              <li><a href="#" class="sidebar-link">Deployment</a></li>
+            </ul>
+          </details>
+        </aside>
+
+        <!-- EXERCISE 3: BREADCRUMB + PAGINATION -->
+        <div class="docs-content">
+
+          <!-- Breadcrumb navigation -->
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <ol class="breadcrumb__list">
+              <li class="breadcrumb__item">
+                <a href="#" class="breadcrumb__link">Docs</a>
+              </li>
+              <li class="breadcrumb__item">
+                <a href="#" class="breadcrumb__link">Getting Started</a>
+              </li>
+              <li class="breadcrumb__item breadcrumb__item--current" aria-current="page">
+                Introduction
+              </li>
+            </ol>
+          </nav>
+
+          <!-- Page content -->
+          <article>
+            <h1>Introduction</h1>
+            <p>Welcome to HYF Framework documentation. This guide covers everything from installation to advanced deployment patterns.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          </article>
+
+          <!-- Pagination navigation -->
+          <nav class="pagination" aria-label="Documentation pages">
+            <a href="#" class="pagination__prev" rel="prev" aria-label="Previous page: Quick start">
+              <span aria-hidden="true">←</span>
+              <span class="pagination__nav-label">Previous</span>
+              <span class="pagination__page-title">Quick start</span>
+            </a>
+            <a href="#" class="pagination__next" rel="next" aria-label="Next page: Installation">
+              <span class="pagination__nav-label">Next</span>
+              <span class="pagination__page-title">Installation</span>
+              <span aria-hidden="true">→</span>
+            </a>
+          </nav>
+
+        </div><!-- /.docs-content -->
+      </div><!-- /.page-layout -->
+    </main>
+
+    <footer class="site-footer">
+      <p>HackYourFuture Belgium · Navigation — Advanced Patterns</p>
+    </footer>
+  </body>
+</html>

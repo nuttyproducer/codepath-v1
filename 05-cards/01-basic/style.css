@@ -1,0 +1,202 @@
+/* =============================================
+   CARDS — BASIC CARD COMPONENTS
+   Branch: cards-basic
+   ============================================= */
+
+:root {
+  --color-bg: #f8fafc;
+  --color-surface: #ffffff;
+  --color-border: #e2e8f0;
+  --color-text: #1e293b;
+  --color-text-secondary: #64748b;
+  --color-accent: #6366f1;
+  --color-accent-light: #eef2ff;
+  --color-card-shadow: rgba(0, 0, 0, 0.06);
+  --color-card-shadow-hover: rgba(0, 0, 0, 0.12);
+
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --font-ui: system-ui, -apple-system, sans-serif;
+  --radius: 0.75rem;
+  --transition: 0.2s ease;
+  --card-min-width: 280px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-ui); background: var(--color-bg); color: var(--color-text); line-height: 1.6; }
+
+/* =============================================
+   PAGE LAYOUT
+   ============================================= */
+.page-header {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-2xl) var(--space-xl) var(--space-xl);
+}
+.page-header h1 { font-size: clamp(1.5rem, 3vw, 2.25rem); margin-bottom: var(--space-sm); }
+.page-header p { color: var(--color-text-secondary); max-width: 60ch; }
+
+.page-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-xl) var(--space-2xl);
+}
+
+.section { margin-bottom: var(--space-2xl); }
+.section h2 { font-size: 1.375rem; margin-bottom: var(--space-lg); }
+
+code {
+  font-size: 0.875em;
+  background: rgba(99, 102, 241, 0.08);
+  color: #4f46e5;
+  padding: 0.1em 0.4em;
+  border-radius: 0.25rem;
+}
+
+.site-footer {
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-xl);
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+}
+
+/* =============================================
+   EXERCISE 1: RESPONSIVE CARD GRID
+   auto-fill + minmax = responsive columns
+   with NO media queries required!
+   ============================================= */
+.card-grid {
+  /* ADD YOUR STYLES HERE */
+  /* display: grid; */
+  /* grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr)); */
+  /* gap: var(--space-lg); */
+}
+
+/* =============================================
+   CARD BASE
+   ============================================= */
+.card {
+  /* ADD: background: var(--color-surface); */
+  /* border: 1px solid var(--color-border); */
+  /* border-radius: var(--radius); */
+  /* overflow: hidden; (for image border-radius) */
+  /* display: flex; flex-direction: column; */
+  /* box-shadow: 0 1px 3px var(--color-card-shadow); */
+
+  /* ADD: position: relative; — required for .stretched-link */
+  
+  /* EXERCISE 2: Hover lift effect */
+  /* transition: transform var(--transition), box-shadow var(--transition); */
+}
+
+.card:hover {
+  /* ADD: transform: translateY(-4px); */
+  /* box-shadow: 0 8px 24px var(--color-card-shadow-hover); */
+}
+
+/* =============================================
+   CARD IMAGE
+   ============================================= */
+.card__image-wrap {
+  /* ADD: aspect-ratio: 16 / 9; overflow: hidden; */
+}
+
+.card__image {
+  /* ADD: width: 100%; height: 100%; */
+  /* background: a gradient placeholder */
+  /* transition: transform 0.3s ease; */
+}
+
+/* Zoom image on card hover */
+.card:hover .card__image {
+  /* ADD: transform: scale(1.05); */
+}
+
+/* Colour variants for demo placeholder images */
+.card__image { background: linear-gradient(135deg, #e2e8f0, #cbd5e1); }
+.card__image--blue { background: linear-gradient(135deg, #bfdbfe, #93c5fd); }
+.card__image--purple { background: linear-gradient(135deg, #ddd6fe, #c4b5fd); }
+
+/* =============================================
+   CARD BODY
+   ============================================= */
+.card__body {
+  /* ADD: padding: var(--space-md) var(--space-lg); */
+  /* flex: 1; — makes all cards the same height in the grid */
+  /* display: flex; flex-direction: column; gap: var(--space-sm); */
+}
+
+.card__category {
+  /* ADD: font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; */
+  /* color: var(--color-accent); font-weight: 700; */
+}
+
+.card__title {
+  /* ADD: font-size: 1.0625rem; line-height: 1.35; */
+}
+
+.card__excerpt {
+  /* ADD: font-size: 0.9rem; color: var(--color-text-secondary); */
+  /* Line clamp to 3 lines: */
+  /* display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; */
+}
+
+/* =============================================
+   CARD FOOTER
+   ============================================= */
+.card__footer {
+  /* ADD: padding: var(--space-md) var(--space-lg); */
+  /* border-top: 1px solid var(--color-border); */
+  /* display: flex; justify-content: space-between; align-items: center; */
+  /* margin-top: auto; */
+}
+
+.card__author {
+  /* ADD: display: flex; align-items: center; gap: var(--space-sm); */
+}
+
+.card__author-avatar {
+  /* ADD: width: 2rem; height: 2rem; border-radius: 50%; */
+  /* background: var(--color-accent); color: white; */
+  /* display: flex; align-items: center; justify-content: center; */
+  /* font-size: 0.7rem; font-weight: 700; flex-shrink: 0; */
+}
+.card__author-avatar--green { background: #16a34a; }
+.card__author-avatar--orange { background: #ea580c; }
+
+.card__author-name { font-size: 0.8125rem; font-weight: 600; display: block; }
+.card__date { font-size: 0.75rem; color: var(--color-text-secondary); display: block; }
+
+/* =============================================
+   STRETCHED LINK
+   Makes the entire card clickable while keeping
+   the link text accessible to screen readers.
+   ============================================= */
+.stretched-link {
+  /* ADD: font-size: 0.875rem; font-weight: 600; color: var(--color-accent); text-decoration: none; */
+}
+
+/* The stretched-link technique: */
+.stretched-link::after {
+  /* ADD: content: ''; position: absolute; inset: 0; z-index: 1; */
+  /* This creates an invisible overlay the full size of the card */
+}
+
+/* Make sure the "Read →" text link is still above the overlay */
+.card__link {
+  /* ADD: position: relative; z-index: 2; */
+}
+
+/* =============================================
+   ACCESSIBILITY: REDUCED MOTION
+   ============================================= */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

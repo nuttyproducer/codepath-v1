@@ -1,0 +1,225 @@
+/* =============================================
+   MODALS — INTERACTIVE (CSS-only patterns)
+   Branch: modals-interactive
+   ============================================= */
+
+:root {
+  --color-bg: #f8fafc;
+  --color-surface: #ffffff;
+  --color-border: #e2e8f0;
+  --color-text: #1e293b;
+  --color-text-secondary: #64748b;
+  --color-accent: #3b82f6;
+  --color-accent-dark: #2563eb;
+  --color-accent-light: #eff6ff;
+  --font-ui: system-ui, -apple-system, sans-serif;
+  --radius: 0.75rem;
+  --transition: 0.2s ease;
+  --shadow-modal: 0 20px 60px rgba(0, 0, 0, 0.15);
+  --modal-width: 560px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-ui); background: var(--color-bg); color: var(--color-text); line-height: 1.6; }
+
+.skip-link {
+  position: absolute; left: 1rem; top: 1rem; padding: 0.5rem 1rem;
+  background: var(--color-accent); color: white; border-radius: 4px;
+  z-index: 9999; transform: translateY(-200%); transition: transform var(--transition);
+}
+.skip-link:focus { transform: translateY(0); }
+
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border-width: 0; }
+
+.page-header { max-width: 700px; margin: 0 auto; padding: 3rem 2rem 1.5rem; }
+.page-header h1 { font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 0.5rem; }
+.page-header p { color: var(--color-text-secondary); }
+.page-main { max-width: 700px; margin: 0 auto; padding: 0 2rem 3rem; }
+.trigger-buttons { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; }
+.site-footer { border-top: 1px solid var(--color-border); padding: 2rem; text-align: center; color: var(--color-text-secondary); font-size: 0.875rem; }
+code { font-size: 0.875em; background: rgba(99, 102, 241, 0.08); color: #4f46e5; padding: 0.1em 0.4em; border-radius: 0.25rem; }
+
+/* =============================================
+   SHARED MODAL
+   ============================================= */
+.modal {
+  /* ADD YOUR STYLES HERE */
+  /* border: none; padding: 0; background: var(--color-surface); */
+  /* border-radius: var(--radius); */
+  /* width: min(var(--modal-width), calc(100vw - 2rem)); */
+  /* box-shadow: var(--shadow-modal); */
+  /* display: flex; flex-direction: column; */
+  /* animation: modal-enter 0.25s cubic-bezier(0.23, 1, 0.32, 1) forwards; */
+}
+.modal::backdrop { /* ADD: background: rgba(0, 0, 0, 0.5); */ }
+
+@keyframes modal-enter {
+  from { /* ADD: opacity: 0; transform: translateY(-16px) scale(0.97); */ }
+  to   { /* ADD: opacity: 1; transform: none; */ }
+}
+
+.modal__header {
+  /* ADD: display: flex; align-items: center; gap: 1rem; */
+  /* padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--color-border); */
+}
+.modal__title { /* ADD: flex: 1; font-size: 1.1rem; */ }
+.modal__close {
+  background: none; border: none; cursor: pointer;
+  width: 2rem; height: 2rem; border-radius: 0.375rem;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--color-text-secondary);
+}
+.modal__close:hover { /* ADD: background: var(--color-bg); */ }
+.modal__footer {
+  /* ADD: padding: 1rem 1.5rem; border-top: 1px solid var(--color-border); */
+  /* display: flex; justify-content: flex-end; gap: 0.5rem; */
+}
+
+/* =============================================
+   EXERCISE 1: WIZARD — step indicator
+   ============================================= */
+.wizard__steps {
+  /* ADD YOUR STYLES HERE */
+  /* display: flex; list-style: none; gap: 0.25rem; flex: 1; */
+  /* counter-reset: wizard-step; */
+}
+
+.wizard__step {
+  /* ADD: counter-increment: wizard-step; */
+  /* display: flex; align-items: center; gap: 0.375rem; */
+  /* font-size: 0.875rem; color: var(--color-text-secondary); */
+  /* ::before — numbered circle: counter(wizard-step) */
+  /* Active step: color: var(--color-accent); */
+}
+
+.wizard__step::before {
+  /* ADD: content: counter(wizard-step); */
+  /* width: 1.5rem; height: 1.5rem; border-radius: 50%; */
+  /* background: var(--color-border); color: var(--color-text-secondary); */
+  /* display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; */
+}
+
+/* STEP VISIBILITY via :checked sibling selectors */
+/* All panels hidden by default */
+.wizard__panel {
+  /* ADD: display: none; */
+  /* padding: 1.5rem; */
+}
+
+/* The :checked radio reveals its corresponding panel.
+   The wizard radios must come BEFORE the panels in the HTML. */
+#step-1:checked ~ #panel-1,
+#step-2:checked ~ #panel-2,
+#step-3:checked ~ #panel-3 {
+  /* ADD: display: block; */
+}
+
+/* Active step indicator — when radio is checked, highlight its step bullet */
+#step-1:checked ~ .modal__header .wizard__steps #step-ind-1,
+#step-2:checked ~ .modal__header .wizard__steps #step-ind-2,
+#step-3:checked ~ .modal__header .wizard__steps #step-ind-3 {
+  /* ADD: color: var(--color-accent); */
+  /* ::before: background: var(--color-accent); color: white; */
+}
+
+/* NOTE: The ~ (general sibling) selector requires the checked input to be
+   a PRECEDING SIBLING of the panel. That's why inputs come first in the HTML. */
+
+.wizard__form {
+  /* ADD: display: flex; flex-direction: column; gap: 1rem; */
+}
+.wizard__form label { /* ADD: font-size: 0.875rem; font-weight: 500; */ }
+.wizard__form input,
+.wizard__form select,
+.wizard__form textarea {
+  /* ADD: shared input styles */
+  width: 100%; padding: 0.5rem 0.75rem; border: 2px solid var(--color-border);
+  border-radius: 0.375rem; font-family: inherit; font-size: 0.9375rem;
+}
+.wizard__form input:focus,
+.wizard__form select:focus,
+.wizard__form textarea:focus {
+  /* ADD: outline: none; border-color: var(--color-accent); */
+}
+
+.wizard__fieldset { /* ADD: border: none; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; */ }
+.wizard__fieldset legend { /* ADD: font-size: 0.875rem; font-weight: 500; margin-bottom: 0.75rem; */ }
+.wizard__checkbox-label { /* ADD: display: flex; align-items: center; gap: 0.5rem; cursor: pointer; */ }
+
+.wizard__footer {
+  /* ADD: padding: 1rem 1.5rem; border-top: 1px solid var(--color-border); */
+  /* display: flex; justify-content: space-between; align-items: center; */
+}
+
+/* =============================================
+   EXERCISE 2: TABBED MODAL
+   ============================================= */
+.tabbed-modal {
+  /* ADD: overflow: hidden — tabs and content stay inside modal */
+}
+
+/* Tab radios are hidden visually */
+.tab__radio { display: none; }
+
+.tab__bar {
+  /* ADD: display: flex; border-bottom: 2px solid var(--color-border); */
+  /* padding: 0 1rem; background: var(--color-bg); */
+}
+
+.tab__label {
+  /* ADD: padding: 0.75rem 1rem; cursor: pointer; */
+  /* font-size: 0.875rem; font-weight: 500; color: var(--color-text-secondary); */
+  /* border-bottom: 2px solid transparent; margin-bottom: -2px; */
+  /* Active: color: var(--color-accent); border-color: var(--color-accent); */
+}
+.tab__label:hover { /* ADD: color: var(--color-text); */ }
+
+/* Show active tab label with :checked trick */
+#tab-links:checked  ~ .tab__panels .tab__panel:nth-child(1),
+#tab-videos:checked ~ .tab__panels .tab__panel:nth-child(2),
+#tab-tools:checked  ~ .tab__panels .tab__panel:nth-child(3) {
+  /* ADD: display: block; */
+}
+
+/* Active label highlighting — tricky without JS.
+   One approach: use :has() if browser support allows it. */
+.tab__bar:has(label[for="tab-links"] input:checked)  label[for="tab-links"],
+.tab__bar:has(label[for="tab-videos"] input:checked) label[for="tab-videos"],
+.tab__bar:has(label[for="tab-tools"] input:checked)  label[for="tab-tools"] {
+  /* ADD: color: var(--color-accent); border-color: var(--color-accent); */
+}
+
+/* Hide all panels by default, show via :checked */
+.tab__panels { /* ADD: padding: 1.5rem; */ }
+.tab__panel  { /* ADD: display: none; */ }
+
+/* Active panel shown via checked sibling radio above */
+
+.resource-list {
+  /* ADD: list-style: none; display: flex; flex-direction: column; gap: 0.75rem; */
+}
+.resource-list li { /* ADD: font-size: 0.9375rem; */ }
+.resource-list a { /* ADD: color: var(--color-accent); font-weight: 500; */ }
+
+/* =============================================
+   BUTTONS
+   ============================================= */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 0.625rem 1.25rem; border: 2px solid transparent;
+  border-radius: 0.5rem; font-family: inherit; font-size: 0.9375rem;
+  font-weight: 600; cursor: pointer; transition: background-color var(--transition), transform var(--transition);
+  text-decoration: none;
+}
+.btn:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
+.btn:active { transform: scale(0.98); }
+.btn--primary  { background: var(--color-accent); color: white; }
+.btn--primary:hover { background: var(--color-accent-dark); }
+.btn--secondary { background: white; color: var(--color-accent); border-color: var(--color-accent); }
+.btn--secondary:hover { background: var(--color-accent-light); }
+.btn--ghost { background: transparent; color: var(--color-text-secondary); border-color: var(--color-border); }
+.btn--ghost:hover { background: var(--color-bg); }
+
+@media (prefers-reduced-motion: reduce) {
+  .modal { animation: none !important; }
+}

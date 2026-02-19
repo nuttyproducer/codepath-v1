@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Accessibility — WCAG 2.1 Audit</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="page-header">
+      <h1>Accessibility — WCAG 2.1 Audit</h1>
+      <p>Identify and fix colour contrast failures, form error handling, and label issues. Then write an audit report.</p>
+    </header>
+
+    <main class="page-main" id="main-content">
+
+      <!-- EXERCISE 1: COLOUR CONTRAST FAILURES -->
+      <section class="demo-section" aria-labelledby="ex1-heading">
+        <h2 id="ex1-heading">Exercise 1 — Fix the colour contrast failures</h2>
+        <p>
+          WCAG 2.1 AA requires a contrast ratio of at least <strong>4.5:1</strong> for normal text 
+          and <strong>3:1</strong> for large text (18pt+ or 14pt+ bold). 
+          Find and fix all contrast failures below.
+        </p>
+        <p class="hint">
+          Use the <a href="https://webaim.org/resources/contrastchecker/" target="_blank" rel="noopener">WebAIM Contrast Checker</a> 
+          or browser DevTools (Accessibility tab → Contrast) to measure.
+        </p>
+
+        <div class="contrast-examples">
+          <!--
+            EXERCISE: Each item below has a contrast failure.
+            Look in style.css for the .fail-* rules and fix the colours.
+            Use the comments to find the current contrast ratio.
+          -->
+
+          <div class="contrast-item">
+            <span class="contrast-badge contrast-badge--fail">FAIL</span>
+            <p class="fail-gray-on-white">
+              Gray text on white background — ratio: ~2.5:1 ❌ 
+              (WCAG AA requires 4.5:1 for body text)
+            </p>
+          </div>
+
+          <div class="contrast-item">
+            <span class="contrast-badge contrast-badge--fail">FAIL</span>
+            <p class="fail-yellow-on-white">
+              Yellow text on white — ratio: ~1.07:1 ❌
+              (Almost completely invisible)
+            </p>
+          </div>
+
+          <div class="contrast-item">
+            <span class="contrast-badge contrast-badge--fail">FAIL</span>
+            <div class="fail-light-on-blue">
+              Light text on light blue — ratio: ~2.1:1 ❌
+              (Need a much darker blue or white text)
+            </div>
+          </div>
+
+          <div class="contrast-item">
+            <span class="contrast-badge contrast-badge--pass">PASS ✓</span>
+            <p class="pass-dark-on-white">
+              Dark text on white — ratio: ~16:1 ✅
+              (This is what you should aim for)
+            </p>
+          </div>
+
+          <div class="contrast-item">
+            <span class="contrast-badge contrast-badge--pass">PASS ✓</span>
+            <div class="pass-white-on-blue">
+              White text on dark blue — ratio: ~8.6:1 ✅
+              (Exceeds AA and AAA requirements)
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- EXERCISE 2: ACCESSIBLE FORM WITH ERROR HANDLING -->
+      <section class="demo-section" aria-labelledby="ex2-heading">
+        <h2 id="ex2-heading">Exercise 2 — Accessible form with error identification</h2>
+        <p>
+          WCAG 2.1 Success Criterion 3.3.1 requires that errors be identified in text, 
+          not by colour alone. SC 3.3.2 requires labels and instructions for inputs.
+        </p>
+
+        <!--
+          WCAG form requirements checklist:
+          ✅ Every input has an associated <label> (not just placeholder)
+          ✅ Required fields are marked (visually + with aria-required="true")
+          ✅ Error messages identify the specific error in text
+          ✅ Errors are linked to the input (aria-describedby)
+          ✅ Error state is communicated to screen readers (aria-invalid="true")
+          ✅ Success/error not conveyed by colour alone (add icon or text)
+        -->
+        <form class="a11y-form" novalidate>
+
+          <div class="form-group form-group--error">
+            <label class="form-label" for="full-name">
+              Full name <span class="required-mark" aria-hidden="true">*</span>
+              <span class="sr-only">(required)</span>
+            </label>
+            <input 
+              type="text" 
+              id="full-name" 
+              name="full-name"
+              class="form-input form-input--error"
+              aria-required="true"
+              aria-invalid="true"
+              aria-describedby="name-error"
+              autocomplete="name"
+            />
+            <p class="form-error" id="name-error" role="alert">
+              <span aria-hidden="true">⚠</span>
+              Please enter your full name.
+            </p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="email">
+              Email address <span class="required-mark" aria-hidden="true">*</span>
+              <span class="sr-only">(required)</span>
+            </label>
+            <p class="form-hint" id="email-hint">We'll use this to send your assignment confirmation.</p>
+            <input 
+              type="email" 
+              id="email" 
+              name="email"
+              class="form-input"
+              aria-required="true"
+              aria-describedby="email-hint"
+              autocomplete="email"
+              placeholder="you@example.com"
+            />
+          </div>
+
+          <div class="form-group form-group--error">
+            <label class="form-label" for="cohort">
+              Cohort <span class="required-mark" aria-hidden="true">*</span>
+              <span class="sr-only">(required)</span>
+            </label>
+            <select 
+              id="cohort" 
+              name="cohort"
+              class="form-input form-input--error"
+              aria-required="true"
+              aria-invalid="true"
+              aria-describedby="cohort-error"
+            >
+              <option value="">— Select cohort —</option>
+              <option value="2025a">2025A</option>
+              <option value="2024b">2024B</option>
+            </select>
+            <p class="form-error" id="cohort-error" role="alert">
+              <span aria-hidden="true">⚠</span>
+              Please select your cohort.
+            </p>
+          </div>
+
+          <div class="form-group">
+            <fieldset class="form-fieldset">
+              <legend class="form-label">
+                Track preference <span class="required-mark" aria-hidden="true">*</span>
+              </legend>
+              <div class="radio-group">
+                <label class="radio-label">
+                  <input type="radio" name="track" value="frontend" />
+                  Front-end development
+                </label>
+                <label class="radio-label">
+                  <input type="radio" name="track" value="fullstack" />
+                  Full-stack development
+                </label>
+              </div>
+            </fieldset>
+          </div>
+
+          <button class="btn btn--primary" type="submit">Submit application</button>
+        </form>
+      </section>
+
+      <!-- EXERCISE 3: AUDIT CHECKLIST -->
+      <section class="demo-section" aria-labelledby="ex3-heading">
+        <h2 id="ex3-heading">Exercise 3 — Fill in your WCAG audit checklist</h2>
+        <p>
+          Run the page through browser accessibility tools (DevTools Accessibility tab, 
+          <a href="https://wave.webaim.org/" target="_blank" rel="noopener">WAVE</a>, or 
+          <a href="https://www.deque.com/axe/" target="_blank" rel="noopener">axe DevTools</a>) 
+          and fill in the results below.
+        </p>
+
+        <div class="checklist-table-wrapper">
+          <table class="checklist-table">
+            <caption>WCAG 2.1 AA — Self-audit results</caption>
+            <thead>
+              <tr>
+                <th scope="col">Criterion</th>
+                <th scope="col">Level</th>
+                <th scope="col">Status</th>
+                <th scope="col">Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1.1.1 Non-text content (alt text)</td>
+                <td>A</td>
+                <td><span class="status-badge status-badge--tbd">TBD</span></td>
+                <td>ADD YOUR NOTES HERE</td>
+              </tr>
+              <tr>
+                <td>1.3.1 Info and relationships</td>
+                <td>A</td>
+                <td><span class="status-badge status-badge--tbd">TBD</span></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>1.4.3 Contrast (minimum)</td>
+                <td>AA</td>
+                <td><span class="status-badge status-badge--tbd">TBD</span></td>
+                <td>4.5:1 for normal text, 3:1 for large text</td>
+              </tr>
+              <tr>
+                <td>2.1.1 Keyboard</td>
+                <td>A</td>
+                <td><span class="status-badge status-badge--tbd">TBD</span></td>
+                <td>All functionality operable by keyboard</td>
+              </tr>
+              <tr>
+                <td>2.4.1 Bypass blocks (skip link)</td>
+                <td>A</td>
+                <td><span class="status-badge status-badge--tbd">TBD</span></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>2.4.3 Focus order</td>
+                <td>A</td>
+                <td><span class="status-badge status-badge--tbd">TBD</span></td>
+                <td>No positive tabindex values</td>
+              </tr>
+              <tr>
+                <td>2.4.7 Focus visible</td>
+                <td>AA</td>
+                <td><span class="status-badge status-badge--tbd">TBD</span></td>
+                <td>Focus ring must be visible</td>
+              </tr>
+              <tr>
+                <td>3.3.1 Error identification</td>
+                <td>A</td>
+                <td><span class="status-badge status-badge--tbd">TBD</span></td>
+                <td>Errors described in text, not colour alone</td>
+              </tr>
+              <tr>
+                <td>3.3.2 Labels or instructions</td>
+                <td>A</td>
+                <td><span class="status-badge status-badge--tbd">TBD</span></td>
+                <td>All inputs must have labels</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <p>HackYourFuture Belgium · Accessibility — WCAG 2.1 Audit</p>
+    </footer>
+  </body>
+</html>

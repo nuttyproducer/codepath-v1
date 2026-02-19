@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modals — Basic Modal Dialog</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="page-header">
+      <h1>Modal Dialog</h1>
+      <p>A modal using the native HTML <code>&lt;dialog&gt;</code> element with <code>::backdrop</code> styling and entrance animation.</p>
+    </header>
+
+    <main class="page-main" id="main-content">
+
+      <!-- TRIGGER BUTTONS -->
+      <div class="trigger-buttons">
+        <!-- Note: onclick is acceptable here before JavaScript is taught.
+             Document this exception in a code comment.                   -->
+        <button class="btn btn--primary" onclick="document.getElementById('modal-basic').showModal()">
+          Open basic modal
+        </button>
+        <button class="btn btn--secondary" onclick="document.getElementById('modal-confirm').showModal()">
+          Open confirmation dialog
+        </button>
+      </div>
+
+      <!-- EXERCISE 1: BASIC MODAL -->
+      <dialog class="modal" id="modal-basic" aria-labelledby="modal-basic-title" aria-describedby="modal-basic-desc">
+        <div class="modal__header">
+          <h2 class="modal__title" id="modal-basic-title">Welcome to HYF Belgium</h2>
+          <!-- ADD: Close button with aria-label (not just ✕) -->
+          <button
+            class="modal__close"
+            aria-label="Close dialog"
+            onclick="document.getElementById('modal-basic').close()"
+          >
+            <span aria-hidden="true">✕</span>
+          </button>
+        </div>
+
+        <div class="modal__body" id="modal-basic-desc">
+          <p>HackYourFuture Belgium is a coding school for refugees and newcomers. We teach web development through project-based learning.</p>
+          <p>Our curriculum covers HTML, CSS, JavaScript, React, Node.js, and SQL — all in 9 months of part-time study.</p>
+        </div>
+
+        <div class="modal__footer">
+          <button class="btn btn--ghost" onclick="document.getElementById('modal-basic').close()">Cancel</button>
+          <button class="btn btn--primary" onclick="document.getElementById('modal-basic').close()">Learn more</button>
+        </div>
+      </dialog>
+
+      <!-- EXERCISE 2: CONFIRMATION DIALOG (destructive action) -->
+      <dialog class="modal modal--sm" id="modal-confirm" aria-labelledby="modal-confirm-title" aria-describedby="modal-confirm-desc">
+        <div class="modal__header modal__header--warning">
+          <span class="modal__icon" aria-hidden="true">⚠️</span>
+          <h2 class="modal__title" id="modal-confirm-title">Delete assignment?</h2>
+          <button
+            class="modal__close"
+            aria-label="Close dialog"
+            onclick="document.getElementById('modal-confirm').close()"
+          >
+            <span aria-hidden="true">✕</span>
+          </button>
+        </div>
+
+        <div class="modal__body" id="modal-confirm-desc">
+          <p>Are you sure you want to delete this assignment? This action <strong>cannot be undone</strong>. All student submissions will be permanently removed.</p>
+        </div>
+
+        <div class="modal__footer">
+          <button class="btn btn--ghost" onclick="document.getElementById('modal-confirm').close()">Cancel</button>
+          <button class="btn btn--danger" onclick="document.getElementById('modal-confirm').close()">Delete assignment</button>
+        </div>
+      </dialog>
+
+    </main>
+
+    <footer class="site-footer">
+      <p>HackYourFuture Belgium · Modals — Basic</p>
+    </footer>
+  </body>
+</html>

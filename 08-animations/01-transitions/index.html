@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Animations — Transitions</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="page-header">
+      <h1>CSS Transitions</h1>
+      <p>Smooth state changes on buttons, cards, navigation links, and form fields using the <code>transition</code> property.</p>
+    </header>
+
+    <main class="page-main" id="main-content">
+
+      <!-- EXERCISE 1: BUTTON STATES -->
+      <section class="demo-section">
+        <h2>Exercise 1 — Button hover &amp; active states</h2>
+        <p>Each state change should feel smooth. Hover, then click each button.</p>
+
+        <div class="button-row">
+          <!-- Transition all properties (not recommended — be specific!) -->
+          <button class="btn btn--primary">Primary action</button>
+          <button class="btn btn--secondary">Secondary action</button>
+          <button class="btn btn--ghost">Ghost button</button>
+
+          <!-- Danger button — should transition colour AND slightly shake on :active -->
+          <button class="btn btn--danger">Delete</button>
+
+          <!-- Loading state — spinner replaces text on :active (CSS-only) -->
+          <button class="btn btn--primary btn--loading" aria-label="Submit — loading">
+            <span class="btn__text">Submit</span>
+            <span class="btn__spinner" aria-hidden="true"></span>
+          </button>
+        </div>
+
+        <!--
+          ADD: What properties should you transition?
+          Recommended: transition: background-color, border-color, color, box-shadow, transform
+          NOT recommended: transition: all (performance issues)
+        -->
+      </section>
+
+      <!-- EXERCISE 2: CARD HOVER LIFT -->
+      <section class="demo-section">
+        <h2>Exercise 2 — Card hover lift effect</h2>
+        <p>Cards lift up and elevate their shadow on hover. Image zooms in slightly.</p>
+
+        <div class="card-grid">
+          <article class="card">
+            <div class="card__img-wrap">
+              <img
+                src="https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=600&q=75"
+                alt="Laptop with code editor open"
+                class="card__img"
+                loading="lazy"
+              />
+            </div>
+            <div class="card__body">
+              <span class="card__tag">HTML &amp; CSS</span>
+              <h3 class="card__title">Form Controls — Basic</h3>
+              <p class="card__excerpt">Build a contact form with HTML5 validation attributes and semantic fieldsets.</p>
+            </div>
+          </article>
+          <article class="card">
+            <div class="card__img-wrap">
+              <img
+                src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=600&q=75"
+                alt="Server rack with blue LED lights"
+                class="card__img"
+                loading="lazy"
+              />
+            </div>
+            <div class="card__body">
+              <span class="card__tag">CSS</span>
+              <h3 class="card__title">Data Tables — Responsive</h3>
+              <p class="card__excerpt">Transform a standard table into a mobile-friendly card view using only CSS.</p>
+            </div>
+          </article>
+          <article class="card">
+            <div class="card__img-wrap">
+              <img
+                src="https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=600&q=75"
+                alt="Person studying with laptop and notes"
+                class="card__img"
+                loading="lazy"
+              />
+            </div>
+            <div class="card__body">
+              <span class="card__tag">Accessibility</span>
+              <h3 class="card__title">Accessibility — Semantic HTML</h3>
+              <p class="card__excerpt">Refactor a divs-only page to use correct landmark elements and heading hierarchy.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- EXERCISE 3: NAVIGATION UNDERLINE ANIMATION -->
+      <section class="demo-section">
+        <h2>Exercise 3 — Animated navigation underline</h2>
+        <p>The underline grows from centre (or left) on hover. Built with <code>::after</code> and <code>transform: scaleX()</code>.</p>
+
+        <nav class="demo-nav" aria-label="Demo navigation">
+          <ul class="demo-nav__list">
+            <li><a href="#" class="demo-nav__link demo-nav__link--active">Home</a></li>
+            <li><a href="#" class="demo-nav__link">Assignments</a></li>
+            <li><a href="#" class="demo-nav__link">Resources</a></li>
+            <li><a href="#" class="demo-nav__link">Community</a></li>
+            <li><a href="#" class="demo-nav__link">About</a></li>
+          </ul>
+        </nav>
+        <!-- ADD: Try scaleX(0) → scaleX(1). What transform-origin makes it grow from the left? From centre? -->
+      </section>
+
+      <!-- EXERCISE 4: FORM FOCUS TRANSITIONS -->
+      <section class="demo-section">
+        <h2>Exercise 4 — Form field focus transitions</h2>
+        <p>Smooth border-color and box-shadow transitions create a polished form experience.</p>
+
+        <form class="demo-form" novalidate>
+          <div class="field">
+            <label for="full-name" class="field__label">Full name</label>
+            <input id="full-name" type="text" class="field__input" placeholder="Ben Vanderzeypen" />
+          </div>
+
+          <div class="field">
+            <label for="email-demo" class="field__label">Email address</label>
+            <input id="email-demo" type="email" class="field__input" placeholder="ben@hyf.be" />
+          </div>
+
+          <div class="field">
+            <label for="subject" class="field__label">Subject</label>
+            <select id="subject" class="field__input">
+              <option value="">Select a subject...</option>
+              <option>Question about assignments</option>
+              <option>Technical issue</option>
+              <option>Feedback</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="message" class="field__label">Message</label>
+            <textarea id="message" class="field__input field__input--textarea" rows="4" placeholder="Type your message..."></textarea>
+          </div>
+
+          <!-- ADD: transition border-color and box-shadow on :focus -->
+          <!-- ADD: Also transition the label upward if using :placeholder-shown technique -->
+        </form>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <p>HackYourFuture Belgium · Animations — Transitions</p>
+    </footer>
+  </body>
+</html>

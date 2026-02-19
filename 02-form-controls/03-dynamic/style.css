@@ -1,0 +1,363 @@
+/* =============================================
+   FORM CONTROLS — DYNAMIC CSS FORMS
+   Branch: form-controls-dynamic
+   =============================================
+   This file is scaffolded for you.
+   Fill in the /* ADD YOUR STYLES HERE */ blocks.
+   ============================================= */
+
+/* =============================================
+   DESIGN TOKENS
+   ============================================= */
+:root {
+  /* Colours */
+  --color-bg: #f8fafc;
+  --color-surface: #ffffff;
+  --color-border: #e2e8f0;
+  --color-border-focus: #3b82f6;
+  --color-text: #1e293b;
+  --color-text-secondary: #64748b;
+  --color-primary: #3b82f6;
+  --color-primary-dark: #2563eb;
+  --color-success: #16a34a;
+  --color-danger: #dc2626;
+  --color-star: #f59e0b;
+  --color-star-empty: #cbd5e1;
+
+  /* Spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+
+  /* Typography */
+  --font-body: system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --radius: 0.5rem;
+  --radius-full: 9999px;
+  --transition: 0.2s ease;
+}
+
+/* =============================================
+   BASE STYLES
+   ============================================= */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  padding: var(--space-xl) var(--space-md);
+}
+
+/* =============================================
+   PAGE LAYOUT
+   ============================================= */
+.page-header {
+  max-width: 700px;
+  margin: 0 auto var(--space-2xl);
+  text-align: center;
+}
+.page-header h1 { font-size: 2rem; margin-bottom: var(--space-sm); }
+.page-subtitle { color: var(--color-text-secondary); }
+
+.page-main {
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+}
+
+.page-footer {
+  max-width: 700px;
+  margin: var(--space-2xl) auto 0;
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+}
+
+.exercise {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-xl);
+}
+.exercise h2 { margin-bottom: var(--space-sm); }
+.exercise > p { color: var(--color-text-secondary); margin-bottom: var(--space-lg); }
+
+/* =============================================
+   FORM BASE
+   ============================================= */
+.form { display: flex; flex-direction: column; gap: var(--space-lg); }
+
+fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+legend {
+  font-weight: 600;
+  margin-bottom: var(--space-sm);
+  color: var(--color-text);
+}
+
+label:not(.plan-option):not(.star-rating__label):not(.dark-mode-toggle__label) {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: var(--space-xs);
+}
+
+input[type="text"],
+input[type="number"],
+input[type="month"],
+textarea {
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--color-text);
+  background: var(--color-surface);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="month"]:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--color-border-focus);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+textarea { resize: vertical; min-height: 6rem; }
+
+.field { display: flex; flex-direction: column; gap: var(--space-xs); }
+.field__hint { font-size: 0.8rem; color: var(--color-text-secondary); }
+
+/* =============================================
+   BUTTONS
+   ============================================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-sm) var(--space-lg);
+  border: 2px solid transparent;
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--transition), border-color var(--transition), transform var(--transition);
+}
+.btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+.btn:active { transform: scale(0.98); }
+
+.btn--primary {
+  background-color: var(--color-primary);
+  color: #fff;
+  align-self: flex-start;
+}
+.btn--primary:hover { background-color: var(--color-primary-dark); }
+
+.btn--secondary {
+  background-color: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+.btn--secondary:hover { background-color: rgba(59, 130, 246, 0.05); }
+
+/* =============================================
+   EXERCISE 1: CONDITIONAL FIELDS
+   ============================================= */
+
+/* Plan selector: display radio cards in a column with styled labels */
+.plan-selector { display: flex; flex-direction: column; gap: var(--space-sm); }
+
+.plan-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: border-color var(--transition), background-color var(--transition);
+}
+.plan-option:hover { border-color: var(--color-primary); background-color: rgba(59, 130, 246, 0.03); }
+
+/* ADD: Style .plan-option when its internal radio input is :checked */
+/* Hint: input[type="radio"]:checked inside .plan-option → change border-color and background */
+
+.plan-label {
+  display: flex;
+  flex-direction: column;
+}
+.plan-price {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+}
+
+/* ADD: .plan-fields are hidden by default */
+/* They should be revealed when their corresponding radio is :checked */
+/* Use the CSS sibling combinator pattern:                             */
+/* input[value="pro"]:checked ~ .plan-fields--pro { display: block; } */
+/* But note: for this to work with siblings, the fields must come      */
+/* AFTER the radio inputs in the HTML (which they do here).            */
+.plan-fields {
+  /* ADD YOUR STYLES HERE */
+  /* display: none; by default */
+  /* Add padding-top, border-top, display: flex, flex-direction: column, gap */
+}
+
+.plan-fields--pro {
+  /* ADD: Show when the "pro" radio is checked */
+}
+
+.plan-fields--enterprise {
+  /* ADD: Show when the "enterprise" radio is checked */
+}
+
+/* =============================================
+   EXERCISE 2: STAR RATING INPUT
+   ============================================= */
+
+/* The RTL trick: place stars in reverse order in HTML (5,4,3,2,1)   */
+/* Then flip the container direction so they display left→right (1,2,3,4,5) */
+/* When star N is :checked, use ~ general sibling to fill all PREVIOUS stars */
+/* (which are actually AFTER in the DOM due to the reverse order)      */
+
+.star-rating { border: none; padding: 0; margin: 0; }
+.star-rating legend { margin-bottom: var(--space-sm); }
+
+.star-rating__input {
+  /* ADD: Hide the radio inputs visually but keep them accessible */
+  /* position: absolute; opacity: 0; width: 0; height: 0; */
+}
+
+.star-rating__label {
+  /* ADD YOUR STYLES HERE */
+  /* cursor: pointer; */
+  /* font-size: 2rem; */
+  /* color: var(--color-star-empty); */
+}
+
+/* ADD: When a star label is hovered or its input is :checked → fill that star */
+/* ADD: Fill all "previous" stars using the ~ sibling selector trick */
+
+.star-rating__star {
+  /* ADD YOUR STYLES HERE */
+  /* transition: color var(--transition); */
+}
+
+/* =============================================
+   EXERCISE 3: PROMO CODE FIELD
+   ============================================= */
+
+.field--promo { gap: var(--space-xs); }
+
+.promo-input-wrapper {
+  /* ADD: position: relative; so the ::after pseudo-element can be positioned inside */
+}
+
+/* ADD: .promo-input-wrapper::after shows ✓ or ✗ based on input validity */
+/* Use :has() or a sibling selector: .promo-input-wrapper:has(input:valid)::after */
+.promo-input-wrapper::after {
+  /* ADD: position absolute, right: 0.75rem, top 50% */
+  /* content: '' by default, changes to ✓ on :valid, ✗ on :invalid + not empty */
+}
+
+/* ADD: Green border on valid input */
+
+/* ADD: Red border on invalid + not-placeholder-shown */
+
+/* =============================================
+   EXERCISE 4: DARK MODE TOGGLE (CSS only)
+   ============================================= */
+
+.dark-mode-toggle__input {
+  /* ADD: Hide the checkbox (use sr-only technique — not display:none) */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.dark-mode-toggle__label {
+  /* ADD: display: flex; align-items: center; gap; cursor: pointer; */
+}
+
+/* The toggle track */
+.dark-mode-toggle__track {
+  /* ADD: A pill-shaped track — width, height, border-radius, background */
+  /* Transition background when :checked */
+}
+
+/* The thumb (the circle inside the track) */
+.dark-mode-toggle__thumb {
+  /* ADD: Circle inside the track that slides right on :checked */
+  /* Use transform: translateX() to slide */
+}
+
+/* ADD: When the checkbox is :checked... */
+/* #dark-mode-toggle:checked ~ label .dark-mode-toggle__track { background: accent; } */
+/* #dark-mode-toggle:checked ~ label .dark-mode-toggle__thumb { transform: translateX(Xpx); } */
+
+/* ADD: When the checkbox is :checked, change the demo card's colour tokens */
+/* #dark-mode-toggle:checked ~ .demo-card { --color-bg: #0f172a; --color-text: #f1f5f9; } */
+
+.dark-mode-demo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.demo-card {
+  /* ADD: Use CSS custom properties for colours so they can be overridden by :checked sibling */
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.demo-card h3 { font-size: 1.1rem; }
+
+/* =============================================
+   CODE ELEMENT
+   ============================================= */
+code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: rgba(99, 102, 241, 0.08);
+  color: #4f46e5;
+  padding: 0.1em 0.4em;
+  border-radius: 0.25rem;
+}
+
+/* =============================================
+   ACCESSIBILITY: REDUCED MOTION
+   ============================================= */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

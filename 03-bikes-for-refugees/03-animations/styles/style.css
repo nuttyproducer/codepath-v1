@@ -1,0 +1,146 @@
+/**
+ * Bikes for Refugees — Animations
+ * Branch 3: Integration 🟠
+ *
+ * Start by copying your completed CSS from Branch 2.
+ * Then ADD the animations below — do not remove your existing styles.
+ */
+
+/* =============================================
+   COPY YOUR BRANCH 2 CSS HERE FIRST
+   Then work through each exercise below.
+   ============================================= */
+
+
+/* =============================================
+   EXERCISE 1: BUTTON TRANSITIONS
+   Add transition, hover lift, and active press.
+   ============================================= */
+
+button {
+  /* ADD: transition property */
+  cursor: pointer;
+}
+
+button:hover {
+  /* ADD: translateY lift + deeper box-shadow */
+}
+
+button:active {
+  /* ADD: translateY press down */
+}
+
+
+/* =============================================
+   EXERCISE 2: ANIMATED NAV UNDERLINE
+   Use ::after pseudo-element + transition.
+   ============================================= */
+
+.navigation__link {
+  position: relative;
+  /* Keep your existing styles from Branch 1 */
+}
+
+.navigation__link::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  height: 2px;
+  width: 0; /* Start at 0 */
+  background-color: var(--orange-dark);
+  /* ADD: transition so it grows to 100% on hover */
+}
+
+.navigation__link:hover::after {
+  width: 100%; /* Full width on hover */
+}
+
+
+/* =============================================
+   EXERCISE 3: CARD ENTRANCE ANIMATION
+   Cards fade in and slide up on page load.
+   ============================================= */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Apply to each article card */
+.article {
+  /* ADD: animation using fadeInUp */
+  /* animation: fadeInUp 0.4s ease forwards; */
+}
+
+/* Stagger each card — add animation-delay per card */
+/* Example:
+.article:nth-child(1) { animation-delay: 0s; }
+.article:nth-child(2) { animation-delay: 0.1s; }
+.article:nth-child(3) { animation-delay: 0.2s; }
+*/
+
+
+/* =============================================
+   EXERCISE 4: STATISTICS COUNT-UP
+   Pure CSS counter animation.
+   This is a tough challenge — research CSS @keyframes with counter().
+   ============================================= */
+
+@keyframes countUp {
+  /* ADD your counter animation steps here */
+}
+
+.text-highlight {
+  /* ADD: animation using countUp */
+}
+
+
+/* =============================================
+   EXERCISE 5: SKELETON LOADING
+   Pulsing shimmer effect for placeholder content.
+   ============================================= */
+
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--grey-light) 25%,
+    #f0f0f0 50%,
+    var(--grey-light) 75%
+  );
+  background-size: 2000px 100%;
+  /* ADD: animation using shimmer */
+  border-radius: 4px;
+}
+
+.skeleton--text {
+  height: 1rem;
+  margin-bottom: 0.5rem;
+  width: 100%;
+}
+
+.skeleton--image {
+  height: 150px;
+  width: 100%;
+}
+
+
+/* =============================================
+   REDUCED MOTION — ALWAYS INCLUDE THIS
+   Wrap all animations in this media query.
+   ============================================= */
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Move ALL your @keyframes animations inside here */
+}

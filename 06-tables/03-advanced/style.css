@@ -1,0 +1,154 @@
+/* =============================================
+   TABLES — ADVANCED
+   Branch: tables-advanced
+   ============================================= */
+
+:root {
+  --color-bg: #f8fafc;
+  --color-surface: #ffffff;
+  --color-border: #e2e8f0;
+  --color-text: #1e293b;
+  --color-text-secondary: #64748b;
+  --color-accent: #3b82f6;
+  --color-selected-bg: #eff6ff;
+  --color-selected-border: #93c5fd;
+  --font-ui: system-ui, -apple-system, sans-serif;
+  --radius: 0.75rem;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-ui); background: var(--color-bg); color: var(--color-text); line-height: 1.6; }
+
+.skip-link {
+  position: absolute; left: 1rem; top: 1rem; padding: 0.5rem 1rem;
+  background: var(--color-accent); color: white; border-radius: 4px;
+  z-index: 9999; transform: translateY(-200%); transition: transform 0.2s ease;
+}
+.skip-link:focus { transform: translateY(0); }
+
+.page-header { max-width: 960px; margin: 0 auto; padding: 3rem 2rem 1.5rem; }
+.page-header h1 { font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 0.5rem; }
+.page-header p { color: var(--color-text-secondary); }
+.page-main { max-width: 960px; margin: 0 auto; padding: 0 2rem 3rem; display: flex; flex-direction: column; gap: 3rem; }
+.site-footer { border-top: 1px solid var(--color-border); padding: 2rem; text-align: center; color: var(--color-text-secondary); font-size: 0.875rem; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+code { font-size: 0.875em; background: rgba(99,102,241,0.08); color: #4f46e5; padding: 0.1em 0.4em; border-radius: 0.25rem; }
+
+.demo-section { display: flex; flex-direction: column; gap: 1.25rem; }
+.demo-section h2 { font-size: 1.1rem; border-bottom: 2px solid var(--color-border); padding-bottom: 0.5rem; }
+.demo-section > p { color: var(--color-text-secondary); font-size: 0.9375rem; }
+
+/* =============================================
+   BASE TABLE
+   ============================================= */
+.table-scroll-wrapper { overflow-x: auto; border-radius: var(--radius); box-shadow: var(--shadow-sm); background: var(--color-surface); }
+.data-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+.data-table caption { caption-side: top; text-align: left; font-weight: 600; font-size: 0.8125rem; color: var(--color-text-secondary); padding: 1rem 1rem 0.5rem; letter-spacing: 0.03em; text-transform: uppercase; }
+.data-table th, .data-table td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid var(--color-border); }
+.data-table thead th { background: #f1f5f9; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-text-secondary); }
+.data-table tbody tr:last-child td { border-bottom: none; }
+
+.col-check { width: 2.5rem; text-align: center; }
+.col-check input[type="checkbox"] { accent-color: var(--color-accent); width: 1rem; height: 1rem; cursor: pointer; }
+
+/* =============================================
+   EXERCISE 1: ROW SELECTION WITH :has()
+   ============================================= */
+.selectable-table tbody tr:has(input[type="checkbox"]:checked) {
+  /* ADD: background: var(--color-selected-bg); */
+  /* ADD: outline: 2px solid var(--color-selected-border); */
+  /* NOTE: :has() is supported in all modern browsers */
+}
+
+.selectable-table tbody tr:has(:checked) td {
+  /* ADD: font-weight: 600; */
+  /* ADD: color: #1d4ed8; */
+}
+
+/* PROGRESS BARS */
+.progress-bar {
+  height: 0.5rem; background: var(--color-border);
+  border-radius: 9999px; overflow: hidden;
+  min-width: 80px;
+}
+.progress-bar__fill {
+  height: 100%;
+  /* ADD: width: var(--progress, 0%); */
+  width: var(--progress, 0%);
+  background: var(--color-accent);
+  border-radius: 9999px;
+  transition: width 0.4s ease;
+}
+.progress-bar__fill--high { background: #22c55e; }
+.progress-bar__fill--low  { background: #ef4444; }
+
+/* BADGES */
+.badge { display: inline-block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.2em 0.55em; border-radius: 9999px; }
+.badge--success { background: #dcfce7; color: #15803d; }
+.badge--warning { background: #fef9c3; color: #a16207; }
+.badge--danger  { background: #fee2e2; color: #dc2626; }
+.badge--neutral { background: #f1f5f9; color: #64748b; }
+
+/* SCORE COLOURS */
+.score { font-weight: 700; }
+.score--high { color: #15803d; }
+.score--mid  { color: #a16207; }
+.score--low  { color: #dc2626; }
+
+/* TABLE LINKS */
+.table-link { color: var(--color-accent); font-weight: 600; text-decoration: none; font-size: 0.8125rem; }
+.table-link:hover { text-decoration: underline; }
+
+/* =============================================
+   EXERCISE 2: SORTABLE HEADERS + BULK ACTION BAR
+   ============================================= */
+
+/* Sortable column headers */
+.sortable { cursor: pointer; user-select: none; white-space: nowrap; }
+.sortable::after {
+  /* ADD: content: " ↕"; — default unsorted indicator */
+  content: " ↕"; color: var(--color-border); font-size: 0.75rem; margin-left: 0.2em;
+}
+.sorted-asc::after {
+  /* ADD: content: " ↑"; — ascending sort indicator */
+  content: " ↑"; color: var(--color-accent);
+}
+.sorted-desc::after {
+  /* ADD: content: " ↓"; */
+  content: " ↓"; color: var(--color-accent);
+}
+
+/* BULK ACTION BAR */
+.selectable-region { display: flex; flex-direction: column; gap: 0.75rem; }
+
+.bulk-action-bar {
+  /* Hidden by default — revealed by :has() when any checkbox in the region is checked */
+  display: none;
+  align-items: center; justify-content: space-between;
+  padding: 0.75rem 1rem; background: #eff6ff;
+  border: 1px solid #93c5fd; border-radius: var(--radius);
+  gap: 1rem;
+  animation: slide-in 0.2s ease;
+}
+
+/* ADD: .selectable-region:has(input:checked) .bulk-action-bar { display: flex; } */
+.selectable-region:has(input:checked) .bulk-action-bar {
+  /* This is the key :has() selector — remove this and add it yourself! */
+  display: flex;
+}
+
+@keyframes slide-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.bulk-action-bar__count { font-weight: 600; font-size: 0.875rem; color: #1d4ed8; }
+.bulk-action-bar__actions { display: flex; gap: 0.5rem; }
+
+.btn { display: inline-flex; align-items: center; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 600; cursor: pointer; font-family: inherit; font-size: 0.875rem; border: none; text-decoration: none; gap: 0.5rem; transition: background 0.15s ease; }
+.btn--sm { padding: 0.3rem 0.75rem; font-size: 0.8125rem; }
+.btn--outline { background: transparent; border: 1.5px solid var(--color-border); color: var(--color-text); }
+.btn--outline:hover { background: var(--color-bg); }
+.btn--danger { border-color: #fca5a5; color: #dc2626; }
+.btn--danger:hover { background: #fee2e2; }

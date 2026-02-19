@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wireframe — E-commerce</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a href="#" class="brand" aria-label="HYF Shop home">⬡ HYF Shop</a>
+        <nav aria-label="Main navigation">
+          <ul class="nav-list" role="list">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Products</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Cart (0)</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page-main" id="main-content">
+
+      <!-- PRODUCT LAYOUT: image gallery + purchase panel -->
+      <div class="product-layout">
+
+        <!-- EXERCISE 1: CSS-ONLY IMAGE GALLERY with :target -->
+        <section class="gallery" aria-label="Product images">
+          <!--
+            TECHNIQUE: :target gallery
+            Each full image has an id. Thumbnail links set the fragment to that id.
+            .gallery-image { display: none; }
+            .gallery-image:target { display: block; }
+            First image shown by default via :not(:has(:target)) trick.
+          -->
+
+          <!-- Full-size images -->
+          <div class="gallery-main">
+            <img id="img-1" class="gallery-image" src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=700&q=80" alt="White t-shirt front view" />
+            <img id="img-2" class="gallery-image" src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=700&q=80" alt="Red product detail" />
+            <img id="img-3" class="gallery-image" src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=700&q=80" alt="Product in context" />
+          </div>
+
+          <!-- Thumbnail strip -->
+          <div class="gallery-thumbs" role="list" aria-label="Product image thumbnails">
+            <a href="#img-1" class="gallery-thumb" role="listitem" aria-label="View image 1">
+              <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=120&q=60" alt="" aria-hidden="true" />
+            </a>
+            <a href="#img-2" class="gallery-thumb" role="listitem" aria-label="View image 2">
+              <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=120&q=60" alt="" aria-hidden="true" />
+            </a>
+            <a href="#img-3" class="gallery-thumb" role="listitem" aria-label="View image 3">
+              <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=120&q=60" alt="" aria-hidden="true" />
+            </a>
+          </div>
+        </section>
+
+        <!-- EXERCISE 2: STICKY PURCHASE PANEL + colour/size swatches -->
+        <aside class="purchase-panel">
+          <!--
+            TECHNIQUE: position: sticky; top: 5rem;
+            Stays visible while the page scrolls.
+          -->
+          <h1 class="product-title">HYF Classic Tee</h1>
+          <p class="product-price" aria-label="Price: 29 euros">€29</p>
+          <p class="product-rating" aria-label="Rating: 4.7 out of 5">★★★★★ <span>4.7 (42 reviews)</span></p>
+
+          <form class="purchase-form">
+
+            <!-- COLOUR SWATCHES: radio inputs styled as visual swatches -->
+            <fieldset class="swatch-group">
+              <legend>Colour</legend>
+              <!--
+                TECHNIQUE: radio + :checked styling
+                input[type="radio"]:checked + label .swatch { outline: 3px solid var(--color-accent); }
+              -->
+              <div class="swatch-row">
+                <input type="radio" name="colour" id="colour-white" value="white" class="swatch-radio" hidden checked />
+                <label for="colour-white" class="swatch-label">
+                  <span class="swatch swatch--white" title="White"></span>
+                  <span class="sr-only">White</span>
+                </label>
+
+                <input type="radio" name="colour" id="colour-black" value="black" class="swatch-radio" hidden />
+                <label for="colour-black" class="swatch-label">
+                  <span class="swatch swatch--black" title="Black"></span>
+                  <span class="sr-only">Black</span>
+                </label>
+
+                <input type="radio" name="colour" id="colour-blue" value="blue" class="swatch-radio" hidden />
+                <label for="colour-blue" class="swatch-label">
+                  <span class="swatch swatch--blue" title="Blue"></span>
+                  <span class="sr-only">Blue</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <!-- SIZE BUTTONS: radio inputs styled as size tiles -->
+            <fieldset class="size-group">
+              <legend>Size</legend>
+              <div class="size-row">
+                <input type="radio" name="size" id="size-xs" value="XS" class="size-radio" hidden />
+                <label for="size-xs" class="size-label">XS</label>
+
+                <input type="radio" name="size" id="size-s" value="S" class="size-radio" hidden />
+                <label for="size-s" class="size-label">S</label>
+
+                <input type="radio" name="size" id="size-m" value="M" class="size-radio" hidden checked />
+                <label for="size-m" class="size-label">M</label>
+
+                <input type="radio" name="size" id="size-l" value="L" class="size-radio" hidden />
+                <label for="size-l" class="size-label">L</label>
+
+                <input type="radio" name="size" id="size-xl" value="XL" class="size-radio" hidden />
+                <label for="size-xl" class="size-label">XL</label>
+              </div>
+            </fieldset>
+
+            <button class="btn btn--primary btn--full" type="submit">Add to cart</button>
+            <button class="btn btn--outline btn--full" type="button">Save to wishlist</button>
+
+          </form>
+
+          <details class="product-details">
+            <summary>Product details</summary>
+            <ul>
+              <li>100% organic cotton</li>
+              <li>Ethically made in Portugal</li>
+              <li>Machine washable at 30°C</li>
+              <li>Free returns within 30 days</li>
+            </ul>
+          </details>
+        </aside>
+      </div><!-- end .product-layout -->
+
+      <!-- EXERCISE 3: scroll-snap CAROUSEL -->
+      <section class="related-section" aria-labelledby="related-heading">
+        <h2 class="section-title" id="related-heading">Related products</h2>
+        <p class="hint">scroll-snap carousel — swipe or use arrow keys after clicking a card.</p>
+        <!--
+          TECHNIQUE:
+          .carousel { display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
+                      scroll-behavior: smooth; gap: 1.5rem; }
+          .carousel-item { scroll-snap-align: start; flex: 0 0 260px; }
+        -->
+        <div class="carousel" role="list" aria-label="Related products">
+          <article class="carousel-item" role="listitem">
+            <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=400&q=70" alt="Grey hoodie" class="carousel-item__img" loading="lazy" />
+            <div class="carousel-item__body">
+              <h3>HYF Hoodie</h3>
+              <p>€49</p>
+              <a href="#" class="btn btn--outline btn--sm">View</a>
+            </div>
+          </article>
+          <article class="carousel-item" role="listitem">
+            <img src="https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=400&q=70" alt="Black hoodie" class="carousel-item__img" loading="lazy" />
+            <div class="carousel-item__body">
+              <h3>HYF Sweatshirt</h3>
+              <p>€39</p>
+              <a href="#" class="btn btn--outline btn--sm">View</a>
+            </div>
+          </article>
+          <article class="carousel-item" role="listitem">
+            <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400&q=70" alt="Tote bag" class="carousel-item__img" loading="lazy" />
+            <div class="carousel-item__body">
+              <h3>HYF Tote Bag</h3>
+              <p>€15</p>
+              <a href="#" class="btn btn--outline btn--sm">View</a>
+            </div>
+          </article>
+          <article class="carousel-item" role="listitem">
+            <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=400&q=70" alt="Jeans" class="carousel-item__img" loading="lazy" />
+            <div class="carousel-item__body">
+              <h3>HYF Jeans</h3>
+              <p>€59</p>
+              <a href="#" class="btn btn--outline btn--sm">View</a>
+            </div>
+          </article>
+          <article class="carousel-item" role="listitem">
+            <img src="https://images.unsplash.com/photo-1604644401890-0bd678c83788?w=400&q=70" alt="Cap" class="carousel-item__img" loading="lazy" />
+            <div class="carousel-item__body">
+              <h3>HYF Cap</h3>
+              <p>€19</p>
+              <a href="#" class="btn btn--outline btn--sm">View</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <p>HackYourFuture Belgium · Wireframe — E-commerce</p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modals — Variations</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="page-header">
+      <h1>Modal Variations</h1>
+      <p>Sized modals, slide-in drawer, lightbox, and bottom sheet — all using <code>&lt;dialog&gt;</code>.</p>
+    </header>
+
+    <main class="page-main" id="main-content">
+
+      <div class="trigger-buttons">
+        <button class="btn btn--primary" onclick="document.getElementById('modal-lg').showModal()">Large modal</button>
+        <button class="btn btn--secondary" onclick="document.getElementById('drawer').showModal()">Open drawer</button>
+        <button class="btn btn--secondary" onclick="document.getElementById('lightbox').showModal()">Open lightbox</button>
+        <button class="btn btn--ghost" onclick="document.getElementById('bottom-sheet').showModal()">Bottom sheet</button>
+      </div>
+
+      <!-- EXERCISE 1: LARGE MODAL -->
+      <dialog class="modal modal--lg" id="modal-lg" aria-labelledby="modal-lg-title">
+        <div class="modal__header">
+          <h2 class="modal__title" id="modal-lg-title">Assignment brief — Data Tables</h2>
+          <button class="modal__close" aria-label="Close" onclick="document.getElementById('modal-lg').close()">✕</button>
+        </div>
+        <div class="modal__body">
+          <p>This assignment covers building accessible, well-structured data tables using semantic HTML elements and progressive CSS enhancements.</p>
+          <h3>Learning objectives</h3>
+          <ul>
+            <li>Use <code>&lt;caption&gt;</code> for table titles</li>
+            <li>Apply <code>scope="col"</code> and <code>scope="row"</code> to header cells</li>
+            <li>Implement responsive table techniques with CSS only</li>
+            <li>Create zebra striping with <code>:nth-child()</code> selectors</li>
+          </ul>
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/table" target="_blank" rel="noopener">MDN: HTML table</a></li>
+            <li><a href="https://www.w3.org/WAI/tutorials/tables/" target="_blank" rel="noopener">W3C WAI Tables Tutorial</a></li>
+          </ul>
+        </div>
+        <div class="modal__footer">
+          <button class="btn btn--ghost" onclick="document.getElementById('modal-lg').close()">Close</button>
+          <button class="btn btn--primary" onclick="document.getElementById('modal-lg').close()">Start assignment</button>
+        </div>
+      </dialog>
+
+      <!-- EXERCISE 2: DRAWER (slides in from the right) -->
+      <dialog class="drawer" id="drawer" aria-labelledby="drawer-title">
+        <div class="drawer__header">
+          <h2 class="drawer__title" id="drawer-title">Settings</h2>
+          <button class="modal__close" aria-label="Close settings" onclick="document.getElementById('drawer').close()">✕</button>
+        </div>
+        <div class="drawer__body">
+          <nav class="drawer__nav" aria-label="Settings sections">
+            <ul>
+              <li><a href="#" class="drawer__link drawer__link--active">Profile</a></li>
+              <li><a href="#" class="drawer__link">Notifications</a></li>
+              <li><a href="#" class="drawer__link">Privacy</a></li>
+              <li><a href="#" class="drawer__link">Accessibility</a></li>
+            </ul>
+          </nav>
+          <section class="drawer__section">
+            <h3>Profile settings</h3>
+            <form class="drawer__form">
+              <label for="display-name">Display name</label>
+              <input id="display-name" type="text" value="Ben Vanderzeypen" />
+              <label for="email">Email address</label>
+              <input id="email" type="email" value="ben@hyf.be" />
+            </form>
+          </section>
+        </div>
+        <div class="drawer__footer">
+          <button class="btn btn--ghost" onclick="document.getElementById('drawer').close()">Cancel</button>
+          <button class="btn btn--primary">Save changes</button>
+        </div>
+      </dialog>
+
+      <!-- EXERCISE 3: LIGHTBOX (image viewer) -->
+      <dialog class="lightbox" id="lightbox" aria-label="Image lightbox">
+        <button class="lightbox__close" aria-label="Close lightbox" onclick="document.getElementById('lightbox').close()">✕</button>
+        <figure class="lightbox__figure">
+          <!-- ADD: aspect-ratio trick keeps image from overflowing -->
+          <img
+            src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1200&q=80"
+            alt="Close-up of code on a laptop screen — lines of colourful programming syntax"
+            class="lightbox__image"
+            loading="lazy"
+          />
+          <figcaption class="lightbox__caption">Learning to code at HYF Belgium. Photo by Ilya Pavlov.</figcaption>
+        </figure>
+      </dialog>
+
+      <!-- EXERCISE 4: BOTTOM SHEET (mobile-style sheet from the bottom) -->
+      <dialog class="bottom-sheet" id="bottom-sheet" aria-labelledby="sheet-title">
+        <!-- ADD: drag handle is decorative -->
+        <div class="bottom-sheet__handle" aria-hidden="true"></div>
+        <h2 class="bottom-sheet__title" id="sheet-title">Share this assignment</h2>
+        <div class="bottom-sheet__options">
+          <button class="share-option">
+            <span class="share-option__icon" aria-hidden="true">🔗</span>
+            <span>Copy link</span>
+          </button>
+          <button class="share-option">
+            <span class="share-option__icon" aria-hidden="true">📧</span>
+            <span>Send by email</span>
+          </button>
+          <button class="share-option">
+            <span class="share-option__icon" aria-hidden="true">💬</span>
+            <span>Share on Slack</span>
+          </button>
+        </div>
+        <div class="bottom-sheet__footer">
+          <button class="btn btn--ghost" style="width:100%" onclick="document.getElementById('bottom-sheet').close()">Cancel</button>
+        </div>
+      </dialog>
+
+    </main>
+
+    <footer class="site-footer">
+      <p>HackYourFuture Belgium · Modals — Variations</p>
+    </footer>
+  </body>
+</html>

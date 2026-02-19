@@ -1,0 +1,96 @@
+/**
+ * Bikes for Refugees — Responsive
+ * Branch 2: Enhancement 🟡
+ *
+ * Start here! Your task is to make the website fully responsive.
+ * Read the README.md for full instructions.
+ *
+ * HINT: Start by copying your completed CSS from Branch 1,
+ * then refactor it to be mobile-first.
+ */
+
+/* =============================================
+   DESIGN TOKENS
+   Define your colours, fonts, spacing here.
+   ============================================= */
+:root {
+  --grey-dark: #292b2c;
+  --grey-light: #e4e4e4;
+  --orange-dark: #c05326;
+  --orange-light: #f7eae4;
+  --white: #fff;
+
+  /* Add your responsive spacing token */
+  --space: clamp(1rem, 3vw, 1.5rem);
+}
+
+/* =============================================
+   BASE STYLES — Mobile First
+   These styles apply to ALL screen sizes.
+   Add media queries BELOW to enhance for larger screens.
+   ============================================= */
+
+body {
+  margin: 0;
+  font-family: "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+  color: var(--grey-dark);
+  font-size: 1rem;
+}
+
+/* =============================================
+   NAVIGATION — Hamburger Menu
+   Use a hidden checkbox + label to toggle the menu.
+   See README Exercise 2 for guidance.
+   ============================================= */
+
+/* Hide the checkbox itself */
+#nav-toggle {
+  display: none;
+}
+
+/* Style the hamburger icon label */
+.nav-toggle-label {
+  /* ADD YOUR STYLES HERE */
+}
+
+/* Navigation list — hidden by default on mobile */
+.navigation__list {
+  /* ADD YOUR STYLES HERE */
+}
+
+/* Show nav when checkbox is checked */
+#nav-toggle:checked ~ .navigation__list {
+  /* ADD YOUR STYLES HERE */
+}
+
+/* =============================================
+   ARTICLES GRID
+   See README Exercise 3 for guidance.
+   ============================================= */
+.articles-grid {
+  display: grid;
+  /* ADD: grid-template-columns using auto-fit and minmax() */
+  gap: var(--space);
+}
+
+/* =============================================
+   MEDIA QUERIES
+   Add your breakpoint styles below.
+   Remember: mobile-first means you ADD styles as screens get BIGGER.
+   ============================================= */
+
+/* Tablet: 768px and up */
+@media screen and (min-width: 768px) {
+  /* ADD YOUR TABLET STYLES HERE */
+}
+
+/* Desktop: 1200px and up */
+@media screen and (min-width: 1200px) {
+  /* ADD YOUR DESKTOP STYLES HERE */
+}
+
+/* =============================================
+   YOUR STYLES BELOW
+   Copy your Branch 1 styles here as a starting point,
+   then refactor them to be mobile-first.
+   ============================================= */

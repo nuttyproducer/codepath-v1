@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Typography — System</title>
+    <!--
+      Variable font from Google Fonts — supports font-weight 100–900 continuously
+      and optional italic axis
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="page-header">
+      <h1>Typography — System</h1>
+      <p>Variable fonts, design token system, vertical rhythm, and a living style guide page.</p>
+    </header>
+
+    <main class="page-main" id="main-content">
+
+      <!-- EXERCISE 1: VARIABLE FONT SLIDER -->
+      <section class="demo-section" aria-labelledby="ex1-heading">
+        <h2 id="ex1-heading">Exercise 1 — Variable font with <code>font-variation-settings</code></h2>
+        <p>Drag the slider to animate the font weight using a CSS custom property.</p>
+
+        <!--
+          TECHNIQUE:
+          input[type=range] changes --wght via inline style (requires JS for live update),
+          OR we demonstrate static variation-settings examples below.
+          
+          Pure CSS approach: use :checked radio buttons to switch between weight tokens.
+        -->
+
+        <div class="vf-demo card">
+          <div class="vf-controls">
+            <input type="radio" name="vf-weight" id="vf-100" class="vf-radio" hidden />
+            <label for="vf-100" class="vf-btn">Thin</label>
+
+            <input type="radio" name="vf-weight" id="vf-300" class="vf-radio" hidden />
+            <label for="vf-300" class="vf-btn">Light</label>
+
+            <input type="radio" name="vf-weight" id="vf-400" class="vf-radio" hidden checked />
+            <label for="vf-400" class="vf-btn">Regular</label>
+
+            <input type="radio" name="vf-weight" id="vf-600" class="vf-radio" hidden />
+            <label for="vf-600" class="vf-btn">SemiBold</label>
+
+            <input type="radio" name="vf-weight" id="vf-700" class="vf-radio" hidden />
+            <label for="vf-700" class="vf-btn">Bold</label>
+
+            <input type="radio" name="vf-weight" id="vf-900" class="vf-radio" hidden />
+            <label for="vf-900" class="vf-btn">Black</label>
+          </div>
+
+          <p class="vf-sample">
+            <!--
+              TECHNIQUE: Each radio switches the font-variation-settings on this paragraph
+              #vf-100:checked ~ .vf-sample { font-variation-settings: 'wght' 100; }
+              #vf-900:checked ~ .vf-sample { font-variation-settings: 'wght' 900; }
+              
+              The default weight = 400. font-variation-settings overrides font-weight
+              and gives access to any value on the axis (e.g. 432, 675).
+            -->
+            HackYourFuture Belgium — The quick brown fox jumps over the lazy dog.
+            0123456789 — a b c d e f g h i j k l m n o p q r s t u v w x y z
+          </p>
+        </div>
+      </section>
+
+      <!-- EXERCISE 2: TOKEN SYSTEM -->
+      <section class="demo-section" aria-labelledby="ex2-heading">
+        <h2 id="ex2-heading">Exercise 2 — Design token system</h2>
+        <p>All design decisions as CSS custom properties. Modify <code>:root</code> values and see the whole page update.</p>
+
+        <div class="token-table card">
+          <h3>Current token values</h3>
+          <!--
+            EXERCISE: Document your token system here.
+            This table is a living reference — update it as you add tokens.
+          -->
+          <table class="mini-table">
+            <thead>
+              <tr><th>Token</th><th>Value</th><th>Usage</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>--font-heading</code></td><td><code>'Inter', sans-serif</code></td><td>All headings h1–h6</td></tr>
+              <tr><td><code>--font-body</code></td><td><code>'Inter', sans-serif</code></td><td>Body text, UI</td></tr>
+              <tr><td><code>--font-mono</code></td><td><code>'Fira Code', monospace</code></td><td>code, kbd, pre</td></tr>
+              <tr><td><code>--text-4xl</code></td><td><code>clamp(2rem, 5vw + 1rem, 4rem)</code></td><td>Hero headings</td></tr>
+              <tr><td><code>--text-3xl</code></td><td><code>clamp(1.5rem, 3vw, 2.5rem)</code></td><td>Page titles</td></tr>
+              <tr><td><code>--text-2xl</code></td><td><code>clamp(1.25rem, 2vw, 1.875rem)</code></td><td>Section headings</td></tr>
+              <tr><td><code>--text-xl</code></td><td><code>1.25rem</code></td><td>Subheadings</td></tr>
+              <tr><td><code>--text-lg</code></td><td><code>1.125rem</code></td><td>Lead text, large UI</td></tr>
+              <tr><td><code>--text-base</code></td><td><code>1rem</code></td><td>Default body text</td></tr>
+              <tr><td><code>--text-sm</code></td><td><code>0.875rem</code></td><td>Captions, labels</td></tr>
+              <tr><td><code>--text-xs</code></td><td><code>0.75rem</code></td><td>Badges, metadata</td></tr>
+              <tr><td><code>--leading-tight</code></td><td><code>1.25</code></td><td>Headings</td></tr>
+              <tr><td><code>--leading-normal</code></td><td><code>1.6</code></td><td>Body text</td></tr>
+              <tr><td><code>--leading-loose</code></td><td><code>1.9</code></td><td>Spacious UI</td></tr>
+              <tr><td><code>--tracking-tight</code></td><td><code>-0.025em</code></td><td>Large headings</td></tr>
+              <tr><td><code>--tracking-normal</code></td><td><code>0</code></td><td>Body text</td></tr>
+              <tr><td><code>--tracking-wide</code></td><td><code>0.08em</code></td><td>Labels, badges</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- EXERCISE 3: VERTICAL RHYTHM -->
+      <section class="demo-section" aria-labelledby="ex3-heading">
+        <h2 id="ex3-heading">Exercise 3 — Vertical rhythm</h2>
+        <p>
+          Vertical rhythm is the consistent spacing between text elements, creating a 
+          harmonious flow down the page. Use a base spacing unit (e.g. <code>--space: 1rem</code>) 
+          and derive all spacing from it.
+        </p>
+
+        <article class="card rhythm-article">
+          <!--
+            TECHNIQUE: Use a --space variable for consistent spacing
+            --space: 1rem;
+            p + p { margin-top: var(--space); }
+            h2 { margin-top: calc(var(--space) * 2.5); margin-bottom: var(--space); }
+            h3 { margin-top: calc(var(--space) * 2); margin-bottom: calc(var(--space) * 0.5); }
+            
+            The spacing between elements should feel consistent and "snapping" to a grid.
+          -->
+          <h3>Module overview</h3>
+          <p>Students begin with HTML fundamentals, learning semantic markup and document structure. This foundation is critical for all following modules.</p>
+          <h3>CSS foundations</h3>
+          <p>The cascade, specificity, and the box model. Students progress from inline styles to external stylesheets, and from simple selectors to pseudo-classes.</p>
+          <h3>Responsive design</h3>
+          <p>Mobile-first methodology, fluid layouts with Flexbox and Grid, and media queries. Students build layouts that work on any screen size.</p>
+        </article>
+      </section>
+
+      <!-- EXERCISE 4: STYLE GUIDE -->
+      <section class="demo-section" aria-labelledby="ex4-heading">
+        <h2 id="ex4-heading">Exercise 4 — Style guide page</h2>
+        <p>A living style guide documents all typographic decisions in one place. Build this as a reference for your project.</p>
+
+        <div class="style-guide card">
+          <div class="sg-section">
+            <h3 class="sg-section__title">Headings</h3>
+            <div class="sg-headings">
+              <div class="sg-item">
+                <span class="sg-item__meta">h1 / --text-4xl</span>
+                <h1 class="sg-h1">Page Heading</h1>
+              </div>
+              <div class="sg-item">
+                <span class="sg-item__meta">h2 / --text-3xl</span>
+                <h2 class="sg-h2">Section Heading</h2>
+              </div>
+              <div class="sg-item">
+                <span class="sg-item__meta">h3 / --text-2xl</span>
+                <h3 class="sg-h3">Subsection Heading</h3>
+              </div>
+              <div class="sg-item">
+                <span class="sg-item__meta">h4 / --text-xl</span>
+                <h4 class="sg-h4">Card Heading</h4>
+              </div>
+            </div>
+          </div>
+          <div class="sg-section">
+            <h3 class="sg-section__title">Body text</h3>
+            <p class="sg-lead">Lead paragraph — intro text set at --text-lg with normal weight.</p>
+            <p class="sg-body">Body paragraph — default body text at --text-base with --leading-normal line height. Max width 65ch for readability.</p>
+            <p class="sg-caption">Caption text — small metadata text at --text-sm, muted colour.</p>
+          </div>
+          <div class="sg-section">
+            <h3 class="sg-section__title">Inline elements</h3>
+            <p>
+              Use <strong>strong</strong> for importance, <em>em</em> for stress, 
+              <code>code</code> for inline code, <mark>mark</mark> for highlights, 
+              and <del>del</del> for removed content.
+            </p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <p>HackYourFuture Belgium · Typography — System</p>
+    </footer>
+  </body>
+</html>

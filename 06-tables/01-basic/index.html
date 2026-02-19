@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tables — Basic Data Table</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="page-header">
+      <h1>Student Score Report</h1>
+      <p>A semantic HTML data table with <code>scope</code>, <code>caption</code>, <code>thead</code>, <code>tbody</code>, <code>tfoot</code>, and zebra-stripe styling.</p>
+    </header>
+
+    <main class="page-main">
+
+      <!-- EXERCISE 1: FULLY SEMANTIC TABLE -->
+      <div class="table-container">
+        <table class="data-table" aria-describedby="table-note">
+          <!-- ADD: <caption> is the table's accessible title -->
+          <caption>HYF Belgium — Module 1 Assessment Results</caption>
+
+          <thead>
+            <tr>
+              <!-- ADD: scope="col" on all header cells -->
+              <th scope="col">Student name</th>
+              <th scope="col">Module</th>
+              <th scope="col">Assignment</th>
+              <th scope="col">Score</th>
+              <th scope="col">Grade</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>Amira Mensah</td>
+              <td>HTML &amp; CSS</td>
+              <td>Wireframe to code</td>
+              <!-- ADD: class="score--high" when score ≥ 80 -->
+              <td class="score score--high">92</td>
+              <td class="grade">A</td>
+              <td><span class="badge badge--pass">Pass</span></td>
+            </tr>
+            <tr>
+              <td>Karim Nasser</td>
+              <td>HTML &amp; CSS</td>
+              <td>Wireframe to code</td>
+              <td class="score score--mid">74</td>
+              <td class="grade">B+</td>
+              <td><span class="badge badge--pass">Pass</span></td>
+            </tr>
+            <tr>
+              <td>Sophie Dubois</td>
+              <td>HTML &amp; CSS</td>
+              <td>Wireframe to code</td>
+              <td class="score score--low">58</td>
+              <td class="grade">D</td>
+              <td><span class="badge badge--resubmit">Resubmit</span></td>
+            </tr>
+            <tr>
+              <td>Ibrahim Osei</td>
+              <td>HTML &amp; CSS</td>
+              <td>Wireframe to code</td>
+              <td class="score score--high">88</td>
+              <td class="grade">A-</td>
+              <td><span class="badge badge--pass">Pass</span></td>
+            </tr>
+            <tr>
+              <td>Fatima Al-Rashid</td>
+              <td>HTML &amp; CSS</td>
+              <td>Wireframe to code</td>
+              <td class="score score--mid">71</td>
+              <td class="grade">B</td>
+              <td><span class="badge badge--pass">Pass</span></td>
+            </tr>
+            <tr>
+              <td>Luca Rossi</td>
+              <td>HTML &amp; CSS</td>
+              <td>Wireframe to code</td>
+              <td class="score score--high">95</td>
+              <td class="grade">A+</td>
+              <td><span class="badge badge--pass">Pass</span></td>
+            </tr>
+          </tbody>
+
+          <tfoot>
+            <!-- ADD: scope="row" on the th in tfoot -->
+            <tr>
+              <th scope="row" colspan="3">Class average</th>
+              <td class="score score--mid">79.7</td>
+              <td class="grade">B+</td>
+              <td>—</td>
+            </tr>
+          </tfoot>
+        </table>
+
+        <p class="table-note" id="table-note">
+          Scores marked in <strong>green</strong> indicate ≥ 80. Minimum pass score is 60.
+        </p>
+      </div>
+
+    </main>
+
+    <footer class="site-footer">
+      <p>HackYourFuture Belgium · Tables — Basic</p>
+    </footer>
+  </body>
+</html>

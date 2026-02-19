@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cards — Interactive</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="page-header">
+      <h1>Interactive Cards — CSS-only</h1>
+      <p>3D flip card, expandable <code>&lt;details&gt;</code> card, badge with <code>:has()</code>, and staggered hover delays.</p>
+    </header>
+
+    <main class="page-main" id="main-content">
+
+      <!-- EXERCISE 1: 3D FLIP CARD -->
+      <section class="demo-section">
+        <h2>Exercise 1 — 3D flip card</h2>
+        <p>Hover to reveal the back. Uses <code>perspective</code>, <code>preserve-3d</code>, and <code>backface-visibility: hidden</code>.</p>
+
+        <div class="flip-grid">
+          <div class="flip-card" tabindex="0" role="button" aria-label="HTML card — hover or press to flip">
+            <div class="flip-card__face flip-card__face--front">
+              <span class="flip-card__icon" aria-hidden="true">🌐</span>
+              <h3>HTML</h3>
+              <p class="flip-card__hint">Hover to see tips</p>
+            </div>
+            <div class="flip-card__face flip-card__face--back" aria-hidden="true">
+              <h3>HTML tips</h3>
+              <ul>
+                <li>Use semantic elements</li>
+                <li>Always include alt text</li>
+                <li>Validate with W3C validator</li>
+                <li>Never skip heading levels</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="flip-card" tabindex="0" role="button" aria-label="CSS card — hover or press to flip">
+            <div class="flip-card__face flip-card__face--front">
+              <span class="flip-card__icon" aria-hidden="true">🎨</span>
+              <h3>CSS</h3>
+              <p class="flip-card__hint">Hover to see tips</p>
+            </div>
+            <div class="flip-card__face flip-card__face--back" aria-hidden="true">
+              <h3>CSS tips</h3>
+              <ul>
+                <li>Mobile-first with min-width</li>
+                <li>Use CSS custom properties</li>
+                <li>Prefer Grid over hacks</li>
+                <li>Test with reduced motion</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="flip-card" tabindex="0" role="button" aria-label="Git card — hover or press to flip">
+            <div class="flip-card__face flip-card__face--front">
+              <span class="flip-card__icon" aria-hidden="true">🔀</span>
+              <h3>Git</h3>
+              <p class="flip-card__hint">Hover to see tips</p>
+            </div>
+            <div class="flip-card__face flip-card__face--back" aria-hidden="true">
+              <h3>Git tips</h3>
+              <ul>
+                <li>One branch per assignment</li>
+                <li>Commit small, commit often</li>
+                <li>Write descriptive messages</li>
+                <li>Always PR to main</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- EXERCISE 2: EXPANDABLE <details> CARD -->
+      <section class="demo-section">
+        <h2>Exercise 2 — Expandable card with <code>&lt;details&gt;</code></h2>
+        <p>No JavaScript. The <code>&lt;details&gt;</code>/<code>&lt;summary&gt;</code> element handles show/hide natively.</p>
+
+        <div class="expandable-grid">
+          <details class="expandable-card">
+            <summary class="expandable-card__summary">
+              <span class="expandable-card__title">🟢 Foundation — Bikes for Refugees</span>
+              <span class="expandable-card__arrow" aria-hidden="true">›</span>
+            </summary>
+            <div class="expandable-card__body">
+              <p>Build the full homepage for a non-profit charity that collects and repairs bicycles for refugees across Belgium.</p>
+              <ul>
+                <li>Semantic HTML structure with landmarks</li>
+                <li>CSS custom properties for theming</li>
+                <li>Responsive layout with Flexbox</li>
+                <li>Mobile menu with media query</li>
+              </ul>
+              <a href="#" class="btn btn--sm btn--primary" onclick="return false">View assignment</a>
+            </div>
+          </details>
+
+          <details class="expandable-card">
+            <summary class="expandable-card__summary">
+              <span class="expandable-card__title">🟡 Enhancement — Bikes (Responsive)</span>
+              <span class="expandable-card__arrow" aria-hidden="true">›</span>
+            </summary>
+            <div class="expandable-card__body">
+              <p>Enhance the Bikes for Refugees page with a fully responsive layout. Redesign the hero, add a CSS Grid section, and implement a hamburger menu using only CSS.</p>
+              <ul>
+                <li>Mobile-first media queries</li>
+                <li>CSS Grid auto-fit layout</li>
+                <li>Hamburger checkbox trick</li>
+                <li>Accessible skip link</li>
+              </ul>
+              <a href="#" class="btn btn--sm btn--primary" onclick="return false">View assignment</a>
+            </div>
+          </details>
+
+          <details class="expandable-card">
+            <summary class="expandable-card__summary">
+              <span class="expandable-card__title">🟠 Integration — Bikes (Animations)</span>
+              <span class="expandable-card__arrow" aria-hidden="true">›</span>
+            </summary>
+            <div class="expandable-card__body">
+              <p>Bring the Bikes for Refugees page to life with CSS animations. Add entrance effects, a shimmer loading state, and an animated donation counter.</p>
+              <ul>
+                <li><code>@keyframes fadeInUp</code> entrance</li>
+                <li>Shimmer skeleton loading</li>
+                <li><code>@property</code> counter animation</li>
+                <li>Staggered card reveal with delays</li>
+              </ul>
+              <a href="#" class="btn btn--sm btn--primary" onclick="return false">View assignment</a>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <!-- EXERCISE 3: :has() BADGE CARD -->
+      <section class="demo-section">
+        <h2>Exercise 3 — Card badge with <code>:has()</code></h2>
+        <p>When a card's checkbox is checked, <code>:has(input:checked)</code> styles the entire card as "selected".</p>
+
+        <div class="select-grid">
+          <!-- Checkbox inside the card — :has() lets us style the card based on inner state -->
+          <label class="select-card" for="sel-1">
+            <input type="checkbox" id="sel-1" class="select-card__checkbox" />
+            <div class="select-card__check-icon" aria-hidden="true">✓</div>
+            <span class="select-card__icon" aria-hidden="true">🎨</span>
+            <h3 class="select-card__title">CSS Animations</h3>
+            <p class="select-card__desc">4 progressive branches</p>
+          </label>
+
+          <label class="select-card" for="sel-2">
+            <input type="checkbox" id="sel-2" class="select-card__checkbox" />
+            <div class="select-card__check-icon" aria-hidden="true">✓</div>
+            <span class="select-card__icon" aria-hidden="true">♿</span>
+            <h3 class="select-card__title">Accessibility</h3>
+            <p class="select-card__desc">4 progressive branches</p>
+          </label>
+
+          <label class="select-card" for="sel-3">
+            <input type="checkbox" id="sel-3" class="select-card__checkbox" />
+            <div class="select-card__check-icon" aria-hidden="true">✓</div>
+            <span class="select-card__icon" aria-hidden="true">📊</span>
+            <h3 class="select-card__title">Data Tables</h3>
+            <p class="select-card__desc">4 progressive branches</p>
+          </label>
+
+          <label class="select-card" for="sel-4">
+            <input type="checkbox" id="sel-4" class="select-card__checkbox" />
+            <div class="select-card__check-icon" aria-hidden="true">✓</div>
+            <span class="select-card__icon" aria-hidden="true">🗂️</span>
+            <h3 class="select-card__title">Modals</h3>
+            <p class="select-card__desc">4 progressive branches</p>
+          </label>
+        </div>
+        <!--
+          :has() technique:
+          .select-card:has(.select-card__checkbox:checked) {
+            border-color: var(--color-accent);
+            background: var(--color-accent-light);
+          }
+          .select-card:has(.select-card__checkbox:checked) .select-card__check-icon {
+            opacity: 1; transform: scale(1);
+          }
+        -->
+      </section>
+
+      <!-- EXERCISE 4: STAGGERED HOVER GRID -->
+      <section class="demo-section">
+        <h2>Exercise 4 — Staggered hover transition delays</h2>
+        <p>All cards lift on hover, but each one has a slightly different <code>transition-delay</code> creating a wave effect when you move the cursor across them.</p>
+
+        <ul class="stagger-grid">
+          <li class="stagger-card">
+            <span class="stagger-card__num" aria-hidden="true">01</span>
+            <h3>HTML</h3>
+          </li>
+          <li class="stagger-card">
+            <span class="stagger-card__num" aria-hidden="true">02</span>
+            <h3>CSS</h3>
+          </li>
+          <li class="stagger-card">
+            <span class="stagger-card__num" aria-hidden="true">03</span>
+            <h3>JavaScript</h3>
+          </li>
+          <li class="stagger-card">
+            <span class="stagger-card__num" aria-hidden="true">04</span>
+            <h3>React</h3>
+          </li>
+          <li class="stagger-card">
+            <span class="stagger-card__num" aria-hidden="true">05</span>
+            <h3>Node.js</h3>
+          </li>
+          <li class="stagger-card">
+            <span class="stagger-card__num" aria-hidden="true">06</span>
+            <h3>SQL</h3>
+          </li>
+        </ul>
+        <!--
+          .stagger-card:nth-child(1) { transition-delay: 0ms; }
+          .stagger-card:nth-child(2) { transition-delay: 40ms; }
+          ... etc.
+          The hover state itself has no delay — only the return-to-rest has the delay.
+          Hovering: transition-delay: 0 (instant response)
+          Leaving: transition-delay: nth-child delay (wave retreats)
+        -->
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <p>HackYourFuture Belgium · Cards — Interactive</p>
+    </footer>
+  </body>
+</html>

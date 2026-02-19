@@ -1,0 +1,190 @@
+/* =============================================
+   TABLES — DASHBOARD
+   Branch: tables-dashboard
+   ============================================= */
+
+:root {
+  --color-bg: #f8fafc;
+  --color-surface: #ffffff;
+  --color-border: #e2e8f0;
+  --color-text: #1e293b;
+  --color-text-secondary: #64748b;
+  --color-accent: #3b82f6;
+  --color-bar: #3b82f6;
+  --font-ui: system-ui, -apple-system, sans-serif;
+  --radius: 0.75rem;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-ui); background: var(--color-bg); color: var(--color-text); line-height: 1.6; }
+
+.skip-link { position: absolute; left: 1rem; top: 1rem; padding: 0.5rem 1rem; background: var(--color-accent); color: white; border-radius: 4px; z-index: 9999; transform: translateY(-200%); transition: transform 0.2s ease; }
+.skip-link:focus { transform: translateY(0); }
+
+.page-header { max-width: 960px; margin: 0 auto; padding: 3rem 2rem 1.5rem; }
+.page-header h1 { font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 0.5rem; }
+.page-header p { color: var(--color-text-secondary); }
+.page-main { max-width: 960px; margin: 0 auto; padding: 0 2rem 3rem; display: flex; flex-direction: column; gap: 3rem; }
+.site-footer { border-top: 1px solid var(--color-border); padding: 2rem; text-align: center; color: var(--color-text-secondary); font-size: 0.875rem; }
+code { font-size: 0.875em; background: rgba(99,102,241,0.08); color: #4f46e5; padding: 0.1em 0.4em; border-radius: 0.25rem; }
+
+.demo-section { display: flex; flex-direction: column; gap: 1.25rem; }
+.demo-section h2 { font-size: 1.1rem; border-bottom: 2px solid var(--color-border); padding-bottom: 0.5rem; }
+.demo-section > p { color: var(--color-text-secondary); font-size: 0.9375rem; }
+
+/* =============================================
+   BASE TABLE
+   ============================================= */
+.table-scroll-wrapper { overflow-x: auto; border-radius: var(--radius); box-shadow: var(--shadow-sm); background: var(--color-surface); }
+.data-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+.data-table caption { caption-side: top; text-align: left; font-weight: 600; font-size: 0.8125rem; color: var(--color-text-secondary); padding: 1rem 1rem 0.5rem; letter-spacing: 0.03em; text-transform: uppercase; }
+.data-table th, .data-table td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid var(--color-border); }
+.data-table thead th { background: #f1f5f9; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-text-secondary); }
+
+/* =============================================
+   EXERCISE 1: EXPANDABLE ROWS
+   ============================================= */
+.col-expand { width: 3rem; text-align: center; }
+
+.expand-checkbox { display: none; }
+
+.expand-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 1.5rem; height: 1.5rem; border-radius: 0.25rem;
+  background: var(--color-bg); border: 1px solid var(--color-border);
+  cursor: pointer; transition: background 0.15s ease;
+}
+.expand-btn:hover { background: #eff6ff; border-color: var(--color-accent); }
+
+.expand-icon {
+  display: inline-block; font-size: 0.7rem;
+  transition: transform 0.2s ease;
+}
+
+/* Rotate arrow when expanded */
+#expand-2025a:checked ~ tr .expand-icon,
+#expand-2024b:checked ~ tr .expand-icon {
+  /* ADD: transform: rotate(90deg); */
+}
+
+/* DETAIL ROWS — hidden by default */
+.expand-detail {
+  /* ADD: display: none; */
+  display: none;
+  background: #f8fafc;
+}
+
+/* Show detail row when corresponding checkbox is checked */
+/* NOTE: The :checked checkbox must be a sibling of the detail row for this to work.
+   If the checkbox is inside a <td> in the row above, we can't reach the sibling <tr> directly.
+   A common workaround: put the <input> *before* the <tbody> rows as a hidden sibling,
+   then use ~ (general sibling combinator). */
+#expand-2025a:checked ~ #detail-2025a,
+#expand-2024b:checked ~ #detail-2024b {
+  /* ADD: display: table-row; */
+}
+
+.expand-detail__content { padding: 1rem; }
+.expand-detail__content h4 { font-size: 0.875rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--color-accent); }
+.expand-detail__content ul { padding-left: 1.25rem; font-size: 0.8125rem; color: var(--color-text-secondary); }
+.expand-detail__content li { margin-bottom: 0.25rem; }
+
+/* =============================================
+   EXERCISE 2: BAR CHART CELLS + data-trend
+   ============================================= */
+.bar-cell {
+  height: 0.625rem;
+  background: var(--color-border);
+  border-radius: 9999px;
+  overflow: hidden;
+  min-width: 100px;
+  max-width: 160px;
+}
+
+.bar-cell__fill {
+  height: 100%;
+  background: var(--color-bar);
+  border-radius: 9999px;
+  /* ADD: width: var(--perf, 0%); — driven by inline style --perf on each cell */
+  width: var(--perf, 0%);
+  transition: width 0.6s var(--ease-out, ease);
+}
+
+.bar-cell__fill--high { background: #22c55e; }
+.bar-cell__fill--low  { background: #ef4444; }
+
+/* TREND INDICATORS using data attribute selectors */
+.trend { font-weight: 700; display: inline-flex; align-items: center; gap: 0.3em; }
+
+[data-trend="up"]::before {
+  /* ADD: content: "▲"; color: #15803d; font-size: 0.75rem; */
+  content: "▲"; color: #15803d; font-size: 0.75rem;
+}
+
+[data-trend="down"]::before {
+  /* ADD: content: "▼"; color: #dc2626; font-size: 0.75rem; */
+  content: "▼"; color: #dc2626; font-size: 0.75rem;
+}
+
+[data-trend="flat"]::before {
+  /* ADD: content: "▬"; color: #64748b; font-size: 0.75rem; */
+  content: "▬"; color: #64748b; font-size: 0.75rem;
+}
+
+/* =============================================
+   EXERCISE 3: CSS-ONLY PAGINATION with :target
+   ============================================= */
+.pagination {
+  display: flex; gap: 0.5rem; flex-wrap: wrap;
+}
+
+.page-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 2.25rem; height: 2.25rem; border-radius: 0.5rem;
+  background: var(--color-surface); border: 1.5px solid var(--color-border);
+  color: var(--color-text); font-weight: 600; font-size: 0.875rem;
+  text-decoration: none; transition: background 0.15s ease, border-color 0.15s ease;
+}
+.page-btn:hover { background: #eff6ff; border-color: var(--color-accent); color: var(--color-accent); }
+
+/* Show active page button — :target on the section, sibling .pagination isn't targeted,
+   so use attribute approach: a[href="#page-1"]:target { ... } doesn't work directly.
+   Instead highlight on :target for the body state — tricky with siblings.
+   Simplest approach: style a[href] to look active when its target section is visible.
+   We achieve this by adding :target to the section and using ~ to highlight the nav link
+   — only works if nav comes BEFORE sections in DOM. Our nav does come before sections. ✓ */
+
+/* All page sections hidden by default */
+.page-section {
+  /* ADD: display: none; */
+  display: none;
+}
+
+/* Show section when it is the :target (when its id matches the URL hash) */
+.page-section:target {
+  /* ADD: display: block; animation: fade-in 0.2s ease; */
+  display: block;
+  animation: fade-in 0.2s ease;
+}
+
+/* Show first page by default when no :target is set
+   LIMITATION: Pure CSS can't detect "no hash". 
+   Work around: use :not(:target) and default styling carefully,
+   or simply show page-1 when nothing is targeted using :is */
+/* This hides all but makes page-1 show by default via :not(:has(:target)) — advanced trick */
+body:not(:has(.page-section:target)) #page-1 {
+  /* ADD: display: block; — shows page 1 when no section is targeted */
+  display: block;
+}
+
+/* Active state on pagination link — when its corresponding section is :target */
+#page-1:target ~ * .pagination a[href="#page-1"] {
+  /* This approach won't work because :target and ~ require specific DOM order */
+  /* Simpler: just indicate current via URL change without CSS-only active state */
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}

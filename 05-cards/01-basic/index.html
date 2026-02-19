@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cards — Basic Card Components</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+
+    <header class="page-header">
+      <h1>Card Components</h1>
+      <p>A basic card grid using CSS Grid <code>auto-fill</code> and <code>minmax()</code> for responsive columns without media queries.</p>
+    </header>
+
+    <main class="page-main">
+
+      <!-- EXERCISE 1: BASIC ARTICLE CARDS -->
+      <section class="section" aria-labelledby="section-blog">
+        <h2 id="section-blog">Blog posts</h2>
+
+        <div class="card-grid">
+          <!-- Card 1 -->
+          <article class="card">
+            <!-- ADD: image wrapped with aspect-ratio 16/9 and overflow:hidden -->
+            <div class="card__image-wrap">
+              <div class="card__image" role="img" aria-label="A person typing at a laptop"></div>
+            </div>
+            <div class="card__body">
+              <p class="card__category">CSS</p>
+              <h3 class="card__title">Understanding CSS Grid: rows and columns</h3>
+              <p class="card__excerpt">CSS Grid changed how we build web layouts forever. This guide takes you from basics to named template areas.</p>
+            </div>
+            <footer class="card__footer">
+              <div class="card__author">
+                <div class="card__author-avatar" aria-hidden="true">BV</div>
+                <div>
+                  <strong class="card__author-name">Ben V.</strong>
+                  <time class="card__date" datetime="2025-01-15">Jan 15, 2025</time>
+                </div>
+              </div>
+              <!-- ADD: The entire card should be clickable — use the stretched-link technique -->
+              <a href="#" class="card__link stretched-link" aria-label="Read: Understanding CSS Grid">
+                Read →
+              </a>
+            </footer>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="card">
+            <div class="card__image-wrap">
+              <div class="card__image card__image--blue" role="img" aria-label="Colourful code on a screen"></div>
+            </div>
+            <div class="card__body">
+              <p class="card__category">JavaScript</p>
+              <h3 class="card__title">Closures explained with real-world examples</h3>
+              <p class="card__excerpt">Closures are one of the most powerful JavaScript concepts. Here is how to think about them without getting confused.</p>
+            </div>
+            <footer class="card__footer">
+              <div class="card__author">
+                <div class="card__author-avatar card__author-avatar--green" aria-hidden="true">AM</div>
+                <div>
+                  <strong class="card__author-name">Amira M.</strong>
+                  <time class="card__date" datetime="2025-01-20">Jan 20, 2025</time>
+                </div>
+              </div>
+              <a href="#" class="card__link stretched-link" aria-label="Read: Closures explained">Read →</a>
+            </footer>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="card">
+            <div class="card__image-wrap">
+              <div class="card__image card__image--purple" role="img" aria-label="A database schema diagram"></div>
+            </div>
+            <div class="card__body">
+              <p class="card__category">SQL</p>
+              <h3 class="card__title">Writing your first SQL JOIN queries</h3>
+              <p class="card__excerpt">JOINs are the heart of relational databases. Learn the difference between INNER, LEFT, RIGHT, and FULL JOINs.</p>
+            </div>
+            <footer class="card__footer">
+              <div class="card__author">
+                <div class="card__author-avatar card__author-avatar--orange" aria-hidden="true">KN</div>
+                <div>
+                  <strong class="card__author-name">Karim N.</strong>
+                  <time class="card__date" datetime="2025-01-25">Jan 25, 2025</time>
+                </div>
+              </div>
+              <a href="#" class="card__link stretched-link" aria-label="Read: SQL JOINs">Read →</a>
+            </footer>
+          </article>
+
+          <!-- ADD: Add 3 more cards here following the same structure -->
+
+        </div><!-- /.card-grid -->
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <p>HackYourFuture Belgium · Cards — Basic</p>
+    </footer>
+  </body>
+</html>

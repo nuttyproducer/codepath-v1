@@ -1,0 +1,407 @@
+/* =============================================
+   FORM CONTROLS — VALIDATION & CHECKOUT
+   Branch: form-controls-validation
+   =============================================
+   This file is scaffolded for you.
+   Fill in the /* ADD YOUR STYLES HERE */ blocks.
+   CSS-only validation using:
+   - :valid / :invalid
+   - :user-invalid (only shows error after user interaction)
+   - :placeholder-shown (detects empty inputs)
+   - :has() for parent state changes
+   ============================================= */
+
+/* =============================================
+   DESIGN TOKENS
+   ============================================= */
+:root {
+  --color-bg: #f8fafc;
+  --color-surface: #ffffff;
+  --color-border: #e2e8f0;
+  --color-border-focus: #3b82f6;
+  --color-border-valid: #16a34a;
+  --color-border-invalid: #dc2626;
+  --color-text: #1e293b;
+  --color-text-secondary: #64748b;
+  --color-primary: #3b82f6;
+  --color-primary-dark: #2563eb;
+  --color-success: #16a34a;
+  --color-success-bg: #f0fdf4;
+  --color-danger: #dc2626;
+  --color-danger-bg: #fef2f2;
+  --color-required: #dc2626;
+
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+
+  --font-body: system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --radius: 0.5rem;
+  --transition: 0.2s ease;
+}
+
+/* =============================================
+   BASE
+   ============================================= */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  padding: var(--space-xl) var(--space-md);
+}
+
+/* Screen-reader-only utility: visually hidden but accessible */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+/* =============================================
+   PAGE LAYOUT
+   ============================================= */
+.page-header {
+  max-width: 680px;
+  margin: 0 auto var(--space-2xl);
+  text-align: center;
+}
+.page-header h1 { font-size: 2rem; margin-bottom: var(--space-sm); }
+.page-subtitle { color: var(--color-text-secondary); }
+
+.page-main {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.page-footer {
+  max-width: 680px;
+  margin: var(--space-2xl) auto 0;
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+}
+
+/* =============================================
+   CHECKOUT FORM
+   ============================================= */
+.checkout-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.form-section {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.form-section__title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  font-size: 1.1rem;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: var(--space-md);
+}
+
+.form-section__number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* =============================================
+   FORM FIELDS
+   ============================================= */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+
+.field--zip { flex: 0 0 6rem; }
+
+@media (max-width: 480px) {
+  .field-row { grid-template-columns: 1fr; }
+}
+
+/* Labels */
+label:not(.checkbox-label) {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.required-marker {
+  color: var(--color-required);
+  margin-left: 0.15em;
+}
+
+.field__optional {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  font-weight: 400;
+}
+
+/* Inputs */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+select {
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--color-text);
+  background: var(--color-surface);
+  transition: border-color var(--transition), box-shadow var(--transition);
+  appearance: none;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+select:focus {
+  outline: none;
+  border-color: var(--color-border-focus);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+/* =============================================
+   EXERCISE 1: VALIDATION STATES
+   ADD: Valid state — green border + checkmark icon
+   ADD: Invalid state (user-invalid only) — red border + × icon
+   ============================================= */
+
+/* Valid input — after user has interacted */
+input:not([type="checkbox"]):not([type="radio"]):not(:placeholder-shown):valid {
+  /* ADD: border-color: var(--color-border-valid); */
+  /* ADD: background icon: checkmark SVG via background-image */
+  /* ADD: padding-right to make room for the icon */
+}
+
+/* Invalid input — ONLY shown after user has typed (not on page load) */
+/* :user-invalid is the modern approach — falls back to :invalid + :not(:placeholder-shown) */
+input:not([type="checkbox"]):not([type="radio"]):user-invalid,
+input:not([type="checkbox"]):not([type="radio"]):not(:placeholder-shown):not(:focus):invalid {
+  /* ADD: border-color: var(--color-border-invalid); */
+  /* ADD: background icon: × SVG via background-image */
+}
+
+/* =============================================
+   EXERCISE 2: ERROR MESSAGES
+   ADD: Error messages are hidden by default.
+   They appear only when the field is :user-invalid
+   ============================================= */
+.field__error {
+  font-size: 0.8rem;
+  color: var(--color-danger);
+  font-weight: 500;
+
+  /* ADD: Hidden by default */
+  /* display: none; or opacity: 0; visibility: hidden; */
+}
+
+.field__hint {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+}
+
+/* ADD: Show .field__error when sibling input is :user-invalid */
+/* Selector pattern: input:user-invalid + .field__error { display: block; } */
+/* But .field__error is not a direct sibling — it is inside .field         */
+/* Use :has() on the .field: .field:has(input:user-invalid) .field__error  */
+
+/* =============================================
+   EXERCISE 3: FORM-LEVEL VALIDATION STATE
+   ADD: The entire .form-section gets a subtle highlight
+   when :has() detects any invalid field inside it
+   ============================================= */
+
+/* ADD: .form-section:has(input:user-invalid) → subtle left border accent */
+
+/* =============================================
+   SELECT DROPDOWN
+   ============================================= */
+.select-wrapper {
+  position: relative;
+}
+.select-wrapper::after {
+  content: '▾';
+  position: absolute;
+  right: var(--space-md);
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--color-text-secondary);
+}
+select { cursor: pointer; padding-right: 2.5rem; }
+
+/* =============================================
+   ORDER SUMMARY
+   ============================================= */
+.order-summary {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-sm) var(--space-md);
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.95rem;
+}
+
+.order-item:last-child { border-bottom: none; }
+
+.order-item__discount { color: var(--color-success); font-weight: 600; }
+
+.order-item--total {
+  background-color: var(--color-bg);
+  font-size: 1rem;
+}
+
+/* =============================================
+   CHECKBOX (Terms)
+   ============================================= */
+.field--checkbox .field__error {
+  /* ADD: Same error pattern — show when checkbox is :user-invalid */
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+input[type="checkbox"] {
+  /* ADD: Hide the native checkbox (use position absolute / sr-only approach) */
+  /* The .checkbox-indicator below will serve as the visual checkbox */
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.checkbox-indicator {
+  /* ADD: A custom checkbox square */
+  /* width: 1.25rem; height: 1.25rem; */
+  /* border: 1.5px solid var(--color-border); border-radius: 0.25rem; */
+  /* flex-shrink: 0; */
+  /* transition: background-color, border-color */
+}
+
+/* ADD: When checkbox is :checked → fill the indicator */
+/* input[type="checkbox"]:checked + .checkbox-indicator → background + checkmark via ::before */
+
+/* ADD: Focus ring on checkbox indicator when checkbox is :focus-visible */
+
+/* =============================================
+   EXERCISE 4: DISABLED SUBMIT BUTTON
+   ADD: The submit button is visually disabled until:
+   - The #terms checkbox is checked
+   Use: .checkout-form:not(:has(#terms:checked)) .btn-submit
+   ============================================= */
+
+/* ADD: Default disabled state for submit button */
+/* .checkout-form:not(:has(#terms:checked)) .btn-submit { ... } */
+
+/* =============================================
+   FORM FOOTER
+   ============================================= */
+.form-footer {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+/* =============================================
+   BUTTONS
+   ============================================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 2rem;
+  border: 2px solid transparent;
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color var(--transition), opacity var(--transition), transform var(--transition);
+  width: 100%;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+.btn:active { transform: scale(0.99); }
+
+.btn--primary {
+  background-color: var(--color-primary);
+  color: white;
+}
+.btn--primary:hover { background-color: var(--color-primary-dark); }
+
+/* =============================================
+   CODE ELEMENT
+   ============================================= */
+code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: rgba(99, 102, 241, 0.08);
+  color: #4f46e5;
+  padding: 0.1em 0.4em;
+  border-radius: 0.25rem;
+}
+
+/* =============================================
+   ACCESSIBILITY: REDUCED MOTION
+   ============================================= */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

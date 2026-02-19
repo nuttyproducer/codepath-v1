@@ -1,0 +1,259 @@
+/* =============================================
+   NAVIGATION — MEGA MENU
+   Branch: navigation-mega-menu
+   =============================================
+   KEY INSIGHT: Never use display:none/block to
+   show dropdowns — it breaks keyboard navigation.
+   Use visibility + opacity instead so focus can
+   still enter the dropdown with Tab.
+   ============================================= */
+
+:root {
+  --color-bg: #ffffff;
+  --color-surface: #ffffff;
+  --color-border: #e2e8f0;
+  --color-text: #1e293b;
+  --color-text-nav: #475569;
+  --color-accent: #3b82f6;
+  --color-accent-dark: #2563eb;
+  --color-dropdown-bg: #ffffff;
+  --color-dropdown-hover: #f1f5f9;
+  --header-height: 64px;
+  --dropdown-width: 220px;
+  --mega-width: 720px;
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --font-ui: system-ui, -apple-system, sans-serif;
+  --radius: 0.5rem;
+  --transition: 0.2s ease;
+  --shadow-dropdown: 0 8px 24px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.06);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-ui); color: var(--color-text); min-height: 100vh; }
+a { color: inherit; text-decoration: none; }
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  padding: 0.5rem 1rem;
+  background: var(--color-accent);
+  color: white;
+  border-radius: 4px;
+  z-index: 9999;
+  transform: translateY(-200%);
+  transition: transform var(--transition);
+}
+.skip-link:focus { transform: translateY(0); }
+
+/* =============================================
+   SITE HEADER
+   ============================================= */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  height: var(--header-height);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-xl);
+  height: 100%;
+}
+
+.site-logo {
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--color-text);
+}
+
+/* =============================================
+   NAV LIST
+   ============================================= */
+.nav-list {
+  display: flex;
+  list-style: none;
+  height: 100%;
+  gap: var(--space-xs);
+}
+
+.nav-item {
+  /* ADD: position: relative; — required for absolutely positioned children */
+  /* height: 100%; display: flex; align-items: center; */
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
+  color: var(--color-text-nav);
+  border-radius: var(--radius);
+  font-size: 0.9375rem;
+  white-space: nowrap;
+  transition: color var(--transition), background-color var(--transition);
+}
+
+.nav-link:hover { color: var(--color-text); background: var(--color-dropdown-hover); }
+.nav-link[aria-current="page"] { color: var(--color-text); font-weight: 600; }
+.nav-link:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+
+.nav-link__arrow {
+  font-size: 0.7rem;
+  transition: transform var(--transition);
+}
+
+/* Rotate arrow when dropdown is open */
+.nav-item--dropdown:hover .nav-link__arrow,
+.nav-item--dropdown:focus-within .nav-link__arrow,
+.nav-item--mega:hover .nav-link__arrow,
+.nav-item--mega:focus-within .nav-link__arrow {
+  /* ADD: transform: rotate(180deg); */
+}
+
+/* =============================================
+   EXERCISE 1: SIMPLE DROPDOWN
+   ============================================= */
+.dropdown-menu {
+  /* IMPORTANT: Use visibility + opacity, NOT display:none/block */
+  /* display:none removes elements from the accessibility tree — */
+  /* keyboard users can't Tab into a display:none menu!          */
+  
+  /* ADD: position: absolute; top: 100%; left: 0; */
+  /* width: var(--dropdown-width); */
+  /* background: var(--color-dropdown-bg); */
+  /* border-radius: var(--radius); */
+  /* box-shadow: var(--shadow-dropdown); */
+  /* list-style: none; */
+  /* padding: var(--space-sm) 0; */
+
+  /* Hidden state using visibility + opacity: */
+  /* visibility: hidden; opacity: 0; pointer-events: none; */
+  /* transform: translateY(-8px); */
+  /* transition: visibility var(--transition), opacity var(--transition), transform var(--transition); */
+}
+
+/* Show on hover AND on focus-within (keyboard navigation) */
+.nav-item--dropdown:hover .dropdown-menu,
+.nav-item--dropdown:focus-within .dropdown-menu {
+  /* ADD: visibility: visible; opacity: 1; pointer-events: auto; transform: translateY(0); */
+}
+
+.dropdown-link {
+  /* ADD: display: block; padding; color; hover background */
+}
+
+.dropdown-link:focus-visible {
+  /* ADD: focus ring */
+}
+
+/* =============================================
+   EXERCISE 2: MEGA MENU
+   ============================================= */
+.mega-menu {
+  /* ADD: position: absolute; top: 100%; left: 50%; transform: translateX(-50%); */
+  /* (centred below the trigger) */
+  /* width: var(--mega-width); */
+  /* background: var(--color-dropdown-bg); */
+  /* border-radius: var(--radius); box-shadow: var(--shadow-dropdown); */
+  /* display: grid; grid-template-columns: repeat(4, 1fr); gap */
+  /* padding: var(--space-lg); */
+
+  /* Same visibility/opacity hide pattern as dropdown: */
+  /* visibility: hidden; opacity: 0; pointer-events: none; */
+  /* transform: translateX(-50%) translateY(-8px); */
+  /* transition: ... */
+}
+
+.nav-item--mega:hover .mega-menu,
+.nav-item--mega:focus-within .mega-menu {
+  /* ADD: reveal */
+}
+
+.mega-menu__heading {
+  /* ADD: font-size: 0.75rem; text-transform: uppercase; letter-spacing; */
+  /* color: var(--color-text-secondary); margin-bottom; */
+}
+
+.mega-menu__list { list-style: none; display: flex; flex-direction: column; gap: var(--space-xs); }
+
+.mega-menu__link {
+  /* ADD: font-size: 0.9375rem; padding; border-radius; hover: background */
+}
+
+.mega-menu__column--featured .mega-menu__featured {
+  /* ADD: Highlighted card style for the featured column */
+  /* background; border-radius; overflow: hidden; */
+}
+
+.mega-menu__featured-img {
+  /* ADD: Image placeholder — width: 100%; height: 120px; background */
+}
+
+/* =============================================
+   NAV CTA
+   ============================================= */
+.nav-cta {
+  padding: var(--space-sm) var(--space-lg);
+  background: var(--color-accent);
+  color: white;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  transition: background-color var(--transition);
+  white-space: nowrap;
+}
+.nav-cta:hover { background: var(--color-accent-dark); }
+.nav-cta:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
+
+/* =============================================
+   HERO
+   ============================================= */
+.hero {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-xl);
+  gap: var(--space-md);
+  background: linear-gradient(135deg, #eff6ff, #f8fafc);
+}
+.hero h1 { font-size: clamp(1.5rem, 4vw, 2.5rem); }
+.hero p { color: #64748b; max-width: 55ch; }
+
+.site-footer {
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-xl);
+  text-align: center;
+  color: #64748b;
+  font-size: 0.875rem;
+}
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+@media (max-width: 900px) {
+  /* ADD: On mobile, hide the mega menu nav entirely */
+  /* Students will implement the mobile menu in the next branch */
+  .site-nav, .nav-cta { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

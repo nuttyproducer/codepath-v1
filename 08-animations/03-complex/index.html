@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Animations — Complex</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="page-header">
+      <h1>Complex CSS Animations</h1>
+      <p>Hero choreography, <code>@property</code> animated counter, CSS parallax, and scroll-driven animations.</p>
+    </header>
+
+    <main class="page-main" id="main-content">
+
+      <!-- EXERCISE 1: HERO SECTION CHOREOGRAPHY -->
+      <section class="hero" aria-label="Hero banner">
+        <div class="hero__content">
+          <!-- Elements animate in sequence via animation-delay -->
+          <p class="hero__eyebrow">HackYourFuture Belgium</p>
+          <h1 class="hero__title">Code your future<br /><em>here</em></h1>
+          <p class="hero__subtitle">
+            Free coding education for refugees and newcomers.
+            9 months, full-stack, volunteer-powered.
+          </p>
+          <div class="hero__cta">
+            <a href="#" class="btn btn--hero-primary" onclick="return false">Start learning</a>
+            <a href="#" class="btn btn--hero-ghost" onclick="return false">Learn more ↓</a>
+          </div>
+        </div>
+        <!--
+          ADD: Each hero element has its own animation-delay to create a
+          choreographed sequence. The eyebrow fades in first (0s),
+          then the title (0.1s), subtitle (0.25s), and CTA buttons (0.4s).
+          All use the same slide-up keyframe but with different delays.
+        -->
+      </section>
+
+      <!-- EXERCISE 2: @property ANIMATED STAT COUNTER -->
+      <section class="demo-section" id="main-content">
+        <h2>Exercise 2 — Animated stat counters with <code>@property</code></h2>
+        <p>
+          <code>@property</code> registers a custom property with a type, enabling CSS to animate from number to number.
+          Without it, CSS would not know how to interpolate <code>--value: 847</code>.
+        </p>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <!--
+              The stat value is set with a CSS custom property
+              Registered via @property with type <integer>
+              @keyframes animates --count from 0 to the target value
+              CSS counter() displays the integer as text
+            -->
+            <div class="stat-card__number stat-counter" style="--target: 847">
+              <!-- content will be rendered by CSS counter() technique -->
+            </div>
+            <p class="stat-card__label">Lines of code written</p>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__number stat-counter" style="--target: 23">
+            </div>
+            <p class="stat-card__label">Assignments completed</p>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__number stat-counter" style="--target: 98">
+            </div>
+            <p class="stat-card__label">Accessibility score</p>
+          </div>
+        </div>
+
+        <!--
+          TECHNIQUE NOTES:
+          1. @property --count { syntax: '<integer>'; inherits: false; initial-value: 0; }
+          2. @keyframes count-up { to { --count: var(--target); } }
+          3. .stat-counter { animation: count-up 2s ease-out forwards; }
+          4. .stat-counter::after { content: counter(stat, decimal); counter-reset: stat var(--count); }
+          
+          NOTE: This requires browser support for @property + counter() combo.
+          Check Can I Use before using in production.
+        -->
+      </section>
+
+      <!-- EXERCISE 3: CSS PARALLAX -->
+      <section class="demo-section parallax-demo">
+        <h2>Exercise 3 — CSS parallax</h2>
+        <p>CSS perspective-based parallax — no JavaScript. Uses <code>perspective</code> and <code>translateZ</code> on layers.</p>
+
+        <div class="parallax-scene" aria-label="Parallax demo — scroll to see layers move at different speeds">
+          <div class="parallax-layer parallax-layer--back" aria-hidden="true">
+            <div class="parallax-bg"></div>
+          </div>
+          <div class="parallax-layer parallax-layer--mid" aria-hidden="true">
+            <div class="parallax-mid-content">
+              <span>🌄</span>
+            </div>
+          </div>
+          <div class="parallax-layer parallax-layer--front">
+            <div class="parallax-text">
+              <h3>Scroll to see the effect</h3>
+              <p>Each layer moves at a different speed due to CSS perspective and translateZ values.</p>
+            </div>
+          </div>
+        </div>
+
+        <!--
+          TECHNIQUE:
+          .parallax-scene {
+            perspective: 300px;
+            overflow-y: auto;  ← this is key
+            height: 400px;
+          }
+          .parallax-layer--back  { transform: translateZ(-200px) scale(1.67); }
+          .parallax-layer--mid   { transform: translateZ(-100px) scale(1.33); }
+          .parallax-layer--front { transform: translateZ(0); }
+          
+          The scale() compensates for the size reduction from translateZ.
+          Scale factor = 1 + (abs(translateZ) / perspective)
+        -->
+      </section>
+
+      <!-- EXERCISE 4: SCROLL-DRIVEN ANIMATION -->
+      <section class="demo-section">
+        <h2>Exercise 4 — Scroll-driven progress bar</h2>
+        <p>
+          The progress bar fills as you scroll. Uses the new CSS <code>animation-timeline: scroll()</code>.
+          No JavaScript required.
+        </p>
+
+        <!--
+          The progress bar is position: fixed at the top.
+          animation-timeline: scroll(root) — links animation to root scroll position.
+          animation-range: 0% 100% — maps full page scroll to full animation.
+          @keyframes progress-bar { to { transform: scaleX(1); } }
+        -->
+        <p class="notice">
+          ⚠️ <code>animation-timeline</code> requires Chrome 115+ / Safari 18+.
+          Add <code>@supports</code> to provide a fallback for older browsers.
+        </p>
+
+        <!-- Long content to demonstrate scroll -->
+        <div class="scroll-content">
+          <p>As you scroll through this page, the blue progress bar at the top of the screen fills in. This is driven entirely by CSS — no event listeners, no requestAnimationFrame.</p>
+          <p>The key properties are:</p>
+          <ul>
+            <li><code>animation-timeline: scroll(root)</code> — links to root scroll</li>
+            <li><code>animation-range: 0% 100%</code> — full page scroll = full animation</li>
+            <li><code>animation-fill-mode: both</code> — holds state before/after</li>
+            <li><code>animation-play-state</code> — can be paused/played</li>
+          </ul>
+          <p>The bar element uses <code>transform: scaleX()</code> from 0 to 1, which is more performant than animating <code>width</code>.</p>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <p>HackYourFuture Belgium · Animations — Complex</p>
+    </footer>
+  </body>
+</html>

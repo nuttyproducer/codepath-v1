@@ -1,0 +1,229 @@
+/* =============================================
+   ANIMATIONS — TRANSITIONS
+   Branch: animations-transitions
+   ============================================= */
+
+:root {
+  --color-bg: #f8fafc;
+  --color-surface: #ffffff;
+  --color-border: #e2e8f0;
+  --color-text: #1e293b;
+  --color-text-secondary: #64748b;
+  --color-accent: #3b82f6;
+  --color-accent-dark: #2563eb;
+  --color-accent-light: #eff6ff;
+  --color-danger: #dc2626;
+  --color-danger-dark: #b91c1c;
+  --color-tag-bg: #f0fdf4;
+  --color-tag-text: #15803d;
+  --font-ui: system-ui, -apple-system, sans-serif;
+  --radius: 0.75rem;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.15);
+  /* DESIGN DECISION: Use named timing functions for consistent feel */
+  --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-ui); background: var(--color-bg); color: var(--color-text); line-height: 1.6; }
+
+.skip-link {
+  position: absolute; left: 1rem; top: 1rem; padding: 0.5rem 1rem;
+  background: var(--color-accent); color: white; border-radius: 4px;
+  z-index: 9999; transform: translateY(-200%); transition: transform 0.2s ease;
+}
+.skip-link:focus { transform: translateY(0); }
+
+.page-header { max-width: 900px; margin: 0 auto; padding: 3rem 2rem 1.5rem; }
+.page-header h1 { font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 0.5rem; }
+.page-header p { color: var(--color-text-secondary); }
+.page-main { max-width: 900px; margin: 0 auto; padding: 0 2rem 3rem; display: flex; flex-direction: column; gap: 3rem; }
+.site-footer { border-top: 1px solid var(--color-border); padding: 2rem; text-align: center; color: var(--color-text-secondary); font-size: 0.875rem; }
+code { font-size: 0.875em; background: rgba(99, 102, 241, 0.08); color: #4f46e5; padding: 0.1em 0.4em; border-radius: 0.25rem; }
+
+.demo-section { display: flex; flex-direction: column; gap: 1.25rem; }
+.demo-section h2 { font-size: 1.1rem; border-bottom: 2px solid var(--color-border); padding-bottom: 0.5rem; }
+.demo-section p { color: var(--color-text-secondary); font-size: 0.9375rem; }
+
+/* =============================================
+   EXERCISE 1: BUTTON TRANSITIONS
+   ============================================= */
+.button-row {
+  display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;
+}
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  padding: 0.625rem 1.25rem; border: 2px solid transparent;
+  border-radius: 0.5rem; font-family: inherit; font-size: 0.9375rem;
+  font-weight: 600; cursor: pointer;
+  /* ADD: List exactly which properties to transition (not 'all') */
+  /* transition: background-color 0.2s var(--ease-out),
+                 border-color   0.2s var(--ease-out),
+                 color          0.2s var(--ease-out),
+                 box-shadow     0.2s var(--ease-out),
+                 transform      0.15s var(--ease-bounce); */
+}
+.btn:focus-visible { outline: 3px solid #f59e0b; outline-offset: 3px; }
+
+.btn--primary  { background: var(--color-accent); color: white; }
+.btn--primary:hover {
+  /* ADD: background: var(--color-accent-dark); box-shadow: 0 4px 12px rgba(59,130,246,0.4); */
+}
+.btn--primary:active {
+  /* ADD: transform: scale(0.97); box-shadow: none; */
+}
+
+.btn--secondary { background: white; color: var(--color-accent); border-color: var(--color-accent); }
+.btn--secondary:hover {
+  /* ADD: background: var(--color-accent-light); box-shadow: var(--shadow-sm); */
+}
+.btn--secondary:active { /* ADD: transform: scale(0.97); */ }
+
+.btn--ghost { background: transparent; color: var(--color-text-secondary); border-color: var(--color-border); }
+.btn--ghost:hover { /* ADD: background: var(--color-bg); color: var(--color-text); */ }
+
+.btn--danger { background: var(--color-danger); color: white; }
+.btn--danger:hover { /* ADD: background: var(--color-danger-dark); box-shadow: 0 4px 12px rgba(220,38,38,0.3); */ }
+.btn--danger:active {
+  /* ADD: shake animation */
+  /* animation: btn-shake 0.3s ease; */
+}
+
+@keyframes btn-shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-4px) rotate(-1deg); }
+  40%       { transform: translateX(4px) rotate(1deg); }
+  60%       { transform: translateX(-3px); }
+  80%       { transform: translateX(3px); }
+}
+
+/* LOADING STATE — spinner replaces text */
+.btn--loading .btn__text  { /* ADD: opacity: 0; transform: scale(0.8); transition: opacity 0.2s, transform 0.2s; */ }
+.btn--loading .btn__spinner {
+  /* ADD: position: absolute; */
+  /* width: 1rem; height: 1rem; border: 2px solid rgba(255,255,255,0.3); */
+  /* border-top-color: white; border-radius: 50%; */
+  /* animation: spin 0.6s linear infinite; */
+}
+
+@keyframes spin {
+  to { /* ADD: transform: rotate(360deg); */ }
+}
+
+/* =============================================
+   EXERCISE 2: CARD HOVER LIFT
+   ============================================= */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  /* ADD: transition: transform, box-shadow */
+  /* transition: transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out); */
+}
+.card:hover {
+  /* ADD: transform: translateY(-4px); box-shadow: var(--shadow-lg); */
+}
+
+.card__img-wrap {
+  overflow: hidden;
+  /* ADD: aspect-ratio: 16 / 9; */
+  aspect-ratio: 16 / 9;
+}
+.card__img {
+  width: 100%; height: 100%; object-fit: cover;
+  /* ADD: transition: transform 0.4s var(--ease-out); */
+}
+.card:hover .card__img {
+  /* ADD: transform: scale(1.05); */
+}
+
+.card__body { padding: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem; }
+.card__tag {
+  font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--color-tag-text); background: var(--color-tag-bg);
+  padding: 0.2em 0.6em; border-radius: 0.25rem; align-self: flex-start;
+}
+.card__title { font-size: 1rem; font-weight: 700; }
+.card__excerpt { font-size: 0.875rem; color: var(--color-text-secondary); line-height: 1.5; }
+
+/* =============================================
+   EXERCISE 3: ANIMATED NAV UNDERLINE
+   ============================================= */
+.demo-nav { padding: 1rem 0; }
+.demo-nav__list { list-style: none; display: flex; gap: 0.25rem; }
+.demo-nav__link {
+  display: block; padding: 0.5rem 0.75rem;
+  text-decoration: none; color: var(--color-text-secondary);
+  font-weight: 500; font-size: 0.9375rem;
+  position: relative;
+}
+
+.demo-nav__link::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%; height: 2px;
+  background: var(--color-accent);
+  border-radius: 1px;
+  /* ADD: Start collapsed, expand on hover */
+  /* transform: scaleX(0); */
+  /* transform-origin: left center; — try 'center' for grow-from-middle */
+  /* transition: transform 0.25s var(--ease-out); */
+}
+.demo-nav__link:hover,
+.demo-nav__link--active {
+  color: var(--color-accent);
+}
+.demo-nav__link:hover::after,
+.demo-nav__link--active::after {
+  /* ADD: transform: scaleX(1); */
+}
+
+/* =============================================
+   EXERCISE 4: FORM FOCUS TRANSITIONS
+   ============================================= */
+.demo-form { display: flex; flex-direction: column; gap: 1.25rem; max-width: 480px; }
+
+.field { display: flex; flex-direction: column; gap: 0.375rem; }
+.field__label { font-size: 0.875rem; font-weight: 600; color: var(--color-text); }
+
+.field__input {
+  padding: 0.625rem 0.875rem;
+  border: 2px solid var(--color-border);
+  border-radius: 0.5rem;
+  font-family: inherit; font-size: 0.9375rem;
+  background: var(--color-surface); color: var(--color-text);
+  /* ADD: transition: border-color, box-shadow */
+  /* transition: border-color 0.2s ease, box-shadow 0.2s ease; */
+}
+.field__input:focus {
+  outline: none;
+  /* ADD: border-color: var(--color-accent); */
+  /* box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15); */
+}
+.field__input--textarea { resize: vertical; min-height: 100px; }
+.field__input::placeholder { color: var(--color-text-secondary); }
+
+/* =============================================
+   ACCESSIBILITY: REDUCED MOTION
+   ============================================= */
+@media (prefers-reduced-motion: reduce) {
+  .btn,
+  .card,
+  .card__img,
+  .demo-nav__link::after,
+  .field__input {
+    transition: none !important;
+    animation: none !important;
+  }
+}

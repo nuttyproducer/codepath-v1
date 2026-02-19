@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Navigation — Mobile Menu</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="site-header">
+      <div class="header-inner">
+        <a href="/" class="site-logo">🌐 HYF</a>
+
+        <!-- EXERCISE 1: THE HAMBURGER CHECKBOX TRICK -->
+        <!-- The checkbox controls the menu via CSS :checked sibling selector -->
+        <!-- No JavaScript required for the open/close toggle               -->
+        <input
+          type="checkbox"
+          id="nav-toggle"
+          class="nav-toggle__input"
+          role="button"
+          aria-controls="mobile-nav"
+          aria-expanded="false"
+          aria-label="Open navigation menu"
+        />
+        <!-- Note: aria-expanded should ideally be updated by JavaScript.
+             Document this as a known limitation in a code comment.    -->
+
+        <label for="nav-toggle" class="nav-toggle__label" aria-hidden="true">
+          <!-- 3 spans become the 3 hamburger lines, animated to an X -->
+          <span class="nav-toggle__bar"></span>
+          <span class="nav-toggle__bar"></span>
+          <span class="nav-toggle__bar"></span>
+        </label>
+
+        <!-- Desktop navigation (visible ≥ 768px) -->
+        <nav class="site-nav site-nav--desktop" aria-label="Main navigation">
+          <ul class="nav-list">
+            <li><a href="#" class="nav-link" aria-current="page">Home</a></li>
+            <li><a href="#" class="nav-link">Curriculum</a></li>
+            <li><a href="#" class="nav-link">Students</a></li>
+            <li><a href="#" class="nav-link">Partners</a></li>
+            <li><a href="#" class="nav-link">About</a></li>
+          </ul>
+        </nav>
+
+        <a href="#" class="nav-cta nav-cta--desktop">Apply now</a>
+      </div>
+
+      <!-- Mobile navigation panel (slides in from left) -->
+      <!-- ADD: This element is controlled by #nav-toggle:checked -->
+      <nav class="site-nav site-nav--mobile" id="mobile-nav" aria-label="Mobile navigation">
+        <ul class="mobile-nav-list">
+          <li><a href="#" class="mobile-nav-link" aria-current="page">Home</a></li>
+          <li><a href="#" class="mobile-nav-link">Curriculum</a></li>
+          <li><a href="#" class="mobile-nav-link">Students</a></li>
+          <li><a href="#" class="mobile-nav-link">Partners</a></li>
+          <li><a href="#" class="mobile-nav-link">About</a></li>
+          <li><a href="#" class="nav-cta nav-cta--mobile">Apply now</a></li>
+        </ul>
+      </nav>
+
+    </header>
+
+    <!-- EXERCISE 3: OVERLAY BACKDROP -->
+    <!-- ADD: A ::before pseudo-element on body (or a separate div) -->
+    <!-- appears as a dark overlay behind the mobile menu when open  -->
+
+    <main id="main-content">
+      <section class="hero">
+        <h1>Resize to mobile to see the hamburger menu</h1>
+        <p>Below ~768px wide, the desktop nav hides and the hamburger appears. Clicking it slides in the mobile navigation panel.</p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>HackYourFuture Belgium · Navigation — Mobile Menu</p>
+    </footer>
+  </body>
+</html>

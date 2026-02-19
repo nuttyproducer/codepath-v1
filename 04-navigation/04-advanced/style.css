@@ -1,0 +1,317 @@
+/* =============================================
+   NAVIGATION — ADVANCED PATTERNS
+   Branch: navigation-advanced
+   ============================================= */
+
+:root {
+  --color-bg: #f8fafc;
+  --color-surface: #ffffff;
+  --color-border: #e2e8f0;
+  --color-text: #1e293b;
+  --color-text-nav: #475569;
+  --color-text-secondary: #64748b;
+  --color-accent: #3b82f6;
+  --color-accent-dark: #2563eb;
+  --color-accent-light: #eff6ff;
+  --color-sidebar-bg: #ffffff;
+  --header-height: 60px;
+  --sidebar-width: 260px;
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --font-ui: system-ui, -apple-system, sans-serif;
+  --radius: 0.375rem;
+  --transition: 0.2s ease;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-ui); background: var(--color-bg); color: var(--color-text); }
+a { color: var(--color-accent); text-decoration: none; }
+a:hover { color: var(--color-accent-dark); }
+h1 { font-size: 2rem; margin-bottom: var(--space-md); }
+p + p { margin-top: var(--space-md); }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap;
+}
+
+/* =============================================
+   SKIP LINK
+   ============================================= */
+.skip-link {
+  position: absolute; left: 1rem; top: 1rem; z-index: 9999;
+  padding: 0.5rem 1rem; background: var(--color-accent); color: white;
+  border-radius: 4px; transform: translateY(-200%);
+  transition: transform var(--transition);
+}
+.skip-link:focus { transform: translateY(0); }
+
+/* =============================================
+   SITE HEADER
+   ============================================= */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  height: var(--header-height);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-xl);
+  height: 100%;
+}
+
+.site-logo { font-weight: 700; font-size: 1.25rem; color: var(--color-text); }
+
+.site-nav { flex: 1; }
+.nav-list { display: flex; list-style: none; gap: var(--space-xs); }
+
+.nav-link {
+  padding: var(--space-xs) var(--space-sm);
+  color: var(--color-text-nav);
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  transition: color var(--transition), background-color var(--transition);
+}
+.nav-link:hover { color: var(--color-text); background: #f1f5f9; }
+.nav-link:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+
+/* =============================================
+   EXERCISE 1: EXPANDING SEARCH
+   A search input that expands from the search icon
+   ============================================= */
+.search-expand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  position: relative;
+}
+
+.search-toggle__input {
+  /* ADD: Hide the native checkbox */
+  position: absolute; opacity: 0; width: 0; height: 0;
+}
+
+.search-toggle__label {
+  /* ADD: cursor: pointer; padding; border-radius; hover: background */
+  /* Looks like an icon button */
+}
+.search-toggle__label:focus-visible,
+.search-toggle__input:focus-visible + .search-toggle__label {
+  /* ADD: focus ring */
+}
+
+.search-expand__field {
+  /* ADD: overflow: hidden; */
+  /* Width animates from 0 to full size when :checked */
+  /* width: 0; transition: width var(--transition); */
+}
+
+.search-input {
+  /* ADD: The actual search input */
+  /* width: 200px; padding; border; border-radius; background; */
+  /* opacity: 0; transition: opacity var(--transition); */
+}
+
+/* When search-toggle is :checked, expand the field */
+.search-toggle__input:checked ~ .search-expand__field {
+  /* ADD: width: auto; or remove overflow hidden */
+}
+
+.search-toggle__input:checked ~ .search-expand__field .search-input {
+  /* ADD: opacity: 1; — and auto-focus via :focus after animation */
+}
+
+/* =============================================
+   NAV CTA
+   ============================================= */
+.nav-cta {
+  padding: var(--space-xs) var(--space-md);
+  background: var(--color-accent); color: white;
+  border-radius: var(--radius); font-weight: 600;
+  font-size: 0.875rem; white-space: nowrap;
+  transition: background-color var(--transition);
+}
+.nav-cta:hover { background: var(--color-accent-dark); color: white; }
+.nav-cta:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
+
+/* =============================================
+   PAGE LAYOUT (Sidebar + Content)
+   ============================================= */
+.page-layout {
+  display: grid;
+  grid-template-columns: var(--sidebar-width) 1fr;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: calc(100vh - var(--header-height));
+}
+
+/* =============================================
+   EXERCISE 2: DOCS SIDEBAR WITH <details> ACCORDION
+   ============================================= */
+.docs-sidebar {
+  /* ADD: position: sticky; top: var(--header-height); */
+  /* height: calc(100vh - var(--header-height)); overflow-y: auto; */
+  /* background: var(--color-sidebar-bg); border-right: 1px solid var(--color-border); */
+  /* padding: var(--space-lg); */
+}
+
+.sidebar-section {
+  /* ADD: margin-bottom: var(--space-sm); */
+  /* No native <details> borders please */
+  border: none;
+}
+
+.sidebar-section__title {
+  /* ADD: cursor: pointer; font-size: 0.8125rem; font-weight: 600; */
+  /* text-transform: uppercase; letter-spacing: 0.05em; */
+  /* color: var(--color-text-secondary); */
+  /* padding: var(--space-sm) var(--space-xs); */
+  /* list-style: none; — removes the default triangle */
+  /* Custom arrow via ::before */
+}
+
+/* Remove default disclosure triangle */
+.sidebar-section__title::-webkit-details-marker { display: none; }
+.sidebar-section__title::marker { content: ''; }
+
+/* ADD: Custom indicator using ::before */
+.sidebar-section__title::before {
+  /* content: '▸'; */
+  /* transition: transform var(--transition); */
+}
+
+/* Rotate arrow when section is open */
+details[open] > .sidebar-section__title::before {
+  /* ADD: transform: rotate(90deg); */
+}
+
+/* Animate the sidebar nav content in */
+.sidebar-nav {
+  /* ADD: list-style: none; padding-left: var(--space-md); */
+  /* animation: slide-in 0.2s ease or max-height transition */
+}
+
+.sidebar-link {
+  /* ADD: display: block; padding; border-radius; */
+  /* font-size: 0.9rem; color: var(--color-text-nav); */
+  /* hover: background, color change */
+}
+
+.sidebar-link--active,
+.sidebar-link[aria-current="page"] {
+  /* ADD: background: var(--color-accent-light); color: var(--color-accent); font-weight: 500; */
+}
+
+.sidebar-link:focus-visible { /* ADD: focus ring */ }
+
+/* =============================================
+   DOCS CONTENT
+   ============================================= */
+.docs-content {
+  padding: var(--space-2xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+/* =============================================
+   EXERCISE 3: BREADCRUMB
+   ============================================= */
+.breadcrumb__list {
+  /* ADD: display: flex; flex-wrap: wrap; gap; list-style: none; */
+  /* font-size: 0.875rem; */
+}
+
+.breadcrumb__item {
+  /* ADD: display: flex; align-items: center; gap */
+}
+
+/* Separator between items using ::after */
+.breadcrumb__item:not(:last-child)::after {
+  /* ADD: content: '/'; color: var(--color-text-secondary); margin-left: var(--space-sm); */
+}
+
+.breadcrumb__link {
+  /* ADD: color: var(--color-text-secondary); hover: color: var(--color-text); */
+}
+
+.breadcrumb__item--current {
+  /* ADD: color: var(--color-text); font-weight: 500; */
+}
+
+/* =============================================
+   EXERCISE 3: PAGINATION
+   ============================================= */
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-md);
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-xl);
+  margin-top: auto;
+}
+
+.pagination__prev,
+.pagination__next {
+  /* ADD: display: flex; flex-direction: column; padding; border-radius; */
+  /* background: var(--color-surface); border: 1px solid var(--color-border); */
+  /* gap; color; hover: border-color: var(--color-accent); */
+  /* transition */
+  flex: 1;
+}
+
+.pagination__next {
+  /* ADD: align-items: flex-end; text-align: right; */
+}
+
+.pagination__nav-label {
+  /* ADD: font-size: 0.75rem; text-transform: uppercase; letter-spacing; color: secondary */
+}
+
+.pagination__page-title {
+  /* ADD: font-weight: 600; color: var(--color-text); */
+}
+
+/* =============================================
+   FOOTER
+   ============================================= */
+.site-footer {
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-xl);
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+}
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+@media (max-width: 768px) {
+  .page-layout { grid-template-columns: 1fr; }
+  .docs-sidebar {
+    position: static;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .site-nav { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

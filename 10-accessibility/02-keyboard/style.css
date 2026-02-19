@@ -1,0 +1,290 @@
+/* ============================================================
+   Accessibility-keyboard — style.css
+   TECHNIQUES:
+   - Skip link: position:absolute + translateY(-200%) + :focus reveal
+   - :focus-visible ring system replacing outline:none antipattern
+   - Visual indication of broken tab order
+   - <details>/<summary> accordion with animated icon
+   ============================================================ */
+
+/* ── Design tokens ──────────────────────────────────────────── */
+:root {
+  --font-body: system-ui, -apple-system, sans-serif;
+  --font-mono: 'Courier New', monospace;
+
+  --color-bg: #f8fafc;
+  --color-surface: #ffffff;
+  --color-border: #e2e8f0;
+  --color-text: #1e293b;
+  --color-muted: #64748b;
+  --color-accent: #2563eb;
+  --color-accent-light: #dbeafe;
+  --color-warning: #fef3c7;
+  --color-warning-border: #fcd34d;
+
+  --radius: 8px;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+}
+
+/* ── Reset ───────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: var(--font-body);
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+/* ── TECHNIQUE 1: Skip link ──────────────────────────────────── */
+/*
+  KEY PATTERN:
+  - position: absolute takes it out of normal flow
+  - transform: translateY(-200%) hides it visually above the viewport
+  - :focus restores it to its position → slides into view
+  - transition makes the reveal smooth
+  - z-index: 9999 ensures it appears above everything when focused
+  - DO NOT use display:none or visibility:hidden — these remove it from
+    the accessibility tree and Tab won't reach it at all
+*/
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  padding: 0.6rem 1.25rem;
+  background: var(--color-accent);
+  color: #fff;
+  border-radius: var(--radius);
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 0.95rem;
+  z-index: 9999;
+
+  /* ADD: transform: translateY(-200%); */
+  transform: translateY(-200%);
+  /* ADD: transition: transform 0.2s ease; */
+  transition: transform 0.2s ease;
+}
+
+.skip-link:focus {
+  /* ADD: transform: translateY(0); — this is the entire reveal trick */
+  transform: translateY(0);
+}
+
+/* ── TECHNIQUE 2: :focus-visible ring system ─────────────────── */
+/*
+  ANTI-PATTERN to avoid:
+    * { outline: none; }          ← removes focus for everyone, including keyboard users
+    a { outline: none; }          ← same problem, targeted
+    button:focus { outline: 0; }  ← same problem
+
+  CORRECT PATTERN:
+    Use :focus-visible — it fires only when browser determines focus
+    indicator is needed (keyboard navigation, not mouse clicks).
+    
+  Note: :focus-visible has excellent browser support as of 2022+.
+*/
+
+/* Remove default browser focus ring for mouse users */
+*:focus { outline: none; }
+
+/* Restore a custom focus ring for keyboard users */
+*:focus-visible {
+  /* ADD: outline: 3px solid var(--color-accent); */
+  outline: 3px solid var(--color-accent);
+  /* ADD: outline-offset: 3px; — gives breathing room */
+  outline-offset: 3px;
+  /* ADD: border-radius: 4px; — optional, softens the ring */
+  border-radius: 4px;
+}
+
+/* ── Page layout ─────────────────────────────────────────────── */
+.page-header {
+  background: var(--color-accent);
+  color: #fff;
+  padding: var(--space-8) var(--space-6);
+  text-align: center;
+}
+.page-header h1 { font-size: clamp(1.4rem, 4vw, 2rem); margin-bottom: var(--space-2); }
+.page-header p { opacity: 0.85; max-width: 60ch; margin: 0 auto; }
+
+.page-main { max-width: 900px; margin: 0 auto; padding: var(--space-8) var(--space-4); }
+
+.demo-section {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-6);
+  margin-bottom: var(--space-8);
+}
+.demo-section h2 { margin-bottom: var(--space-4); font-size: 1.25rem; }
+.demo-section h3 { margin-top: var(--space-6); margin-bottom: var(--space-3); font-size: 1rem; }
+.demo-section > * + * { margin-top: var(--space-4); }
+
+.site-footer {
+  text-align: center;
+  padding: var(--space-6);
+  color: var(--color-muted);
+  font-size: 0.875rem;
+  border-top: 1px solid var(--color-border);
+}
+
+/* ── Callout ─────────────────────────────────────────────────── */
+.callout { padding: var(--space-4); border-radius: var(--radius); }
+.callout--info { background: var(--color-accent-light); border-left: 4px solid var(--color-accent); }
+.callout p { max-width: 65ch; }
+
+.hint {
+  font-size: 0.875rem;
+  color: var(--color-muted);
+  max-width: 65ch;
+}
+
+kbd {
+  display: inline-block;
+  padding: 0.1em 0.5em;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-bottom: 3px solid #94a3b8;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.8em;
+}
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: var(--color-bg);
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+  border: 1px solid var(--color-border);
+}
+
+/* ── Focus demo elements ─────────────────────────────────────── */
+.focus-demo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+  padding: var(--space-4);
+  background: var(--color-bg);
+  border-radius: var(--radius);
+  border: 1px dashed var(--color-border);
+}
+
+.btn {
+  padding: 0.5rem 1.25rem;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font-body);
+}
+.btn--primary { background: var(--color-accent); color: #fff; }
+.btn--outline { background: transparent; color: var(--color-accent); border: 2px solid var(--color-accent); }
+
+.focus-link { color: var(--color-accent); font-weight: 600; }
+
+.focus-input,
+.focus-select {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  background: var(--color-surface);
+}
+
+/* ── Tab order demo ──────────────────────────────────────────── */
+.tab-order-demo { margin-top: var(--space-4); }
+.tab-order-demo--broken { border: 2px dashed var(--color-warning-border); border-radius: var(--radius); padding: var(--space-4); background: var(--color-warning); }
+
+.order-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+.order-item {
+  padding: var(--space-3);
+  background: var(--color-accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-align: center;
+}
+.tab-order-demo--broken .order-item { background: #92400e; }
+
+/* ── TECHNIQUE 3: <details> accordion ───────────────────────── */
+/*
+  <details> is keyboard-accessible by default:
+  - Tab → focuses the <summary>
+  - Enter or Space → toggles open/closed
+  - Screen readers announce "disclosure triangle" / "expanded" / "collapsed"
+  
+  We style it to look like a custom accordion while keeping native behaviour.
+*/
+.accordion { display: flex; flex-direction: column; gap: var(--space-2); }
+
+.accordion-item {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.accordion-summary {
+  /* ADD: list-style: none; — removes the default marker */
+  list-style: none;
+  /* ADD: display: flex; justify-content: space-between; align-items: center; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: var(--space-4);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  background: var(--color-surface);
+  user-select: none;
+}
+/* Remove default browser marker (Chrome/Safari) */
+.accordion-summary::-webkit-details-marker { display: none; }
+/* Remove Firefox default marker */
+.accordion-summary::marker { display: none; }
+
+.accordion-summary:hover { background: var(--color-bg); }
+
+.accordion-icon {
+  font-size: 0.75rem;
+  /* ADD: transition: transform 0.2s ease; */
+  transition: transform 0.2s ease;
+  color: var(--color-muted);
+  flex-shrink: 0;
+}
+
+/* When details is open, rotate the arrow icon */
+details[open] .accordion-summary { background: var(--color-accent-light); color: var(--color-accent); }
+details[open] .accordion-icon {
+  /* ADD: transform: rotate(90deg); */
+  transform: rotate(90deg);
+}
+
+.accordion-body {
+  padding: var(--space-4);
+  border-top: 1px solid var(--color-border);
+  background: var(--color-bg);
+}
+.accordion-body p { max-width: 65ch; font-size: 0.95rem; }
+
+@media (max-width: 480px) {
+  .order-grid { grid-template-columns: 1fr 1fr; }
+}

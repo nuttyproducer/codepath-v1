@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wireframe — Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- APP SHELL: fixed sidebar + topbar + scrollable main -->
+    <div class="app-shell">
+
+      <!-- SIDEBAR -->
+      <nav class="sidebar" aria-label="Main navigation">
+        <div class="sidebar__brand">
+          <span class="sidebar__logo" aria-hidden="true">⬡</span>
+          <span class="sidebar__name">HYF Dashboard</span>
+        </div>
+        <ul class="sidebar__nav" role="list">
+          <li><a href="#" class="sidebar__link sidebar__link--active" aria-current="page">
+            <span class="sidebar__icon" aria-hidden="true">📊</span> Overview
+          </a></li>
+          <li><a href="#" class="sidebar__link">
+            <span class="sidebar__icon" aria-hidden="true">👥</span> Students
+          </a></li>
+          <li><a href="#" class="sidebar__link">
+            <span class="sidebar__icon" aria-hidden="true">📋</span> Assignments
+          </a></li>
+          <li><a href="#" class="sidebar__link">
+            <span class="sidebar__icon" aria-hidden="true">📈</span> Reports
+          </a></li>
+          <li><a href="#" class="sidebar__link">
+            <span class="sidebar__icon" aria-hidden="true">⚙️</span> Settings
+          </a></li>
+        </ul>
+      </nav>
+
+      <!-- TOP BAR -->
+      <header class="topbar" role="banner">
+        <h1 class="topbar__title">Overview</h1>
+        <div class="topbar__actions">
+          <button class="btn btn--ghost" type="button" aria-label="Notifications">
+            🔔 <span class="badge--pill">3</span>
+          </button>
+          <div class="avatar" aria-label="Ben Solar">BS</div>
+        </div>
+      </header>
+
+      <!-- MAIN CONTENT AREA -->
+      <main class="main-content" id="main-content">
+
+        <!-- STAT CARDS ROW -->
+        <section aria-labelledby="stats-heading">
+          <h2 class="section-title" id="stats-heading">At a glance</h2>
+          <div class="stats-grid">
+            <!--
+              These stat cards use a CSS custom property --trend-color
+              for the trend icon colour.
+            -->
+            <div class="stat-card">
+              <div class="stat-card__icon" aria-hidden="true">👥</div>
+              <div class="stat-card__content">
+                <div class="stat-card__value">48</div>
+                <div class="stat-card__label">Active students</div>
+                <div class="stat-card__trend stat-card__trend--up">▲ +4 this week</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card__icon" aria-hidden="true">✅</div>
+              <div class="stat-card__content">
+                <div class="stat-card__value">312</div>
+                <div class="stat-card__label">Submissions</div>
+                <div class="stat-card__trend stat-card__trend--up">▲ +22 this week</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card__icon" aria-hidden="true">📉</div>
+              <div class="stat-card__content">
+                <div class="stat-card__value">7.8</div>
+                <div class="stat-card__label">Avg. score</div>
+                <div class="stat-card__trend stat-card__trend--down">▼ -0.2 vs last week</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card__icon" aria-hidden="true">⏱</div>
+              <div class="stat-card__content">
+                <div class="stat-card__value">91%</div>
+                <div class="stat-card__label">On-time rate</div>
+                <div class="stat-card__trend stat-card__trend--up">▲ +3% vs last month</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- TABBED CONTENT — CSS-only using :checked -->
+        <section aria-labelledby="tabs-heading">
+          <h2 class="section-title" id="tabs-heading">Recent activity</h2>
+
+          <div class="tabs-widget">
+            <!--
+              TECHNIQUE: CSS-only tabs
+              Each tab is a label for a hidden radio input.
+              The matching panel is shown when :checked.
+              input[type=radio]:checked + ... won't reach across elements —
+              we use the general sibling combinator ~ from the :checked input to the panel.
+              
+              DOM order: inputs first (hidden), then labels (tabs), then panels.
+            -->
+            <input type="radio" name="tabs" id="tab-submissions" class="tab-radio" hidden checked />
+            <input type="radio" name="tabs" id="tab-students"    class="tab-radio" hidden />
+            <input type="radio" name="tabs" id="tab-issues"      class="tab-radio" hidden />
+
+            <div class="tab-list" role="tablist">
+              <label for="tab-submissions" class="tab" role="tab">Submissions</label>
+              <label for="tab-students"    class="tab" role="tab">Students</label>
+              <label for="tab-issues"      class="tab" role="tab">Issues</label>
+            </div>
+
+            <div class="tab-panels">
+              <div class="tab-panel" id="panel-submissions">
+                <table class="mini-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Student</th>
+                      <th scope="col">Assignment</th>
+                      <th scope="col">Score</th>
+                      <th scope="col">Time</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Amara D.</td><td>Cards — Basic</td><td>9/10</td><td>2h ago</td></tr>
+                    <tr><td>Lars V.</td><td>Navigation</td><td>7/10</td><td>3h ago</td></tr>
+                    <tr><td>Yuki T.</td><td>Modals — Basic</td><td>10/10</td><td>4h ago</td></tr>
+                    <tr><td>Kofi B.</td><td>HTML Forms</td><td>6/10</td><td>5h ago</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="tab-panel" id="panel-students">
+                <p>4 new students joined this week. 2 students are flagged as at risk.</p>
+              </div>
+              <div class="tab-panel" id="panel-issues">
+                <p>No open issues. Last resolved: missing PR description (Kofi B., 1 day ago).</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- CSS BAR CHART -->
+        <section aria-labelledby="chart-heading">
+          <h2 class="section-title" id="chart-heading">Scores per assignment</h2>
+          <div class="bar-chart" role="img" aria-label="Bar chart of average scores per assignment">
+            <!--
+              Each bar uses --bar-height to drive its height via CSS custom property.
+              The bar label is below the bar.
+              TECHNIQUE: .bar__fill { height: var(--bar-height, 0); transition: height 0.6s ease; }
+            -->
+            <div class="bar" style="--bar-height: 81%;">
+              <div class="bar__fill"></div>
+              <div class="bar__value">8.1</div>
+              <div class="bar__label">HTML Forms</div>
+            </div>
+            <div class="bar" style="--bar-height: 79%;">
+              <div class="bar__fill"></div>
+              <div class="bar__value">7.9</div>
+              <div class="bar__label">CSS Flex</div>
+            </div>
+            <div class="bar" style="--bar-height: 92%;">
+              <div class="bar__fill bar__fill--high"></div>
+              <div class="bar__value">9.2</div>
+              <div class="bar__label">Cards</div>
+            </div>
+            <div class="bar" style="--bar-height: 68%;">
+              <div class="bar__fill bar__fill--low"></div>
+              <div class="bar__value">6.8</div>
+              <div class="bar__label">Navigation</div>
+            </div>
+            <div class="bar" style="--bar-height: 71%;">
+              <div class="bar__fill"></div>
+              <div class="bar__value">7.1</div>
+              <div class="bar__label">Animations</div>
+            </div>
+            <div class="bar" style="--bar-height: 85%;">
+              <div class="bar__fill bar__fill--high"></div>
+              <div class="bar__value">8.5</div>
+              <div class="bar__label">Typography</div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div><!-- end .app-shell -->
+
+    <footer class="site-footer">
+      <p>HackYourFuture Belgium · Wireframe — Dashboard</p>
+    </footer>
+  </body>
+</html>

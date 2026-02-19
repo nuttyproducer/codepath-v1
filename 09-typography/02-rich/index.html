@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Typography — Rich Text</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="page-header">
+      <h1>Typography — Rich Text</h1>
+      <p>Drop caps, custom counters, styled blockquotes, callout boxes, and <code>&lt;kbd&gt;</code> styling.</p>
+    </header>
+
+    <main class="page-main" id="main-content">
+
+      <!-- EXERCISE 1: DROP CAP with ::first-letter -->
+      <section class="demo-section" aria-labelledby="ex1-heading">
+        <h2 id="ex1-heading">Exercise 1 — Drop cap with <code>::first-letter</code></h2>
+
+        <article class="prose card">
+          <!--
+            TECHNIQUE:
+            .drop-cap::first-letter {
+              font-size: 3.5em;
+              font-family: var(--font-heading);
+              float: left;
+              line-height: 0.85;
+              margin-right: 0.1em;
+              font-weight: 700;
+              color: var(--color-accent);
+            }
+          -->
+          <p class="drop-cap">
+            HackYourFuture Belgium teaches unemployed newcomers and refugees the 
+            fundamentals of web development. Over 8 months, students learn HTML, CSS, 
+            JavaScript, and back-end development — transforming their lives through code. 
+            Every assignment in this collection builds on the last, creating a complete 
+            and progressive learning journey.
+          </p>
+          <p>
+            Drop caps have been used in manuscripts and printed books for centuries. 
+            The CSS <code>::first-letter</code> pseudo-element gives us the same decorative 
+            control. Only certain CSS properties are allowed on <code>::first-letter</code>, 
+            including <code>font</code>, <code>color</code>, <code>float</code>, and <code>margin</code>.
+          </p>
+        </article>
+      </section>
+
+      <!-- EXERCISE 2: CUSTOM ORDERED LIST COUNTER -->
+      <section class="demo-section" aria-labelledby="ex2-heading">
+        <h2 id="ex2-heading">Exercise 2 — Custom <code>counter()</code> list</h2>
+
+        <div class="card">
+          <!--
+            TECHNIQUE:
+            ol.custom-list { list-style: none; counter-reset: custom-counter; }
+            ol.custom-list li { counter-increment: custom-counter; position: relative; padding-left: 3rem; }
+            ol.custom-list li::before {
+              content: counter(custom-counter);
+              position: absolute; left: 0;
+              width: 2rem; height: 2rem;
+              background: var(--color-accent); color: white;
+              border-radius: 50%;
+              display: flex; align-items: center; justify-content: center;
+              font-weight: 700; font-size: 0.875rem;
+            }
+          -->
+          <h3>Git workflow steps</h3>
+          <ol class="custom-list">
+            <li>Fork the assignments-collection repository on GitHub.</li>
+            <li>Clone <em>your fork</em> to your local machine using <code>git clone</code>.</li>
+            <li>Create a new branch for each assignment: <code>git checkout -b cards-basic</code>.</li>
+            <li>Complete the exercises and commit your work: <code>git add . &amp;&amp; git commit -m "feat: add card hover effects"</code>.</li>
+            <li>Push your branch and open a Pull Request to the original repo.</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- EXERCISE 3: STYLED BLOCKQUOTE -->
+      <section class="demo-section" aria-labelledby="ex3-heading">
+        <h2 id="ex3-heading">Exercise 3 — Styled <code>&lt;blockquote&gt;</code></h2>
+
+        <div class="card">
+          <!--
+            TECHNIQUE:
+            .styled-quote { position: relative; padding: 1.5rem 1.5rem 1.5rem 4rem; }
+            .styled-quote::before {
+              content: '\201C';  ← opening curly quote " 
+              position: absolute; left: 0.75rem; top: -0.5rem;
+              font-size: 5rem; font-family: Georgia, serif;
+              color: var(--color-accent); opacity: 0.3;
+              line-height: 1;
+            }
+          -->
+          <blockquote class="styled-quote">
+            <p>
+              "The best way to predict the future is to invent it. 
+              Every line of code you write is a step toward the world you want to build."
+            </p>
+            <footer>
+              — <cite>Alan Kay</cite>, Computer Scientist
+            </footer>
+          </blockquote>
+        </div>
+      </section>
+
+      <!-- EXERCISE 4: CALLOUT BOXES + <kbd> -->
+      <section class="demo-section" aria-labelledby="ex4-heading">
+        <h2 id="ex4-heading">Exercise 4 — Callout boxes &amp; <code>&lt;kbd&gt;</code> styling</h2>
+
+        <div class="callouts-demo">
+          <!--
+            CALLOUT TYPES: 4 variants using a modifier class
+            Base: .callout { border-left: 4px solid; padding: 1rem 1.25rem; border-radius: 0 0.5rem 0.5rem 0; }
+            --callout-color drives the border and heading colour
+          -->
+          <div class="callout callout--info" role="note">
+            <h4 class="callout__title">ℹ️ Info</h4>
+            <p>This is an informational message. Use it to provide helpful context without urgency.</p>
+          </div>
+
+          <div class="callout callout--success" role="note">
+            <h4 class="callout__title">✅ Tip</h4>
+            <p>
+              Press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>I</kbd> 
+              (or <kbd>Cmd</kbd> + <kbd>Option</kbd> + <kbd>I</kbd> on Mac) 
+              to open DevTools.
+            </p>
+          </div>
+
+          <div class="callout callout--warning" role="note">
+            <h4 class="callout__title">⚠️ Warning</h4>
+            <p>Never use <code>display: none</code> on dropdown menus — it removes them from the accessibility tree.</p>
+          </div>
+
+          <div class="callout callout--danger" role="alert">
+            <h4 class="callout__title">🚨 Important</h4>
+            <p>Do not push directly to <code>main</code>. Always create a new branch for each assignment.</p>
+          </div>
+        </div>
+        <!--
+          KBD STYLING TECHNIQUE:
+          kbd {
+            display: inline-block;
+            padding: 0.15em 0.4em;
+            font-size: 0.85em;
+            font-family: monospace;
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            border-bottom: 3px solid #94a3b8; ← simulate key depth
+            border-radius: 0.25rem;
+          }
+        -->
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <p>HackYourFuture Belgium · Typography — Rich Text</p>
+    </footer>
+  </body>
+</html>

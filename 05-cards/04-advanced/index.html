@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cards — Advanced</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="page-header">
+      <h1>Advanced Cards</h1>
+      <p>Masonry grid, skeleton loading, CSS-only category filter, <code>@container</code> queries, and profile tabs.</p>
+    </header>
+
+    <main class="page-main" id="main-content">
+
+      <!-- EXERCISE 1: MASONRY GRID -->
+      <section class="demo-section">
+        <h2>Exercise 1 — CSS columns masonry grid</h2>
+        <p>A Pinterest-style layout using CSS <code>columns</code>. Cards have varying heights and flow naturally.</p>
+        <!--
+          TECHNIQUE: CSS columns masonry
+          .masonry { columns: 3; column-gap: 1.5rem; }
+          .masonry-card { break-inside: avoid; margin-bottom: 1.5rem; }
+          
+          Note: True CSS grid masonry is coming as grid-template-rows: masonry;
+          but browser support is still behind a flag. columns is the best CSS-only option today.
+        -->
+        <div class="masonry">
+          <article class="masonry-card">
+            <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&q=75" alt="Code editor" class="masonry-card__img" loading="lazy" />
+            <div class="masonry-card__body">
+              <span class="tag">HTML</span>
+              <h3>Form Controls</h3>
+              <p>Build a full checkout form with HTML5 validation and custom-styled inputs.</p>
+            </div>
+          </article>
+          <article class="masonry-card">
+            <div class="masonry-card__body">
+              <span class="tag tag--blue">CSS</span>
+              <h3>Navigation — Mega Menu</h3>
+              <p>Multi-column dropdown built with <code>visibility/opacity</code> for keyboard accessibility. No display:none.</p>
+            </div>
+          </article>
+          <article class="masonry-card">
+            <img src="https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=400&q=75" alt="Laptop screen" class="masonry-card__img" loading="lazy" />
+            <div class="masonry-card__body">
+              <span class="tag tag--purple">Accessibility</span>
+              <h3>Keyboard Navigation</h3>
+              <p>Add a skip link, implement :focus-visible rings, verify tab order, and build an accessible accordion with the native details element.</p>
+            </div>
+          </article>
+          <article class="masonry-card">
+            <div class="masonry-card__body">
+              <span class="tag">HTML</span>
+              <h3>Data Tables</h3>
+              <p>Semantic tables with caption and scope attributes.</p>
+            </div>
+          </article>
+          <article class="masonry-card">
+            <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=400&q=75" alt="Server" class="masonry-card__img" loading="lazy" />
+            <div class="masonry-card__body">
+              <span class="tag tag--blue">CSS</span>
+              <h3>Animations — Complex</h3>
+              <p>Hero choreography with sequential animation delays. Build a CSS-only animated counter using @property and counter(). Create a CSS parallax scene.</p>
+            </div>
+          </article>
+          <article class="masonry-card">
+            <div class="masonry-card__body">
+              <span class="tag tag--purple">Accessibility</span>
+              <h3>WCAG 2.1 AA Audit</h3>
+              <p>Full accessibility audit of a checkout form including colour contrast testing and error identification.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- EXERCISE 2: SKELETON LOADING CARDS -->
+      <section class="demo-section">
+        <h2>Exercise 2 — Skeleton loading + fade-in reveal</h2>
+        <p>Click the toggle to switch between skeleton and loaded states.</p>
+
+        <input type="checkbox" id="loaded-toggle" class="loaded-toggle" hidden />
+        <label for="loaded-toggle" class="btn btn--accent toggle-btn" role="button">
+          <span class="toggle-btn__skeleton-label">Show loaded</span>
+          <span class="toggle-btn__loaded-label">Show skeleton</span>
+        </label>
+
+        <div class="cards-grid">
+          <!-- Same markup for both states — CSS swaps what's visible -->
+          <article class="reveal-card">
+            <div class="reveal-card__skeleton">
+              <div class="skel skel--img"></div>
+              <div class="skel-body">
+                <div class="skel skel--tag"></div>
+                <div class="skel skel--title"></div>
+                <div class="skel skel--line"></div>
+                <div class="skel skel--line skel--line-short"></div>
+              </div>
+            </div>
+            <div class="reveal-card__content">
+              <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&q=75" alt="Code on screen" class="reveal-card__img" loading="lazy" />
+              <div class="reveal-card__body">
+                <span class="tag">HTML</span>
+                <h3>Form Controls</h3>
+                <p>Build a full checkout form with HTML5 validation and custom-styled inputs.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="reveal-card">
+            <div class="reveal-card__skeleton">
+              <div class="skel skel--img"></div>
+              <div class="skel-body">
+                <div class="skel skel--tag"></div>
+                <div class="skel skel--title"></div>
+                <div class="skel skel--line"></div>
+              </div>
+            </div>
+            <div class="reveal-card__content">
+              <img src="https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=600&q=75" alt="Student studying" class="reveal-card__img" loading="lazy" />
+              <div class="reveal-card__body">
+                <span class="tag tag--purple">Accessibility</span>
+                <h3>Keyboard Focus</h3>
+                <p>Master :focus-visible and build skip links for keyboard users.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="reveal-card">
+            <div class="reveal-card__skeleton">
+              <div class="skel skel--img"></div>
+              <div class="skel-body">
+                <div class="skel skel--tag"></div>
+                <div class="skel skel--title"></div>
+                <div class="skel skel--line"></div>
+                <div class="skel skel--line skel--line-short"></div>
+              </div>
+            </div>
+            <div class="reveal-card__content">
+              <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?w=600&q=75" alt="Developer workspace" class="reveal-card__img" loading="lazy" />
+              <div class="reveal-card__body">
+                <span class="tag tag--blue">CSS</span>
+                <h3>Typography System</h3>
+                <p>Design a complete type system with variable fonts and CSS custom properties.</p>
+              </div>
+            </div>
+          </article>
+        </div>
+        <!--
+          #loaded-toggle:checked ~ .cards-grid .reveal-card__skeleton { display: none; }
+          #loaded-toggle:checked ~ .cards-grid .reveal-card__content  { display: block; animation: fade-in 0.4s ease; }
+        -->
+      </section>
+
+      <!-- EXERCISE 3: @container QUERY CARD -->
+      <section class="demo-section">
+        <h2>Exercise 3 — Container query card</h2>
+        <p>The card layout changes based on the card container's width (not the viewport). Resize the browser to see the difference between columns.</p>
+
+        <div class="container-demo">
+          <div class="container-col container-col--narrow">
+            <p class="container-col__label">Narrow container</p>
+            <article class="cq-card">
+              <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&q=75" alt="Code" class="cq-card__img" loading="lazy" />
+              <div class="cq-card__body">
+                <span class="tag">CSS</span>
+                <h3 class="cq-card__title">@container queries</h3>
+                <p class="cq-card__desc">Cards adapt to their container, not the viewport.</p>
+              </div>
+            </article>
+          </div>
+          <div class="container-col container-col--wide">
+            <p class="container-col__label">Wide container</p>
+            <article class="cq-card">
+              <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&q=75" alt="Code" class="cq-card__img" loading="lazy" />
+              <div class="cq-card__body">
+                <span class="tag">CSS</span>
+                <h3 class="cq-card__title">@container queries</h3>
+                <p class="cq-card__desc">Cards adapt to their container, not the viewport.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+        <!--
+          TECHNIQUE:
+          .container-col { container-type: inline-size; }  ← register container
+          @container (min-width: 400px) {
+            .cq-card { display: flex; }
+            .cq-card__img { width: 180px; flex-shrink: 0; }
+          }
+        -->
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <p>HackYourFuture Belgium · Cards — Advanced</p>
+    </footer>
+  </body>
+</html>

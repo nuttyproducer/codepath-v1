@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tables — Advanced</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="page-header">
+      <h1>Advanced Tables</h1>
+      <p>Row selection with <code>:has()</code>, status badges, sortable column headers, and a bulk-action bar.</p>
+    </header>
+
+    <main class="page-main" id="main-content">
+
+      <!-- EXERCISE 1: ROW SELECTION WITH :has() -->
+      <section class="demo-section">
+        <h2>Exercise 1 — Row selection with <code>:has(input:checked)</code></h2>
+        <p>Tick the checkboxes to highlight rows. Pure CSS — no JavaScript needed.</p>
+
+        <!--
+          TECHNIQUE:
+          tr:has(input[type="checkbox"]:checked) { background: #eff6ff; }
+          tr:has(:checked) td { color: var(--color-accent); font-weight: 600; }
+        -->
+        <div class="table-scroll-wrapper" role="region" aria-label="Selectable student table">
+          <table class="data-table selectable-table">
+            <caption>Select rows to see :has() in action</caption>
+            <thead>
+              <tr>
+                <th scope="col" class="col-check"><span class="sr-only">Select</span></th>
+                <th scope="col">Name</th>
+                <th scope="col">Cohort</th>
+                <th scope="col">Progress</th>
+                <th scope="col">Status</th>
+                <th scope="col">Last active</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-check"><input type="checkbox" aria-label="Select Amara Diallo" /></td>
+                <td>Amara Diallo</td>
+                <td>2025A</td>
+                <td>
+                  <div class="progress-bar" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" style="--progress: 72%;">
+                    <div class="progress-bar__fill"></div>
+                  </div>
+                </td>
+                <td><span class="badge badge--success">On track</span></td>
+                <td>2 days ago</td>
+              </tr>
+              <tr>
+                <td class="col-check"><input type="checkbox" aria-label="Select Lars Van Berg" /></td>
+                <td>Lars Van Berg</td>
+                <td>2025A</td>
+                <td>
+                  <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="--progress: 45%;">
+                    <div class="progress-bar__fill"></div>
+                  </div>
+                </td>
+                <td><span class="badge badge--warning">Behind</span></td>
+                <td>5 days ago</td>
+              </tr>
+              <tr>
+                <td class="col-check"><input type="checkbox" aria-label="Select Yuki Tanaka" /></td>
+                <td>Yuki Tanaka</td>
+                <td>2024B</td>
+                <td>
+                  <div class="progress-bar" role="progressbar" aria-valuenow="98" aria-valuemin="0" aria-valuemax="100" style="--progress: 98%;">
+                    <div class="progress-bar__fill progress-bar__fill--high"></div>
+                  </div>
+                </td>
+                <td><span class="badge badge--success">Excellent</span></td>
+                <td>Today</td>
+              </tr>
+              <tr>
+                <td class="col-check"><input type="checkbox" aria-label="Select Kofi Boateng" /></td>
+                <td>Kofi Boateng</td>
+                <td>2025A</td>
+                <td>
+                  <div class="progress-bar" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="--progress: 30%;">
+                    <div class="progress-bar__fill progress-bar__fill--low"></div>
+                  </div>
+                </td>
+                <td><span class="badge badge--danger">At risk</span></td>
+                <td>2 weeks ago</td>
+              </tr>
+              <tr>
+                <td class="col-check"><input type="checkbox" aria-label="Select Sofia Martinez" /></td>
+                <td>Sofia Martinez</td>
+                <td>2024B</td>
+                <td>
+                  <div class="progress-bar" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100" style="--progress: 88%;">
+                    <div class="progress-bar__fill"></div>
+                  </div>
+                </td>
+                <td><span class="badge badge--success">On track</span></td>
+                <td>Yesterday</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- EXERCISE 2: SORTABLE COLUMN INDICATORS + BULK ACTION BAR -->
+      <section class="demo-section">
+        <h2>Exercise 2 — Sortable column indicators &amp; bulk action bar</h2>
+        <p>Column headers show sort indicators. A bulk action bar appears only when rows are selected, using <code>:has(:checked)</code>.</p>
+
+        <div class="selectable-region">
+          <!-- Bulk action bar — hidden until rows are checked -->
+          <div class="bulk-action-bar" role="toolbar" aria-label="Bulk actions">
+            <!--
+              TECHNIQUE: Show bar when table has a checked box:
+              .selectable-region:has(input:checked) .bulk-action-bar { display: flex; }
+            -->
+            <span class="bulk-action-bar__count">Rows selected</span>
+            <div class="bulk-action-bar__actions">
+              <button class="btn btn--sm btn--outline" type="button">Export CSV</button>
+              <button class="btn btn--sm btn--outline btn--danger" type="button">Archive</button>
+            </div>
+          </div>
+
+          <div class="table-scroll-wrapper" role="region" aria-label="Assignment submissions">
+            <table class="data-table selectable-table sortable-table">
+              <caption>Assignment submissions — Module 2</caption>
+              <thead>
+                <tr>
+                  <th scope="col" class="col-check"><span class="sr-only">Select</span></th>
+                  <th scope="col" class="sortable sorted-asc" aria-sort="ascending">Student</th>
+                  <th scope="col" class="sortable" aria-sort="none">Assignment</th>
+                  <th scope="col" class="sortable" aria-sort="none">Score</th>
+                  <th scope="col" class="sortable" aria-sort="none">Submitted</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="col-check"><input type="checkbox" aria-label="Select row" /></td>
+                  <td>Amara Diallo</td>
+                  <td>Cards — Basic</td>
+                  <td><span class="score score--high">9/10</span></td>
+                  <td>2025-03-10</td>
+                  <td><a href="#" class="table-link">View PR</a></td>
+                </tr>
+                <tr>
+                  <td class="col-check"><input type="checkbox" aria-label="Select row" /></td>
+                  <td>Lars Van Berg</td>
+                  <td>Cards — Basic</td>
+                  <td><span class="score score--mid">6/10</span></td>
+                  <td>2025-03-11</td>
+                  <td><a href="#" class="table-link">View PR</a></td>
+                </tr>
+                <tr>
+                  <td class="col-check"><input type="checkbox" aria-label="Select row" /></td>
+                  <td>Yuki Tanaka</td>
+                  <td>Navigation — Advanced</td>
+                  <td><span class="score score--high">10/10</span></td>
+                  <td>2025-03-08</td>
+                  <td><a href="#" class="table-link">View PR</a></td>
+                </tr>
+                <tr>
+                  <td class="col-check"><input type="checkbox" aria-label="Select row" /></td>
+                  <td>Kofi Boateng</td>
+                  <td>Cards — Basic</td>
+                  <td><span class="score score--low">4/10</span></td>
+                  <td>2025-03-14</td>
+                  <td><a href="#" class="table-link">View PR</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <p>HackYourFuture Belgium · Tables — Advanced</p>
+    </footer>
+  </body>
+</html>

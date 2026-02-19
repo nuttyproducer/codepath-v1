@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Accessibility — ARIA</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="page-header">
+      <h1>Accessibility — ARIA</h1>
+      <p>Icon button labelling, <code>aria-expanded</code> on accordions, live regions, and star ratings.</p>
+    </header>
+
+    <main class="page-main" id="main-content">
+
+      <!-- EXERCISE 1: ICON BUTTON LABELLING -->
+      <section class="demo-section" aria-labelledby="ex1-heading">
+        <h2 id="ex1-heading">Exercise 1 — Labelling icon buttons with ARIA</h2>
+        <p>Icon-only buttons must have an accessible name. Compare three correct approaches and one wrong approach.</p>
+
+        <div class="compare-grid">
+
+          <div class="compare-item compare-item--bad">
+            <span class="compare-label compare-label--bad">❌ Wrong — no accessible name</span>
+            <button class="icon-btn" type="button">
+              <!-- A screen reader will announce this as "button" — useless -->
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M1 7h22M8 7V4a1 1 0 011-1h6a1 1 0 011 1v3"/>
+              </svg>
+            </button>
+            <code>&lt;button&gt;&lt;svg aria-hidden&gt;...&lt;/svg&gt;&lt;/button&gt;</code>
+          </div>
+
+          <div class="compare-item compare-item--good">
+            <span class="compare-label compare-label--good">✅ aria-label attribute</span>
+            <button class="icon-btn" type="button" aria-label="Delete item">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M1 7h22M8 7V4a1 1 0 011-1h h6a1 1 0 011 1v3"/>
+              </svg>
+            </button>
+            <code>aria-label="Delete item"</code>
+          </div>
+
+          <div class="compare-item compare-item--good">
+            <span class="compare-label compare-label--good">✅ Visually hidden text</span>
+            <button class="icon-btn" type="button">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M1 7h22M8 7V4a1 1 0 011-1h6a1 1 0 011 1v3"/>
+              </svg>
+              <span class="sr-only">Delete item</span>
+            </button>
+            <code>&lt;span class="sr-only"&gt;Delete item&lt;/span&gt;</code>
+          </div>
+
+          <div class="compare-item compare-item--good">
+            <span class="compare-label compare-label--good">✅ title attribute (tooltip)</span>
+            <button class="icon-btn" type="button" title="Delete item">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M1 7h22M8 7V4a1 1 0 011-1h6a1 1 0 011 1v3"/>
+              </svg>
+            </button>
+            <code>title="Delete item"</code>
+          </div>
+        </div>
+      </section>
+
+      <!-- EXERCISE 2: aria-expanded on <details> -->
+      <section class="demo-section" aria-labelledby="ex2-heading">
+        <h2 id="ex2-heading">Exercise 2 — <code>aria-expanded</code> state</h2>
+        <p>
+          The native <code>&lt;details&gt;</code> element communicates its open/closed state automatically. 
+          But custom accordions built with divs need <code>aria-expanded</code> on the toggle button, 
+          updated via JavaScript. Compare both approaches.
+        </p>
+
+        <div class="compare-grid compare-grid--2col">
+          <div>
+            <h3>✅ Native <code>&lt;details&gt;</code></h3>
+            <p class="hint">Screen readers announce: "expanded" / "collapsed" automatically.</p>
+            <details class="accordion-item">
+              <summary class="accordion-summary">
+                What is ARIA? <span class="accordion-icon" aria-hidden="true">▶</span>
+              </summary>
+              <div class="accordion-body">
+                <p>Accessible Rich Internet Applications (ARIA) is a set of HTML attributes that define ways to make web content more accessible.</p>
+              </div>
+            </details>
+          </div>
+
+          <div>
+            <h3>⚠️ Custom accordion (needs JS for aria-expanded)</h3>
+            <p class="hint">
+              This div-based accordion looks the same but does not communicate state to screen readers 
+              without JavaScript to toggle <code>aria-expanded</code>.
+            </p>
+            <div class="custom-accordion">
+              <button class="custom-accordion__btn" type="button" aria-expanded="false" aria-controls="custom-panel">
+                What is ARIA? <span class="accordion-icon" aria-hidden="true">▶</span>
+              </button>
+              <div class="custom-accordion__panel" id="custom-panel" hidden>
+                <p>Accessible Rich Internet Applications (ARIA) is a set of HTML attributes that define ways to make web content more accessible.</p>
+              </div>
+            </div>
+            <p class="hint callout-inline">
+              ⚠️ The <code>hidden</code> attribute and <code>aria-expanded="false"</code> are set statically here. 
+              In real use, JavaScript must toggle both when the button is clicked.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- EXERCISE 3: LIVE REGIONS -->
+      <section class="demo-section" aria-labelledby="ex3-heading">
+        <h2 id="ex3-heading">Exercise 3 — <code>role="alert"</code> live regions</h2>
+        <p>
+          A live region announces its content to screen readers automatically when it changes. 
+          Use <code>role="alert"</code> for urgent messages. The region below shows what content 
+          should be in it — style it to match the status type.
+        </p>
+
+        <!--
+          TECHNIQUE:
+          <div role="alert" aria-live="assertive">
+            Content here is announced immediately when it appears or changes.
+          </div>
+          
+          <div aria-live="polite">
+            Content here is announced after the user finishes their current action.
+          </div>
+          
+          DO NOT pre-populate live regions — add content dynamically (via JS).
+          An empty live region, then content added = announcement.
+          Content present on page load = NOT announced.
+        -->
+        <div class="alert-examples">
+          <div class="alert alert--success" role="alert">
+            <span class="alert__icon" aria-hidden="true">✅</span>
+            <div class="alert__content">
+              <strong>Submitted!</strong> Your assignment has been received. Check your PR for feedback.
+            </div>
+          </div>
+
+          <div class="alert alert--warning" role="status" aria-live="polite">
+            <span class="alert__icon" aria-hidden="true">⚠️</span>
+            <div class="alert__content">
+              <strong>PR not merged.</strong> Your pull request has unresolved review comments.
+            </div>
+          </div>
+
+          <div class="alert alert--error" role="alert">
+            <span class="alert__icon" aria-hidden="true">🚨</span>
+            <div class="alert__content">
+              <strong>Error!</strong> Your branch has merge conflicts. Resolve them before pushing.
+            </div>
+          </div>
+        </div>
+
+        <p class="hint">
+          In a real application, this region would start empty and content would be injected by JavaScript. 
+          For this CSS exercise, focus on the visual styling and the correct ARIA attributes.
+        </p>
+      </section>
+
+      <!-- EXERCISE 4: STAR RATING — display only -->
+      <section class="demo-section" aria-labelledby="ex4-heading">
+        <h2 id="ex4-heading">Exercise 4 — Accessible star rating display</h2>
+        <p>
+          A visual star rating must communicate its value to screen readers. 
+          Use <code>aria-label</code> on the container and hide the visual stars with <code>aria-hidden</code>.
+        </p>
+
+        <!--
+          TECHNIQUE for display-only star ratings:
+          <div role="img" aria-label="Rating: 4 out of 5 stars">
+            <span aria-hidden="true">★★★★☆</span>
+          </div>
+          
+          This gives a precise spoken label while hiding the visual representation.
+        -->
+        <div class="star-ratings">
+          <div class="star-rating-row">
+            <span class="product-name">CSS Mastery course</span>
+            <div class="star-rating" role="img" aria-label="Rating: 5 out of 5 stars">
+              <span class="stars" aria-hidden="true">★★★★★</span>
+              <span class="star-count">(142 reviews)</span>
+            </div>
+          </div>
+          <div class="star-rating-row">
+            <span class="product-name">JavaScript basics</span>
+            <div class="star-rating" role="img" aria-label="Rating: 4 out of 5 stars">
+              <span class="stars" aria-hidden="true">★★★★☆</span>
+              <span class="star-count">(98 reviews)</span>
+            </div>
+          </div>
+          <div class="star-rating-row">
+            <span class="product-name">Node.js advanced</span>
+            <div class="star-rating" role="img" aria-label="Rating: 3 out of 5 stars">
+              <span class="stars" aria-hidden="true">★★★☆☆</span>
+              <span class="star-count">(57 reviews)</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <p>HackYourFuture Belgium · Accessibility — ARIA</p>
+    </footer>
+  </body>
+</html>

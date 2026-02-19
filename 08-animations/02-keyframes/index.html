@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Animations — Keyframes</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="page-header">
+      <h1>CSS Keyframe Animations</h1>
+      <p>Loading spinners, skeleton screens, entrance animations and notification badges using <code>@keyframes</code>.</p>
+    </header>
+
+    <main class="page-main" id="main-content">
+
+      <!-- EXERCISE 1: LOADING SPINNERS -->
+      <section class="demo-section">
+        <h2>Exercise 1 — Loading spinners</h2>
+        <p>Pure CSS spinners. No images, no JavaScript.</p>
+
+        <div class="spinner-showcase">
+
+          <!-- Spinner A: classic border trick -->
+          <div class="spinner-demo">
+            <div class="spinner spinner--border" role="status" aria-label="Loading..."></div>
+            <p class="spinner-demo__label">Border spinner</p>
+          </div>
+
+          <!-- Spinner B: growing dots -->
+          <div class="spinner-demo">
+            <div class="spinner spinner--dots" role="status" aria-label="Loading...">
+              <span></span><span></span><span></span>
+            </div>
+            <p class="spinner-demo__label">Pulsing dots</p>
+          </div>
+
+          <!-- Spinner C: bar chart pulse -->
+          <div class="spinner-demo">
+            <div class="spinner spinner--bars" role="status" aria-label="Loading...">
+              <span></span><span></span><span></span><span></span>
+            </div>
+            <p class="spinner-demo__label">Bar pulse</p>
+          </div>
+
+        </div>
+        <!--
+          ADD: All spinners need role="status" and aria-label for screen readers.
+          Without this, screen reader users hear nothing while content loads.
+        -->
+      </section>
+
+      <!-- EXERCISE 2: SKELETON LOADING -->
+      <section class="demo-section">
+        <h2>Exercise 2 — Skeleton screen</h2>
+        <p>A skeleton card shows the layout structure while content loads. The shimmer uses <code>@keyframes</code> with a gradient.</p>
+
+        <div class="skeleton-grid">
+          <!-- Skeleton card -->
+          <div class="skeleton-card" aria-hidden="true" aria-label="Content loading">
+            <div class="skeleton skeleton--image"></div>
+            <div class="skeleton-card__body">
+              <div class="skeleton skeleton--tag"></div>
+              <div class="skeleton skeleton--title"></div>
+              <div class="skeleton skeleton--line"></div>
+              <div class="skeleton skeleton--line skeleton--line-short"></div>
+            </div>
+          </div>
+          <div class="skeleton-card" aria-hidden="true" aria-label="Content loading">
+            <div class="skeleton skeleton--image"></div>
+            <div class="skeleton-card__body">
+              <div class="skeleton skeleton--tag"></div>
+              <div class="skeleton skeleton--title"></div>
+              <div class="skeleton skeleton--line"></div>
+              <div class="skeleton skeleton--line skeleton--line-short"></div>
+            </div>
+          </div>
+          <div class="skeleton-card" aria-hidden="true" aria-label="Content loading">
+            <div class="skeleton skeleton--image"></div>
+            <div class="skeleton-card__body">
+              <div class="skeleton skeleton--tag"></div>
+              <div class="skeleton skeleton--title"></div>
+              <div class="skeleton skeleton--line"></div>
+              <div class="skeleton skeleton--line skeleton--line-short"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- EXERCISE 3: ENTRANCE ANIMATIONS (staggered) -->
+      <section class="demo-section">
+        <h2>Exercise 3 — Staggered entrance animations</h2>
+        <p>Cards animate in with a stagger using <code>animation-delay</code> on each child via <code>:nth-child()</code>.</p>
+        <!-- ADD: Reload the page to see animations play again -->
+
+        <ul class="feature-list">
+          <li class="feature-item">
+            <span class="feature-icon" aria-hidden="true">🌍</span>
+            <div>
+              <strong>Open to everyone</strong>
+              <p>HYF Belgium is free for participants from refugee backgrounds.</p>
+            </div>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon" aria-hidden="true">💻</span>
+            <div>
+              <strong>Full-stack curriculum</strong>
+              <p>HTML, CSS, JavaScript, React, Node.js, and SQL — in 9 months.</p>
+            </div>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon" aria-hidden="true">🤝</span>
+            <div>
+              <strong>Volunteer-powered</strong>
+              <p>Industry professionals volunteer as coaches and mentors.</p>
+            </div>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon" aria-hidden="true">🚀</span>
+            <div>
+              <strong>Job-focused outcomes</strong>
+              <p>Graduates find work as junior developers within 6–12 months.</p>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <!-- EXERCISE 4: NOTIFICATION BADGE ANIMATIONS -->
+      <section class="demo-section">
+        <h2>Exercise 4 — Notification badges</h2>
+        <p>Badges pulse to draw attention. A new notification triggers a bounce entrance.</p>
+
+        <div class="badge-showcase">
+
+          <!-- Badge with pulse ring -->
+          <div class="badge-demo">
+            <button class="icon-btn" aria-label="Notifications — 3 new">
+              <span class="icon-btn__icon" aria-hidden="true">🔔</span>
+              <span class="badge badge--pulse" aria-label="3 new notifications">3</span>
+            </button>
+            <p class="badge-demo__label">Pulse ring</p>
+          </div>
+
+          <!-- Badge with bounce entrance -->
+          <div class="badge-demo">
+            <button class="icon-btn" aria-label="Messages — 12 unread">
+              <span class="icon-btn__icon" aria-hidden="true">💬</span>
+              <span class="badge badge--bounce" aria-label="12 unread messages">12</span>
+            </button>
+            <p class="badge-demo__label">Bounce entrance</p>
+          </div>
+
+          <!-- Dot badge — just indicates "something new" -->
+          <div class="badge-demo">
+            <button class="icon-btn" aria-label="Updates available">
+              <span class="icon-btn__icon" aria-hidden="true">🔄</span>
+              <span class="badge badge--dot badge--pulse-dot" aria-label="Updates available"></span>
+            </button>
+            <p class="badge-demo__label">Dot badge</p>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <p>HackYourFuture Belgium · Animations — Keyframes</p>
+    </footer>
+  </body>
+</html>
