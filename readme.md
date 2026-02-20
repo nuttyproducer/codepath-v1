@@ -15,12 +15,12 @@
 CodePath is a **complete frontend learning path** with 40 assignments organized into 10 themed series, each progressing from Foundation to Mastery. Learn by building real projects while practicing professional Git workflow with branches and pull requests.
 
 **Perfect for:**
-- 🎓 Self-taught developers building fundamentals
-- 👨‍🏫 Coding bootcamps needing structured curriculum  
-- 💪 Anyone mastering HTML/CSS before JavaScript
-- 🔄 Learning real-world Git workflow
+- Self-taught developers building fundamentals
+- Coding bootcamps needing structured curriculum  
+- Anyone mastering HTML/CSS before JavaScript
+- Learning real-world Git workflow
 
-## 🚀 Quick Start
+## Quick Start
 
 **1. Fork & Clone**
 ```bash
@@ -44,40 +44,40 @@ git checkout -b wireframe-to-webcode
 
 | Series | Focus | Folder |
 |--------|-------|--------|
-| 🎨 **Wireframe to Webcode** | Design interpretation, layouts | `01-wireframe/` |
-| 📝 **Form Controls** | Forms, inputs, validation | `02-form-controls/` |
-| 🚲 **Bikes for Refugees** | HTML structure, styling | `03-bikes-for-refugees/` |
-| 🗺️ **Navigation** | Navbars, menus, mobile patterns | `04-navigation/` |
-| 🃏 **Card Components** | Cards, variants, interactions | `05-cards/` |
-| 📊 **Data Tables** | Tables, responsive strategies | `06-tables/` |
-| 🪟 **Modals & Overlays** | Dialogs, drawers, accessibility | `07-modals/` |
-| ✨ **Animations** | Transitions, keyframes | `08-animations/` |
-| 🔤 **Typography** | Font systems, fluid type | `09-typography/` |
-| ♿ **Accessibility** | WCAG, semantic HTML, ARIA | `10-accessibility/` |
+| **Wireframe to Webcode** | Design interpretation, layouts | `01-wireframe/` |
+| **Form Controls** | Forms, inputs, validation | `02-form-controls/` |
+| **Bikes for Refugees** | HTML structure, styling | `03-bikes-for-refugees/` |
+| **Navigation** | Navbars, menus, mobile patterns | `04-navigation/` |
+| **Card Components** | Cards, variants, interactions | `05-cards/` |
+| **Data Tables** | Tables, responsive strategies | `06-tables/` |
+| **Modals & Overlays** | Dialogs, drawers, accessibility | `07-modals/` |
+| **Animations** | Transitions, keyframes | `08-animations/` |
+| **Typography** | Font systems, fluid type | `09-typography/` |
+| **Accessibility** | WCAG, semantic HTML, ARIA | `10-accessibility/` |
 
 Each series: 🟢 Foundation → 🟡 Enhancement → 🟠 Integration → 🔴 Mastery
 
 📋 **See full curriculum:** [CURRICULUM.md](./docs/CURRICULUM.md)
 
-## 🤖 AI Teaching Assistants (Copilot Agents)
+## AI Teaching Assistants (Copilot Agents)
 
 Three custom GitHub Copilot agents guide you with hints, not answers:
 
-- 🎨 **frontend-mentor** - HTML & CSS debugging
-- 💛 **javascript-coach** - JS concepts & hints
-- 🔧 **git-guide** - Git commands & workflow
+- **frontend-mentor** - HTML & CSS debugging
+- **javascript-coach** - JS concepts & hints
+- **git-guide** - Git commands & workflow
 
 📄 [Installation guide](./.github/copilot-agents/SETUP.md)
 
 ## 📖 Documentation
 
-- 📘 [Getting Started Guide](./docs/GETTING_STARTED.md) - Fork, clone, first assignment
-- 🔀 [Git Workflow Guide](./docs/GIT_WORKFLOW.md) - Branches, commits, PRs, troubleshooting
-- 📚 [Full Curriculum](./docs/CURRICULUM.md) - All 10 series with details
-- 🗺️ [Learning Roadmap](./docs/ROADMAP.md) - What's next after HTML/CSS?
-- ❓ [FAQ & Troubleshooting](./docs/FAQ.md) - Common issues solved
+- [Getting Started Guide](./docs/GETTING_STARTED.md) - Fork, clone, first assignment
+- [Git Workflow Guide](./docs/GIT_WORKFLOW.md) - Branches, commits, PRs, troubleshooting
+- [Full Curriculum](./docs/CURRICULUM.md) - All 10 series with details
+- [Learning Roadmap](./docs/ROADMAP.md) - What's next after HTML/CSS?
+- [FAQ & Troubleshooting](./docs/FAQ.md) - Common issues solved
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By completing CodePath, you'll master:
 
@@ -88,19 +88,19 @@ By completing CodePath, you'll master:
 ✅ Code review & iteration  
 ✅ Building real-world projects  
 
-## 🚀 What's Next?
+## What's Next?
 
 **Completed CodePath?** Continue your learning journey!
 
-👉 **[View the Complete Learning Roadmap](./docs/ROADMAP.md)**
+**[View the Complete Learning Roadmap](./docs/ROADMAP.md)**
 
 Discover what comes after HTML/CSS:
-- 💻 JavaScript Essentials (Coming Q2 2026)
-- ⚛️ React & Modern Frontend (Planned Q3 2026)
-- 🌐 Full-Stack Development (Planned Q4 2026)
-- 🎓 Advanced Topics (Future)
+- JavaScript Essentials (Coming Q2 2026)
+- React & Modern Frontend (Planned Q3 2026)
+- Full-Stack Development (Planned Q4 2026)
+- Advanced Topics (Future)
 
-## 🎓 For Instructors & Bootcamps
+## For Instructors & Bootcamps
 
 CodePath is designed to be forked and customized:
 - Add your own assignments
@@ -118,11 +118,11 @@ Found a bug? Have a suggestion? We welcome contributions!
 - Submit a pull request
 - Share your completed projects!
 
-## 📜 License
+## License
 
 Open source and free for educational use. Fork, modify, and share!
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 Inspired by [Hack Your Future Belgium](https://github.com/HackYourFutureBelgium), [Code Your Future](https://codeyourfuture.io/), and real-world development workflows.
 
