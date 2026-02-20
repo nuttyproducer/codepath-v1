@@ -8,7 +8,7 @@
 ```
 ┌────────────────────────────────────────────────────────┐
 │  HEADER                                                │
-│  [Logo]  Home | About | Blog | Contact  [Subscribe]   │
+│  [Logo]  Home | About | Blog | Contact  [Subscribe]    │ 
 ├────────────────────────────────────────────────────────┤
 │  Breadcrumb: Home > Blog > HTML & CSS > This Post      │
 ├────────────────────────────────┬───────────────────────┤
@@ -17,7 +17,7 @@
 │                                │  ┌─────────────────┐  │
 │  Blog Post Title (h1)          │  │  About the      │  │
 │  By Author Name  ·  Date       │  │  Author         │  │
-│  ⏱ 5 min read                  │  │  [Photo]        │  │
+│  ⏱ 5 min read                 │  │  [Photo]        │  │
 │                                │  │  Name           │  │
 │  Introduction paragraph...     │  │  Short bio...   │  │
 │  More text continues here...   │  └─────────────────┘  │
@@ -38,7 +38,7 @@
 │                                │                       │
 └────────────────────────────────┴───────────────────────┤
 │  FOOTER                                                │
-│  © 2026 · Privacy · Terms · Social links              │
+│  © 2026 · Privacy · Terms · Social links               │
 └────────────────────────────────────────────────────────┘
 ```
 
