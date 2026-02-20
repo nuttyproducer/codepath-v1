@@ -1,7 +1,7 @@
 <table>
   <tr>
     <td width="15%" align="center" valign="middle">
-      <img src="https://raw.githubusercontent.com/nuttyproducer/nuttyproducer/main/codepathlogo.svg" width="60" height="60" alt="Codepath Logo" />
+      <img src="https://raw.githubusercontent.com/nuttyproducer/nuttyproducer/main/codepath-logo.png" width="60" height="60" alt="Codepath Logo" />
     </td>
     <td width="85%" valign="middle">
       <h1>HYF Assignments Collection</h1>
@@ -791,3 +791,4 @@ https://github.com/HackYourFutureBelgium/My-Coursework-Planner
 
 
 Good luck with your assignments! 🎉
+
