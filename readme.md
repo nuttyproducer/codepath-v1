@@ -1,16 +1,24 @@
-# HYF Assignments Collection
-
-A comprehensive, progressive curriculum for learning HTML, CSS, JavaScript, and Git workflow through hands-on assignments.
+<table>
+  <tr>
+    <td width="15%" align="center" valign="middle">
+      <img src="https://raw.githubusercontent.com/nuttyproducer/nuttyproducer/main/codepathlogo.svg" width="60" height="60" alt="Codepath Logo" />
+    </td>
+    <td width="85%" valign="middle">
+      <h1>HYF Assignments Collection</h1>
+      A comprehensive, progressive curriculum for learning HTML, CSS, JavaScript, and Git workflow through hands-on assignments.
+    </td>
+  </tr>
+</table>
 
 ## 🎯 What is This?
 
 This repository contains a complete learning path with **60+ assignments** organized in progressive difficulty levels. Each assignment series has 4 branches that build upon each other, teaching you to iterate and improve your code just like professional developers do.
 
 Perfect for:
-- 🎓 Self-taught developers
-- 👨‍🏫 Coding bootcamps and instructors
-- 💪 Anyone wanting to master HTML/CSS fundamentals
-- 🔄 Learning Git workflow with pull requests and code reviews
+- Self-taught developers
+- Coding bootcamps and instructors
+- Anyone wanting to master HTML/CSS fundamentals
+- Learning Git workflow with pull requests and code reviews
 
 ## 📚 What You'll Learn
 
@@ -54,12 +62,6 @@ git branch
 # View the remote repository URL
 git remote -v
 ```
-
-## 🔑 Do the prep
-
-Before you try to complete the work in this repo, go to your curriculum and work through the prep. The prep shows you how to complete the work in this repo. Start with the prep.
-
----
 
 ## 🤖 Copilot AI Agents — Your Built-In Tutors
 
@@ -786,5 +788,6 @@ If you do not already have your own Coursework Planner, set one up now:
 https://github.com/HackYourFutureBelgium/My-Coursework-Planner
 
 ---
+
 
 Good luck with your assignments! 🎉
