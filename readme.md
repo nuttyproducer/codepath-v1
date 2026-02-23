@@ -69,6 +69,18 @@ Three custom GitHub Copilot agents guide you with hints, not answers:
 
 📄 [Installation guide](./.github/copilot-agents/SETUP.md)
 
+## Copilot Mentor Agents (VS Code)
+
+Paste-in system-prompt instructions that turn Copilot Chat into a coaching mentor for this curriculum. No full solutions — only guided hints and Socratic questions.
+
+| Agent | Focus |
+|-------|-------|
+| [frontend-html-css-mentor](./agents/frontend-html-css-mentor.md) | HTML structure, CSS layout, responsive design |
+| [javascript-mentor](./agents/javascript-mentor.md) | DOM scripting, JS debugging, introductory SQL |
+| [git-mentor](./agents/git-mentor.md) | Branching, committing, pull requests, merge conflicts |
+
+📄 [How to use these agents in VS Code](./docs/copilot/vscode-agents.md)
+
 ## 📖 Documentation
 
 - [Getting Started Guide](./docs/GETTING_STARTED.md) - Fork, clone, first assignment
